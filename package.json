@@ -1,0 +1,48 @@
+{
+  "name": "shepard-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint --no-fix",
+    "fix": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@dlr-shepard/shepard-client": "^2021.6.16",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
+    "bootstrap-vue": "^2.21.2",
+    "nanoid": "^3.1.23",
+    "oidc-client": "^1.11.5",
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2",
+    "vuex-oidc": "^3.10.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-plugin-typescript": "^4.5.13",
+    "@vue/cli-plugin-vuex": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "bootstrap": "^4.6.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "popper.js": "^1.16.1",
+    "portal-vue": "^2.1.7",
+    "prettier": "^2.3.0",
+    "sass": "^1.34.0",
+    "sass-loader": "^10.2.0",
+    "typescript": "^4.3.2",
+    "vue-cli-plugin-bootstrap-vue": "~0.7.0",
+    "vue-cli-plugin-fontawesome": "~0.3.1",
+    "vue-template-compiler": "^2.6.14"
+  }
+}

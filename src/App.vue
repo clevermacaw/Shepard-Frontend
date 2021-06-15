@@ -1,0 +1,35 @@
+<template>
+  <div id="app">
+    <Navbar />
+    <Breadcrumb />
+    <router-view id="view" :key="$route.fullPath" />
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+import Breadcrumb from "@/components/Breadcrumb.vue";
+import Navbar from "@/components/Navbar.vue";
+
+export default Vue.extend({
+  components: { Breadcrumb, Navbar },
+});
+</script>
+
+<style>
+#view {
+  margin: auto;
+  max-width: 750px;
+}
+
+.component {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.validationField {
+  border: solid;
+  border-color: red;
+  opacity: 0.6;
+}
+</style>
