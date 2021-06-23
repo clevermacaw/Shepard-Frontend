@@ -2,10 +2,7 @@
 
 ## Project setup
 
-Create a gitlab personal access token
-
 ```ps
-npm config set "//gitlab.com/api/v4/packages/npm/:_authToken" "<your token>"
 npm install
 ```
 

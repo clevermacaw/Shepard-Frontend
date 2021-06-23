@@ -14,6 +14,7 @@ stages:
 include:
   - template: Security/License-Scanning.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
 
 .version_number: &version_number
   - export VERSION_NUMBER=$(git show -s --format=%cd --date=format:'%Y.%m.%d' ${CI_COMMIT_SHA})
@@ -23,6 +24,10 @@ include:
   - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
   - NPM_PACKAGE_VERSION=$(node -p "require('./package.json').version")
   - echo //gitlab.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN} >> .npmrc
+
+secret_detection:
+  variables:
+    SECRET_DETECTION_EXCLUDED_PATHS: "node_modules"
 
 lint:
   stage: test
