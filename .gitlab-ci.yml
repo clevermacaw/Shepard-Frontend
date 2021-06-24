@@ -6,15 +6,14 @@ cache:
   paths:
     - node_modules/
 
+include:
+  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
 stages:
   - test
   - build
   - upload
-
-include:
-  - template: Security/License-Scanning.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
-  - template: Dependency-Scanning.gitlab-ci.yml
 
 .version_number: &version_number
   - export VERSION_NUMBER=$(git show -s --format=%cd --date=format:'%Y.%m.%d' ${CI_COMMIT_SHA})
