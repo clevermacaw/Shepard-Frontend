@@ -28,7 +28,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters("oidcStore", ["oidcIsAuthenticated", "oidcUser"]),
     hasAccess() {
-      return this.oidcIsAuthenticated || this.$route.meta.isPublic;
+      return this.oidcIsAuthenticated || this.$route.meta?.isPublic;
     },
     username() {
       return this.oidcUser?.preferred_username;

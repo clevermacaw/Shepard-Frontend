@@ -9,7 +9,7 @@
     "fix": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dlr-shepard/shepard-client": "^2021.6.16",
+    "@dlr-shepard/shepard-client": "^2021.6.25",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^2.0.2",
@@ -17,13 +17,13 @@
     "nanoid": "^3.1.23",
     "oidc-client": "^1.11.5",
     "vue": "^2.6.14",
-    "vue-router": "^3.5.1",
+    "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
-    "vuex-oidc": "^3.10.2"
+    "vuex-oidc": "^3.10.3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-plugin-typescript": "^4.5.13",
@@ -37,12 +37,12 @@
     "eslint-plugin-vue": "^6.2.2",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
-    "prettier": "^2.3.0",
-    "sass": "^1.34.0",
+    "prettier": "^2.3.1",
+    "sass": "^1.35.1",
     "sass-loader": "^10.2.0",
-    "typescript": "^4.3.2",
-    "vue-cli-plugin-bootstrap-vue": "~0.7.0",
-    "vue-cli-plugin-fontawesome": "~0.3.1",
+    "typescript": "^4.3.4",
+    "vue-cli-plugin-bootstrap-vue": "^0.7.0",
+    "vue-cli-plugin-fontawesome": "^0.3.1",
     "vue-template-compiler": "^2.6.14"
   }
 }
