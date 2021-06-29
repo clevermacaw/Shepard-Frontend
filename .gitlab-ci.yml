@@ -17,7 +17,7 @@ stages:
 
 .version_number: &version_number
   - export VERSION_NUMBER=$(echo ${CI_PIPELINE_CREATED_AT} | cut -d'T' -f 1 | tr - .)
-  - echo $VERSION_NUMBER
+  - echo ${VERSION_NUMBER}
 
 .prepare_npm: &prepare_npm
   - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
@@ -41,9 +41,11 @@ build:
   needs:
     - lint
   before_script:
+    - *version_number
     - *prepare_npm
   script:
     - npm install --progress=false
+    - npm version --no-git-tag-version ${VERSION_NUMBER}
     - npm run build
   artifacts:
     paths:
