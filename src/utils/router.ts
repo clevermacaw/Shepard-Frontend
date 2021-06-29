@@ -50,9 +50,14 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/AboutUser.vue"),
   },
   {
-    path: "/oidc-callback", // Needs to match redirectUri (redirect_uri if you use snake case) in you oidcSettings
-    name: "OidcCallback",
+    path: "/oidc-callback", // Needs to match redirectUri in you oidcSettings
+    name: "oidcCallback",
     component: () => import("../views/OidcCallback.vue"),
+  },
+  {
+    path: "/oidc-popup-callback", // Needs to match popupRedirectUri in you oidcSettings
+    name: "oidcPopupCallback",
+    component: () => import("../views/OidcPopupCallback.vue"),
   },
   {
     path: "/oidc-callback-error", // Needs to match redirect_uri in you oidcSettings

@@ -8,7 +8,10 @@ import { mapActions } from "vuex";
 
 export default Vue.extend({
   name: "OidcCallback",
-  mounted() {
+  methods: {
+    ...mapActions("oidcStore", ["oidcSignInCallback"]),
+  },
+  created() {
     this.oidcSignInCallback()
       .then(redirectPath => {
         this.$router.push(redirectPath);
@@ -17,9 +20,6 @@ export default Vue.extend({
         console.error(err);
         this.$router.push("/oidc-callback-error"); // Handle errors any way you want
       });
-  },
-  methods: {
-    ...mapActions("oidcStore", ["oidcSignInCallback"]),
   },
 });
 </script>
