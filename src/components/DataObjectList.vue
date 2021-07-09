@@ -17,18 +17,42 @@
         <div>
           <b>{{ dataObject.name }}</b> ID: {{ dataObject.id }}
         </div>
-
-        <small>
-          created at {{ dataObject.createdAt.toDateString() }} by
-          {{ dataObject.createdBy }}
-        </small>
+        <b-row>
+          <b-col>
+            <small>
+              created at {{ dataObject.createdAt.toDateString() }} by
+              {{ dataObject.createdBy }}
+            </small>
+          </b-col>
+          <b-col>
+            <a v-if="dataObject.parentId" class="list"
+              ><parent-icon title="Parent" /> 1</a
+            >
+            <a class="list">
+              <child-icon title="Children" />
+              {{ dataObject.childrenIds.length }}
+            </a>
+            <a class="list">
+              <predecessor-icon title="Predecessors" />
+              {{ dataObject.predecessorIds.length }}
+            </a>
+            <a class="list">
+              <successor-icon title="Successors" />
+              {{ dataObject.successorIds.length }}
+            </a>
+            <a class="list">
+              <references-icon title="References" />
+              {{ dataObject.referenceIds.length }}
+            </a>
+          </b-col>
+        </b-row>
       </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import Vue, { PropType, VueConstructor } from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
 
@@ -46,9 +70,15 @@ export default (
       type: Number,
       default: undefined,
     },
+    dataObjectIds: {
+      type: Array as PropType<Array<number>>,
+      default: () => {
+        return [];
+      },
+    },
     parentId: {
       type: Number,
-      default: -1,
+      default: undefined,
     },
   },
   data() {
@@ -58,10 +88,30 @@ export default (
     } as DataObjectListData;
   },
   mounted() {
-    this.retrieveDataObjects();
+    if (this.parentId === undefined) {
+      this.retrieveDataObjects();
+    } else {
+      this.retrieveDataObjectsByParent();
+    }
   },
   methods: {
     retrieveDataObjects() {
+      this.dataObjectIds?.forEach(element => {
+        this.dataObjectApi
+          ?.getDataObject({
+            collectionId: this.currentCollectionId,
+            dataObjectId: element,
+          })
+          .then(response => {
+            this.dataObjects.push(response);
+          })
+          .catch(e => {
+            console.log("Error while fetching dataObject " + e);
+          })
+          .finally();
+      });
+    },
+    retrieveDataObjectsByParent() {
       this.dataObjectApi
         ?.getAllDataObjects({
           collectionId: this.currentCollectionId,
@@ -71,10 +121,17 @@ export default (
           this.dataObjects = response;
         })
         .catch(e => {
-          console.log("Error while fetching dataObjects" + e);
+          console.log("Error while fetching dataObjects " + e);
         })
         .finally();
     },
   },
 });
 </script>
+
+<style scoped>
+.list {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <Breadcrumb />
+    <Breadcrumb id="view" />
     <router-view id="view" :key="$route.fullPath" />
   </div>
 </template>
@@ -19,7 +19,7 @@ export default Vue.extend({
 <style>
 #view {
   margin: auto;
-  max-width: 750px;
+  max-width: 850px;
 }
 
 .component {

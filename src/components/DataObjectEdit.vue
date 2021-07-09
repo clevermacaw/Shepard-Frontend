@@ -67,7 +67,7 @@ export default (
           this.currentDataObject = response;
         })
         .catch(e => {
-          console.log("Error while fetching dataObject" + e);
+          console.log("Error while fetching dataObject " + e);
         })
         .finally();
     },

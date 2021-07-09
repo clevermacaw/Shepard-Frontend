@@ -1,5 +1,5 @@
 import Vue from "vue";
-import "./plugins/fontawesome";
+import "./plugins/materialdesignicons";
 import "./plugins/bootstrap-vue";
 import App from "./App.vue";
 import store from "./utils/oidc-store";

@@ -280,7 +280,6 @@ export default (
       let preIds: number[] = [];
       this.possiblePredecessors.forEach(pre => {
         if (pre.id) {
-          debugger;
           preIds.push(pre.id);
         }
       });

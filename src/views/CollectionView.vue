@@ -1,38 +1,63 @@
 <template>
   <div v-if="currentCollection" class="collection">
-    <GenericCollapse title="Collection" visible>
-      <p>
-        Name: <b>{{ currentCollection.name }}</b> ID: {{ currentCollection.id }}
-        <br />
-        <small v-if="currentCollection.createdAt">
-          created at {{ currentCollection.createdAt.toDateString() }}
-        </small>
-        <small v-if="currentCollection.createdBy">
-          by {{ currentCollection.createdBy }}
-        </small>
-        <br />
-        <small v-if="currentCollection.updatedAt">
-          updated at {{ currentCollection.updatedAt.toDateString() }}
-        </small>
-        <small v-if="currentCollection.updatedBy">
-          by {{ currentCollection.updatedBy }}
-        </small>
-      </p>
+    <h3>{{ currentCollection.name }}</h3>
+    <p>
+      Object ID: {{ currentCollection.id }}
+      <br />
+      <small v-if="currentCollection.createdAt">
+        created at {{ currentCollection.createdAt.toDateString() }}
+      </small>
+      <small v-if="currentCollection.createdBy">
+        by {{ currentCollection.createdBy }}
+      </small>
+      <br />
+      <small v-if="currentCollection.updatedAt">
+        updated at {{ currentCollection.updatedAt.toDateString() }}
+      </small>
+      <small v-if="currentCollection.updatedBy">
+        by {{ currentCollection.updatedBy }}
+      </small>
+    </p>
 
-      <p>
-        <i>{{ currentCollection.description }}</i>
-      </p>
+    <div v-if="currentCollection.description">
+      <h4>Description</h4>
+      <div class="description">
+        <div v-if="currentCollection.description.length < 300">
+          {{ currentCollection.description }}
+        </div>
+        <div v-else>
+          <a v-if="readMore">
+            {{ currentCollection.description }}
+          </a>
+          <a v-else>
+            {{ currentCollection.description.substring(0, 300) + "..." }}
+          </a>
+          <a @click="readMore = !readMore">
+            <span v-if="readMore" class="moreorless">Read Less</span>
+            <span v-else class="moreorless">Read More</span>
+          </a>
+        </div>
+      </div>
+    </div>
 
+    <div v-if="hasAttribute">
       <h4>Attributes</h4>
       <ul>
         <li v-for="(value, key) in currentCollection.attributes" :key="key">
           <b>{{ key }}:</b> {{ value }}
         </li>
       </ul>
-    </GenericCollapse>
+    </div>
 
-    <GenericCollapse title="Data Objects" visible>
-      <DataObjectList :current-collection-id="currentCollectionId" />
+    <GenericCollapse
+      v-if="currentCollection.dataObjectIds.length"
+      title="Data Objects"
+      visible
+    >
+      <DataObjectList
+        :current-collection-id="currentCollectionId"
+        :parent-id="-1"
+      />
     </GenericCollapse>
 
     <div class="component">
@@ -55,6 +80,8 @@ import { CollectionVue } from "@/utils/api-mixin";
 
 interface CollectionData {
   currentCollection?: Collection;
+  hasAttribute: boolean;
+  readMore: boolean;
 }
 
 export default (
@@ -65,6 +92,8 @@ export default (
   data() {
     return {
       currentCollection: undefined,
+      hasAttribute: false,
+      readMore: false,
     } as CollectionData;
   },
   computed: {
@@ -81,6 +110,12 @@ export default (
         ?.getCollection({ collectionId: this.currentCollectionId })
         .then(response => {
           this.currentCollection = response;
+
+          if (this.currentCollection.attributes !== undefined) {
+            if (Object.keys(this.currentCollection?.attributes).length > 0) {
+              this.hasAttribute = true;
+            }
+          }
         })
         .catch(e => {
           console.log("Error while fetching collection" + e);
@@ -90,3 +125,23 @@ export default (
   },
 });
 </script>
+
+<style scoped>
+h3 {
+  font-weight: bold;
+}
+h4 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-style: italic;
+  text-align: justify;
+}
+
+.moreorless {
+  font-style: italic;
+  color: blue;
+}
+</style>

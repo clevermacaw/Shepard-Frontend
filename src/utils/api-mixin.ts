@@ -9,6 +9,7 @@ import {
   FileReferenceApi,
   UserApi,
   ApikeyApi,
+  ReferenceApi,
 } from "@dlr-shepard/shepard-client";
 import getEnv from "@/utils/env";
 
@@ -67,6 +68,23 @@ const DataObjectVue = ApiVue.extend({
   methods: {
     createApi() {
       this.dataObjectApi = new DataObjectApi(this.config);
+    },
+  },
+});
+
+declare interface ReferenceData {
+  referenceApi?: ReferenceApi;
+}
+
+const ReferenceVue = ApiVue.extend({
+  data() {
+    return {
+      referenceApi: undefined,
+    } as ReferenceData;
+  },
+  methods: {
+    createApi() {
+      this.referenceApi = new ReferenceApi(this.config);
     },
   },
 });
@@ -166,4 +184,5 @@ export {
   FileReferenceVue,
   UserVue,
   ApiKeyVue,
+  ReferenceVue,
 };
