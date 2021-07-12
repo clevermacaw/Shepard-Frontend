@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="about-user">
     <div class="component">
       <h4>Your current user</h4>
       <ul class="claims">

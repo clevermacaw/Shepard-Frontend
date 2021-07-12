@@ -25,11 +25,36 @@ const routes: Array<RouteConfig> = [
     name: "DataObject",
     component: () => import("../views/DataObjectView.vue"),
   },
-  // {
-  //   path: "/data",
-  //   name: "Data",
-  //  component: () => import("../views/Data.vue"),
-  // },
+  {
+    path: "/files",
+    name: "FilesList",
+    component: () => import("../views/FileContainerList.vue"),
+  },
+  {
+    path: "/files/:fileId",
+    name: "Files",
+    component: () => import("../views/FileContainer.vue"),
+  },
+  {
+    path: "/structureddata",
+    name: "StructuredDatasList",
+    component: () => import("../views/StructuredDataContainerList.vue"),
+  },
+  {
+    path: "/structureddata/:structuredDataId",
+    name: "StructuredData",
+    component: () => import("../views/StructuredDataContainer.vue"),
+  },
+  {
+    path: "/timeseries",
+    name: "TimeseriesList",
+    component: () => import("../views/TimeseriesContainerList.vue"),
+  },
+  {
+    path: "/timeseries/:timeseriesId",
+    name: "Timeseries",
+    component: () => import("../views/TimeseriesContainer.vue"),
+  },
   {
     path: "/user",
     name: "User",

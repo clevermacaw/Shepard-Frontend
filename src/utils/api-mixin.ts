@@ -10,6 +10,9 @@ import {
   UserApi,
   ApikeyApi,
   ReferenceApi,
+  TimeseriesApi,
+  StructureddataApi,
+  FileApi,
 } from "@dlr-shepard/shepard-client";
 import getEnv from "@/utils/env";
 
@@ -106,6 +109,23 @@ const TimeseriesReferenceVue = ApiVue.extend({
   },
 });
 
+declare interface TimeseriesData {
+  timeseriesApi?: TimeseriesApi;
+}
+
+const TimeseriesVue = ApiVue.extend({
+  data() {
+    return {
+      timeseriesApi: undefined,
+    } as TimeseriesData;
+  },
+  methods: {
+    createApi() {
+      this.timeseriesApi = new TimeseriesApi(this.config);
+    },
+  },
+});
+
 declare interface StructuredDataReferenceData {
   structuredDataReferenceApi?: StructureddataReferenceApi;
 }
@@ -125,6 +145,23 @@ const StructuredDataReferenceVue = ApiVue.extend({
   },
 });
 
+declare interface StructuredDataData {
+  structuredDataApi?: StructureddataApi;
+}
+
+const StructuredDataVue = ApiVue.extend({
+  data() {
+    return {
+      structuredDataApi: undefined,
+    } as StructuredDataData;
+  },
+  methods: {
+    createApi() {
+      this.structuredDataApi = new StructureddataApi(this.config);
+    },
+  },
+});
+
 declare interface FileReferenceData {
   fileReferenceApi?: FileReferenceApi;
 }
@@ -138,6 +175,23 @@ const FileReferenceVue = ApiVue.extend({
   methods: {
     createApi() {
       this.fileReferenceApi = new FileReferenceApi(this.config);
+    },
+  },
+});
+
+declare interface FileData {
+  fileApi?: FileApi;
+}
+
+const FileVue = ApiVue.extend({
+  data() {
+    return {
+      fileApi: undefined,
+    } as FileData;
+  },
+  methods: {
+    createApi() {
+      this.fileApi = new FileApi(this.config);
     },
   },
 });
@@ -180,8 +234,11 @@ export {
   CollectionVue,
   DataObjectVue,
   TimeseriesReferenceVue,
+  TimeseriesVue,
   StructuredDataReferenceVue,
+  StructuredDataVue,
   FileReferenceVue,
+  FileVue,
   UserVue,
   ApiKeyVue,
   ReferenceVue,
