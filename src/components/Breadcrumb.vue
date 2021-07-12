@@ -25,7 +25,7 @@
         DataObject
       </b-breadcrumb-item>
     </b-breadcrumb>
-    <hr />
+    <hr v-if="$route.params.collectionId" />
   </div>
 </template>
 
