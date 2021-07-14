@@ -5,6 +5,7 @@
       <GenericContainerList
         :objects="containers"
         @createContainer="createContainer($event)"
+        @deleteContainer="deleteContainer($event)"
       />
     </div>
   </div>
@@ -55,6 +56,21 @@ export default (
         })
         .catch(e => {
           console.log("Error while creating structured data container " + e);
+        })
+        .finally();
+    },
+    deleteContainer(id: number) {
+      this.structuredDataApi
+        ?.deleteStructuredDataContainer({
+          structureddataContainerId: id,
+        })
+        .then(() => {
+          this.containers = this.containers?.filter(x => {
+            return x.id != id;
+          });
+        })
+        .catch(e => {
+          console.log("Error while deleting structured data container " + e);
         })
         .finally();
     },

@@ -2,13 +2,13 @@
   <div class="edit">
     <b-button-group>
       <b-button v-b-modal.create-data-object-modal variant="primary">
-        Create DataObject
+        <create-icon />
       </b-button>
-      <b-button v-b-modal.edit-collection-modal variant="warning">
-        Edit Collection
+      <b-button v-b-modal.edit-collection-modal variant="light">
+        <edit-icon />
       </b-button>
-      <b-button variant="danger" @click="handleDelete">
-        Delete Collection
+      <b-button variant="dark" @click="handleDelete">
+        <delete-icon />
       </b-button>
     </b-button-group>
 

@@ -5,6 +5,7 @@
       <GenericContainerList
         :objects="containers"
         @createContainer="createContainer($event)"
+        @deleteContainer="deleteContainer($event)"
       />
     </div>
   </div>
@@ -55,6 +56,21 @@ export default (
         })
         .catch(e => {
           console.log("Error while creating file container " + e);
+        })
+        .finally();
+    },
+    deleteContainer(id: number) {
+      this.fileApi
+        ?.deleteFileContainer({
+          fileContainerId: id,
+        })
+        .then(() => {
+          this.containers = this.containers?.filter(x => {
+            return x.id != id;
+          });
+        })
+        .catch(e => {
+          console.log("Error while deleting file container " + e);
         })
         .finally();
     },

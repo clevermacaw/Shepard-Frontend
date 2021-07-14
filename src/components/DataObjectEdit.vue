@@ -1,11 +1,11 @@
 <template>
   <div class="edit">
     <b-button-group>
-      <b-button v-b-modal.edit-dataObject-modal variant="warning">
-        Edit DataObject
+      <b-button v-b-modal.edit-dataObject-modal variant="light">
+        <edit-icon />
       </b-button>
-      <b-button variant="danger" @click="handleDelete">
-        Delete DataObject
+      <b-button variant="dark" @click="handleDelete">
+        <delete-icon />
       </b-button>
     </b-button-group>
 

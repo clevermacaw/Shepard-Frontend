@@ -3,7 +3,7 @@
     <div class="component">
       <h4>Explore Collections</h4>
       <b-button v-b-modal.create-collection-modal variant="primary">
-        Create Collection
+        <create-icon />
       </b-button>
       <b-modal
         id="create-collection-modal"

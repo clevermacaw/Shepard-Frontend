@@ -17,6 +17,10 @@ import Webhook from "vue-material-design-icons/Webhook.vue";
 import ChevronUp from "vue-material-design-icons/ChevronUp.vue";
 import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 
+import Delete from "vue-material-design-icons/Delete.vue";
+import Pencil from "vue-material-design-icons/Pencil.vue";
+import Plus from "vue-material-design-icons/Plus.vue";
+
 Vue.component("parent-icon", AccountCircle);
 Vue.component("child-icon", AccountCircleOutline);
 Vue.component("predecessor-icon", AccountCog);
@@ -33,3 +37,7 @@ Vue.component("home-icon", HomeOutline);
 Vue.component("related-objects-icon", Webhook);
 Vue.component("collaps-icon", ChevronUp);
 Vue.component("extend-icon", ChevronDown);
+
+Vue.component("delete-icon", Delete);
+Vue.component("edit-icon", Pencil);
+Vue.component("create-icon", Plus);

@@ -1,12 +1,20 @@
 <template>
   <div class="component">
     <b-alert
-      :show="showAlert"
+      :show="showCreate"
       dismissible
-      variant="success"
-      @dismissed="showAlert = false"
+      variant="dark"
+      @dismissed="showCreate = false"
     >
       Successfully created container
+    </b-alert>
+    <b-alert
+      :show="showDelete"
+      dismissible
+      variant="dark"
+      @dismissed="showDelete = false"
+    >
+      Successfully deleted container
     </b-alert>
 
     <b-input-group class="component">
@@ -16,23 +24,31 @@
         @keyup.enter="createContainer"
       ></b-form-input>
       <b-input-group-append>
-        <b-button variant="success" @click="createContainer">
-          Create new container
+        <b-button variant="primary" @click="createContainer">
+          <create-icon />
         </b-button>
       </b-input-group-append>
     </b-input-group>
 
     <b-list-group class="component">
       <b-list-group-item
-        v-for="(object, index) in objects"
+        v-for="(container, index) in objects"
         :key="index"
-        :to="String(object.id)"
-        append
         class="list-group-item list-group-item-action"
       >
-        {{ object.name }}<br />
-        <small>created at {{ object.createdAt.toDateString() }}</small>
-        <small> by {{ object.createdBy }}</small>
+        <div class="left-align">
+          {{ container.name }}<br />
+          <small>created at {{ container.createdAt.toDateString() }}</small>
+          <small> by {{ container.createdBy }}</small>
+        </div>
+        <b-button-group class="right-align">
+          <b-button variant="light" :to="String(container.id)" append>
+            <edit-icon />
+          </b-button>
+          <b-button variant="dark" @click="deleteContainer(container.id)">
+            <delete-icon />
+          </b-button>
+        </b-button-group>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -52,7 +68,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      showAlert: false,
+      showCreate: false,
+      showDelete: false,
       newName: "",
     };
   },
@@ -60,8 +77,21 @@ export default Vue.extend({
     createContainer() {
       this.$emit("createContainer", this.newName);
       this.newName = "";
-      this.showAlert = true;
+      this.showCreate = true;
+    },
+    deleteContainer(id: number) {
+      this.$emit("deleteContainer", id);
+      this.showDelete = true;
     },
   },
 });
 </script>
+
+<style scoped>
+.right-align {
+  float: right;
+}
+.left-align {
+  float: left;
+}
+</style>

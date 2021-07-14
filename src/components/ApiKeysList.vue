@@ -3,7 +3,7 @@
     <div>
       <h4>Api Keys List</h4>
       <b-button v-b-modal.create-apikey-modal variant="primary">
-        Create Api Key
+        <create-icon />
       </b-button>
       <b-modal
         id="create-apikey-modal"
@@ -31,8 +31,8 @@
         <b-list-group-item v-for="(apiKey, index) in apiKeys" :key="index">
           {{ apiKey.name }}
           <b-button-group style="float: right">
-            <b-button size="sm" variant="danger" @click="handleDelete(index)">
-              Delete
+            <b-button size="sm" variant="dark" @click="handleDelete(index)">
+              <delete-icon />
             </b-button>
           </b-button-group>
         </b-list-group-item>

@@ -25,9 +25,9 @@
             </small>
           </b-col>
           <b-col>
-            <a v-if="dataObject.parentId" class="list"
-              ><parent-icon title="Parent" /> 1</a
-            >
+            <a v-if="dataObject.parentId" class="list">
+              <parent-icon title="Parent" /> 1
+            </a>
             <a class="list">
               <child-icon title="Children" />
               {{ dataObject.childrenIds.length }}
