@@ -2,27 +2,38 @@
   <div class="list">
     <b-list-group>
       <b-list-group-item
-        v-for="(structuredDataItem, index) in structuredDataList"
+        v-for="(structuredDataReference, index) in structuredDataList"
         :key="index"
         class="list-group-item list-group-item-action"
       >
         <div>
-          <b>{{ structuredDataItem.name }}</b>
-          | ID: {{ structuredDataItem.id }} | Container:
-          {{ structuredDataItem.structuredDataContainerId }}
+          <b>{{ structuredDataReference.name }}</b>
+          | ID: {{ structuredDataReference.id }} | Container:
+          {{ structuredDataReference.structuredDataContainerId }}
         </div>
 
         <small>
-          created at {{ structuredDataItem.createdAt.toDateString() }} by
-          {{ structuredDataItem.createdBy }}
+          created at {{ structuredDataReference.createdAt.toDateString() }} by
+          {{ structuredDataReference.createdBy }}
         </small>
-        <b-table
-          striped
-          hover
-          small
-          :items="structuredDataItem.structuredDatas"
+
+        <br />
+
+        <div
+          v-for="(
+            structuredData, oidIndex
+          ) in structuredDataReference.structuredDatas"
+          :key="oidIndex"
+          class="list-group-item list-group-item-action"
         >
-        </b-table>
+          <small>
+            <b>Oid: </b>
+            {{ structuredData.oid }}
+            <br />
+            <b>Payload: </b>
+            <code> {{ structuredDataPayload[structuredData.oid] }} </code>
+          </small>
+        </div>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -30,12 +41,16 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import { StructuredDataReference } from "@dlr-shepard/shepard-client";
+import {
+  StructuredDataPayload,
+  StructuredDataReference,
+} from "@dlr-shepard/shepard-client";
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];
-  currentStructuredData?: StructuredDataReference;
+  structuredDataPayload: { [key: string]: string | undefined };
+  structuredDataPayloadReactive: { [key: string]: string | undefined };
 }
 
 export default (
@@ -54,15 +69,16 @@ export default (
   },
   data() {
     return {
-      structuredDataList: new Array<StructuredDataReference>(),
-      currentStructuredData: undefined,
+      structuredDataList: [],
+      structuredDataPayload: {},
+      structuredDataPayloadReactive: {},
     } as StructuredDataListData;
   },
   mounted() {
-    this.retrieveStructuredData();
+    this.retrieveStructuredDataReferences();
   },
   methods: {
-    retrieveStructuredData() {
+    retrieveStructuredDataReferences() {
       this.structuredDataReferenceApi
         ?.getAllStructuredDataReferences({
           collectionId: this.currentCollectionId,
@@ -70,9 +86,34 @@ export default (
         })
         .then(response => {
           this.structuredDataList = response;
+          this.structuredDataList.forEach(reference => {
+            if (reference.id) this.retrieveStructuredDataPayload(reference.id);
+          });
         })
         .catch(e => {
-          console.log("Error while fetching StructuredData References" + e);
+          console.log("Error while fetching StructuredData References " + e);
+        })
+        .finally();
+    },
+
+    retrieveStructuredDataPayload(id: number) {
+      this.structuredDataReferenceApi
+        ?.getStructuredDataPayload({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          structureddataReferenceId: id,
+        })
+        .then(response => {
+          response.forEach(payload => {
+            if (payload?.structuredData?.oid)
+              this.structuredDataPayloadReactive[payload.structuredData.oid] =
+                payload.payload;
+          });
+          // TODO: get rid of "structuredDataPayloadReactive"
+          this.structuredDataPayload = this.structuredDataPayloadReactive;
+        })
+        .catch(e => {
+          console.log("Error while fetching StructuredDataPayload " + e);
         })
         .finally();
     },
