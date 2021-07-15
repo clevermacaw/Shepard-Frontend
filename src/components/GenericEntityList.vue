@@ -6,7 +6,7 @@
       variant="dark"
       @dismissed="showCreate = false"
     >
-      Successfully created container
+      Successfully created
     </b-alert>
     <b-alert
       :show="showDelete"
@@ -14,17 +14,17 @@
       variant="dark"
       @dismissed="showDelete = false"
     >
-      Successfully deleted container
+      Successfully deleted
     </b-alert>
 
     <b-input-group class="component">
       <b-form-input
         v-model="newName"
         placeholder="Name"
-        @keyup.enter="createContainer"
+        @keyup.enter="createEntity"
       ></b-form-input>
       <b-input-group-append>
-        <b-button variant="primary" @click="createContainer">
+        <b-button variant="primary" @click="createEntity">
           <create-icon />
         </b-button>
       </b-input-group-append>
@@ -32,20 +32,20 @@
 
     <b-list-group class="component">
       <b-list-group-item
-        v-for="(container, index) in objects"
+        v-for="(entity, index) in entities"
         :key="index"
         class="list-group-item list-group-item-action"
       >
         <div class="left-align">
-          {{ container.name }}<br />
-          <small>created at {{ container.createdAt.toDateString() }}</small>
-          <small> by {{ container.createdBy }}</small>
+          {{ entity.name }}<br />
+          <small>created at {{ entity.createdAt.toDateString() }}</small>
+          <small> by {{ entity.createdBy }}</small>
         </div>
         <b-button-group class="right-align">
-          <b-button variant="light" :to="String(container.id)" append>
+          <b-button variant="light" :to="String(entity.id)" append>
             <edit-icon />
           </b-button>
-          <b-button variant="dark" @click="deleteContainer(container.id)">
+          <b-button variant="dark" @click="deleteEntity(entity.id)">
             <delete-icon />
           </b-button>
         </b-button-group>
@@ -59,7 +59,7 @@ import Vue from "vue";
 
 export default Vue.extend({
   props: {
-    objects: {
+    entities: {
       type: Array,
       default: function () {
         return [];
@@ -74,13 +74,13 @@ export default Vue.extend({
     };
   },
   methods: {
-    createContainer() {
-      this.$emit("createContainer", this.newName);
+    createEntity() {
+      this.$emit("createEntity", this.newName);
       this.newName = "";
       this.showCreate = true;
     },
-    deleteContainer(id: number) {
-      this.$emit("deleteContainer", id);
+    deleteEntity(id: number) {
+      this.$emit("deleteEntity", id);
       this.showDelete = true;
     },
   },

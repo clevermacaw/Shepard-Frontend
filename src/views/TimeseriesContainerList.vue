@@ -2,10 +2,10 @@
   <div class="timeseries-container-list">
     <div class="component">
       <h4>Timeseries Containers</h4>
-      <GenericContainerList
-        :objects="containers"
-        @createContainer="createContainer($event)"
-        @deleteContainer="deleteContainer($event)"
+      <GenericEntityList
+        :entities="containers"
+        @createEntity="createContainer($event)"
+        @deleteEntity="deleteContainer($event)"
       />
     </div>
   </div>
@@ -14,7 +14,7 @@
 <script lang="ts">
 import { TimeseriesVue } from "@/utils/api-mixin";
 import { TimeseriesContainer } from "@dlr-shepard/shepard-client";
-import GenericContainerList from "@/components/GenericContainerList.vue";
+import GenericEntityList from "@/components/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface TimeseriesListData {
@@ -24,7 +24,7 @@ interface TimeseriesListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof TimeseriesVue>>
 ).extend({
-  components: { GenericContainerList },
+  components: { GenericEntityList },
   mixins: [TimeseriesVue],
   data() {
     return {

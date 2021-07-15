@@ -2,91 +2,76 @@
   <div class="explore">
     <div class="component">
       <h4>Explore Collections</h4>
-      <b-button v-b-modal.create-collection-modal variant="primary">
-        <create-icon />
-      </b-button>
-      <b-modal
-        id="create-collection-modal"
-        ref="modal"
-        size="lg"
-        title="Create Collection"
-        @show="prepareCreate"
-        @ok="handleCreate"
-      >
-        <b-form-group>
-          <b-container>
-            <b-row class="mb-3">
-              <b-col cols="2"> Name </b-col>
-              <b-col cols="8">
-                <b-form-input
-                  id="name-input"
-                  v-model="newCollection.name"
-                  required
-                  placeholder="Name"
-                >
-                </b-form-input>
-              </b-col>
-            </b-row>
-
-            <b-row class="mb-3">
-              <b-col cols="2"> Description </b-col>
-              <b-col cols="8">
-                <b-form-textarea
-                  id="collection-description"
-                  v-model="newCollection.description"
-                  placeholder="please insert description"
-                  rows="3"
-                  max-rows="6"
-                >
-                </b-form-textarea>
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-form-group>
-      </b-modal>
-    </div>
-    <div class="component">
-      <CollectionList />
+      <GenericEntityList
+        :entities="collections"
+        @createEntity="createCollection($event)"
+        @deleteEntity="deleteCollection($event)"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import CollectionList from "@/components/CollectionList.vue";
+import GenericEntityList from "@/components/GenericEntityList.vue";
 import { CollectionApi, Collection } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
 
 interface ExploreData {
   collectionApi?: CollectionApi;
-  newCollection: Collection;
+  collections: Collection[];
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof CollectionVue>>
 ).extend({
-  components: { CollectionList },
+  components: { GenericEntityList },
   mixins: [CollectionVue],
   data() {
     return {
-      newCollection: {},
+      collections: [],
     } as ExploreData;
   },
+  mounted() {
+    this.retrieveCollections();
+  },
   methods: {
-    prepareCreate() {
-      this.newCollection = {};
-    },
-    handleCreate() {
+    retrieveCollections() {
       this.collectionApi
-        ?.createCollection({ collection: this.newCollection })
+        ?.getAllCollections({})
         .then(response => {
-          this.$router.push({
-            name: "Collection",
-            params: { collectionId: "" + response.id },
+          this.collections = response;
+        })
+        .catch(e => {
+          console.log("Error while fetching collections " + e);
+        })
+        .finally();
+    },
+    createCollection(newName: string) {
+      this.collectionApi
+        ?.createCollection({
+          collection: { name: newName } as Collection,
+        })
+        .then(response => {
+          this.collections?.push(response);
+        })
+        .catch(e => {
+          console.log("Error while creating collection " + e);
+        })
+        .finally();
+    },
+    deleteCollection(id: number) {
+      this.collectionApi
+        ?.deleteCollection({
+          collectionId: id,
+        })
+        .then(() => {
+          this.collections = this.collections?.filter(x => {
+            return x.id != id;
           });
         })
         .catch(e => {
-          console.log("Error while creating collection" + e);
+          console.log("Error while deleting collection " + e);
         })
         .finally();
     },

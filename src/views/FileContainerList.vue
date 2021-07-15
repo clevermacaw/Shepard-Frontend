@@ -2,10 +2,10 @@
   <div class="file-container-list">
     <div class="component">
       <h4>File Containers</h4>
-      <GenericContainerList
-        :objects="containers"
-        @createContainer="createContainer($event)"
-        @deleteContainer="deleteContainer($event)"
+      <GenericEntityList
+        :entities="containers"
+        @createEntity="createContainer($event)"
+        @deleteEntity="deleteContainer($event)"
       />
     </div>
   </div>
@@ -14,7 +14,7 @@
 <script lang="ts">
 import { FileVue } from "@/utils/api-mixin";
 import { FileContainer } from "@dlr-shepard/shepard-client";
-import GenericContainerList from "@/components/GenericContainerList.vue";
+import GenericEntityList from "@/components/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface FilesListData {
@@ -24,7 +24,7 @@ interface FilesListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileVue>>
 ).extend({
-  components: { GenericContainerList },
+  components: { GenericEntityList },
   mixins: [FileVue],
   data() {
     return {

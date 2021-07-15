@@ -2,10 +2,10 @@
   <div class="structured-data-container-list">
     <div class="component">
       <h4>Structured Data Containers</h4>
-      <GenericContainerList
-        :objects="containers"
-        @createContainer="createContainer($event)"
-        @deleteContainer="deleteContainer($event)"
+      <GenericEntityList
+        :entities="containers"
+        @createEntity="createContainer($event)"
+        @deleteEntity="deleteContainer($event)"
       />
     </div>
   </div>
@@ -14,7 +14,7 @@
 <script lang="ts">
 import { StructuredDataVue } from "@/utils/api-mixin";
 import { StructuredDataContainer } from "@dlr-shepard/shepard-client";
-import GenericContainerList from "@/components/GenericContainerList.vue";
+import GenericEntityList from "@/components/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface StructuredDatasListData {
@@ -24,7 +24,7 @@ interface StructuredDatasListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataVue>>
 ).extend({
-  components: { GenericContainerList },
+  components: { GenericEntityList },
   mixins: [StructuredDataVue],
   data() {
     return {

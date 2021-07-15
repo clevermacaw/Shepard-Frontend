@@ -14,38 +14,34 @@
         append
         class="list-group-item list-group-item-action"
       >
-        <div>
-          <b>{{ dataObject.name }}</b> ID: {{ dataObject.id }}
+        <div class="float-left">
+          <div>
+            <b>{{ dataObject.name }}</b> ID: {{ dataObject.id }}
+          </div>
+          <small>
+            created at {{ dataObject.createdAt.toDateString() }} by
+            {{ dataObject.createdBy }}
+          </small>
         </div>
-        <b-row>
-          <b-col>
-            <small>
-              created at {{ dataObject.createdAt.toDateString() }} by
-              {{ dataObject.createdBy }}
-            </small>
-          </b-col>
-          <b-col>
-            <a v-if="dataObject.parentId" class="list">
-              <parent-icon title="Parent" /> 1
-            </a>
-            <a class="list">
-              <child-icon title="Children" />
-              {{ dataObject.childrenIds.length }}
-            </a>
-            <a class="list">
-              <predecessor-icon title="Predecessors" />
-              {{ dataObject.predecessorIds.length }}
-            </a>
-            <a class="list">
-              <successor-icon title="Successors" />
-              {{ dataObject.successorIds.length }}
-            </a>
-            <a class="list">
-              <references-icon title="References" />
-              {{ dataObject.referenceIds.length }}
-            </a>
-          </b-col>
-        </b-row>
+        <div class="icon">
+          <references-icon title="References" />
+          {{ dataObject.referenceIds.length }}
+        </div>
+        <div class="icon">
+          <successor-icon title="Successors" />
+          {{ dataObject.successorIds.length }}
+        </div>
+        <div class="icon">
+          <predecessor-icon title="Predecessors" />
+          {{ dataObject.predecessorIds.length }}
+        </div>
+        <div class="icon">
+          <child-icon title="Children" />
+          {{ dataObject.childrenIds.length }}
+        </div>
+        <div v-if="dataObject.parentId" class="icon">
+          <parent-icon title="Parent" /> 1
+        </div>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -130,8 +126,13 @@ export default (
 </script>
 
 <style scoped>
-.list {
+.icon {
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 10px;
+  float: right;
+}
+.float-left {
+  float: left;
 }
 </style>
