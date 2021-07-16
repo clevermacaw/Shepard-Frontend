@@ -32,4 +32,18 @@ export default Vue.extend({
   border-color: red;
   opacity: 0.6;
 }
+
+.float-right {
+  float: right;
+}
+
+.moreorless {
+  font-style: italic;
+  color: blue;
+}
+
+.description {
+  font-style: italic;
+  text-align: justify;
+}
 </style>

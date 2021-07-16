@@ -138,7 +138,4 @@ export default (
 .fixed-height {
   height: 40px;
 }
-.float-right {
-  float: right;
-}
 </style>

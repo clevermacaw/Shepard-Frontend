@@ -1,6 +1,19 @@
 <template>
   <div v-if="currentCollection" class="collection">
-    <h3>{{ currentCollection.name }}</h3>
+    <div>
+      <b-button-group class="float-right">
+        <b-button v-b-modal.create-data-object-modal variant="primary">
+          <create-icon />
+        </b-button>
+        <b-button v-b-modal.edit-collection-modal variant="light">
+          <edit-icon />
+        </b-button>
+        <b-button variant="dark" @click="handleDelete">
+          <delete-icon />
+        </b-button>
+      </b-button-group>
+      <h3>{{ currentCollection.name }}</h3>
+    </div>
     <p>
       Object ID: {{ currentCollection.id }}
       <br />
@@ -60,20 +73,26 @@
       />
     </GenericCollapse>
 
-    <div class="component">
-      <h4>Edit</h4>
-      <CollectionEdit
-        :current-collection-id="currentCollectionId"
-        @collectionChanged="retrieveCollection()"
-      />
-    </div>
+    <CollectionModal
+      :current-collection="currentCollection"
+      modal-id="edit-collection-modal"
+      modal-name="Edit Collection"
+      @collectionChanged="retrieveCollection()"
+    />
+
+    <DataObjectModal
+      :current-collection-id="currentCollectionId"
+      modal-id="create-data-object-modal"
+      modal-name="Create Data Object"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
 import DataObjectList from "@/components/DataObjectList.vue";
-import CollectionEdit from "@/components/CollectionEdit.vue";
+import CollectionModal from "@/components/CollectionModal.vue";
+import DataObjectModal from "@/components/DataObjectModal.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
 import { Collection } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
@@ -87,7 +106,12 @@ interface CollectionData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof CollectionVue>>
 ).extend({
-  components: { GenericCollapse, DataObjectList, CollectionEdit },
+  components: {
+    GenericCollapse,
+    DataObjectList,
+    DataObjectModal,
+    CollectionModal,
+  },
   mixins: [CollectionVue],
   data() {
     return {
@@ -122,6 +146,17 @@ export default (
         })
         .finally();
     },
+    handleDelete() {
+      this.collectionApi
+        ?.deleteCollection({ collectionId: this.currentCollectionId })
+        .then(() => {
+          this.$router.push({ name: "Explore" });
+        })
+        .catch(e => {
+          console.log("Error while deleting collection" + e);
+        })
+        .finally();
+    },
   },
 });
 </script>
@@ -133,15 +168,5 @@ h3 {
 h4 {
   margin-top: 30px;
   margin-bottom: 10px;
-}
-
-.description {
-  font-style: italic;
-  text-align: justify;
-}
-
-.moreorless {
-  font-style: italic;
-  color: blue;
 }
 </style>

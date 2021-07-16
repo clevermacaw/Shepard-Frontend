@@ -11,14 +11,11 @@
           | ID: {{ structuredDataReference.id }} | Container:
           {{ structuredDataReference.structuredDataContainerId }}
         </div>
-
         <small>
           created at {{ structuredDataReference.createdAt.toDateString() }} by
           {{ structuredDataReference.createdBy }}
         </small>
-
         <br />
-
         <div
           v-for="(
             structuredData, oidIndex
@@ -92,7 +89,6 @@ export default (
     },
 
     retrieveStructuredDataPayload(id: number) {
-      let tempMap = { ...this.structuredDataPayload };
       this.structuredDataReferenceApi
         ?.getStructuredDataPayload({
           collectionId: this.currentCollectionId,
@@ -102,9 +98,10 @@ export default (
         .then(response => {
           response.forEach(payload => {
             if (payload?.structuredData?.oid)
-              tempMap[payload.structuredData.oid] = payload.payload;
+              this.structuredDataPayload[payload.structuredData.oid] =
+                payload.payload;
           });
-          this.structuredDataPayload = { ...tempMap };
+          this.structuredDataPayload = { ...this.structuredDataPayload };
         })
         .catch(e => {
           console.log("Error while fetching StructuredDataPayload " + e);

@@ -21,8 +21,8 @@
       <b-form-input
         v-model="newName"
         placeholder="Name"
-        @keyup.enter="createEntity"
         class="fixed-height"
+        @keyup.enter="createEntity"
       ></b-form-input>
       <b-input-group-append>
         <b-button variant="primary" @click="createEntity">

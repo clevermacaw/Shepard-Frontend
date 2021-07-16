@@ -1,5 +1,14 @@
 <template>
   <div v-if="currentDataObject" class="dataObject">
+    <b-button-group class="float-right">
+      <b-button v-b-modal.edit-dataObject-modal variant="light">
+        <edit-icon />
+      </b-button>
+      <b-button variant="dark" @click="handleDelete">
+        <delete-icon />
+      </b-button>
+    </b-button-group>
+
     <h3>{{ currentDataObject.name }}</h3>
     <div>
       Object ID: {{ currentDataObject.id }}
@@ -72,147 +81,53 @@
     </div>
 
     <GenericCollapse title="Related Objects" visible>
-      <b-card no-body>
-        <b-tabs card>
-          <b-tab title="Parent" :disabled="!currentDataObject.parentId">
-            <DataObjectList
-              :current-collection-id="currentCollectionId"
-              :data-object-ids="
-                currentDataObject.parentId ? [currentDataObject.parentId] : []
-              "
-            />
-          </b-tab>
-          <b-tab
-            title="Children"
-            :disabled="!currentDataObject.childrenIds.length"
-          >
-            <DataObjectList
-              :current-collection-id="currentCollectionId"
-              :parent-id="currentDataObjectId"
-            />
-          </b-tab>
-          <b-tab
-            title="Predecessors"
-            :disabled="!currentDataObject.predecessorIds.length"
-          >
-            <DataObjectList
-              :current-collection-id="currentCollectionId"
-              :data-object-ids="currentDataObject.predecessorIds"
-            />
-          </b-tab>
-          <b-tab
-            title="Successors"
-            :disabled="!currentDataObject.successorIds.length"
-          >
-            <DataObjectList
-              :current-collection-id="currentCollectionId"
-              :data-object-ids="currentDataObject.successorIds"
-            />
-          </b-tab>
-        </b-tabs>
-      </b-card>
+      <RelatedObjectsTable :current-data-object="currentDataObject" />
     </GenericCollapse>
 
     <GenericCollapse title="References" visible>
-      <b-card no-body>
-        <b-tabs card>
-          <b-tab title="Timeseries" :disabled="!hasTimeReference">
-            <TimeseriesList
-              :current-collection-id="currentCollectionId"
-              :current-data-object-id="currentDataObjectId"
-            />
-          </b-tab>
-
-          <b-tab title="Strucured Data" :disabled="!hasStructuredDataReference">
-            <StructuredDataList
-              :current-collection-id="currentCollectionId"
-              :current-data-object-id="currentDataObjectId"
-            />
-          </b-tab>
-
-          <b-tab title="File" :disabled="!hasFileReference">
-            <FileList
-              :current-collection-id="currentCollectionId"
-              :current-data-object-id="currentDataObjectId"
-            />
-          </b-tab>
-
-          <b-tab title="Meta Data" :disabled="!hasMetaDataReference"> </b-tab>
-
-          <b-tab title="URI" :disabled="!hasURIReference"> </b-tab>
-
-          <b-tab title="Data Object" :disabled="!hasDataObjectReference">
-          </b-tab>
-        </b-tabs>
-      </b-card>
+      <ReferencesTable :current-data-object="currentDataObject" />
     </GenericCollapse>
 
-    <div class="component">
-      <h4>Edit</h4>
-      <DataObjectEdit
-        :current-collection-id="currentCollectionId"
-        :current-data-object-id="currentDataObjectId"
-        @dataObjectChanged="retrieveDataObject()"
-      />
-    </div>
+    <DataObjectModal
+      :current-collection-id="currentCollectionId"
+      :current-data-object="currentDataObject"
+      modal-id="edit-dataObject-modal"
+      modal-name="Edit Data Object"
+      @dataObjectChanged="retrieveDataObject()"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import DataObjectEdit from "@/components/DataObjectEdit.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
-import {
-  DataObject,
-  BasicReference,
-  ReferenceApi,
-  DataObjectApi,
-} from "@dlr-shepard/shepard-client";
-import { DataObjectVue, ReferenceVue } from "@/utils/api-mixin";
-import DataObjectList from "@/components/DataObjectList.vue";
-import TimeseriesList from "@/components/TimeseriesList.vue";
-import StructuredDataList from "@/components/StructuredDataList.vue";
-import FileList from "@/components/FileList.vue";
+import { DataObject } from "@dlr-shepard/shepard-client";
+import { DataObjectVue } from "@/utils/api-mixin";
+import DataObjectModal from "@/components/DataObjectModal.vue";
+import ReferencesTable from "@/components/ReferencesTable.vue";
+import RelatedObjectsTable from "@/components/RelatedObjectsTable.vue";
 
 interface DataObjectData {
   currentDataObject?: DataObject;
-  currentReferences: BasicReference[];
-  hasTimeReference: boolean;
-  hasStructuredDataReference: boolean;
-  hasFileReference: boolean;
   hasAttribute: boolean;
-  hasMetaDataReference: boolean; // noch nicht implementiert
-  hasURIReference: boolean; // noch nicht implementiert
-  hasDataObjectReference: boolean; // noch nicht implementiert
   screenWidth: number;
   readMore: boolean;
 }
 
 export default (
-  Vue as VueConstructor<
-    Vue & InstanceType<typeof DataObjectVue> & InstanceType<typeof ReferenceVue>
-  >
+  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
 ).extend({
   components: {
     GenericCollapse,
-    DataObjectEdit,
-    DataObjectList,
-    TimeseriesList,
-    StructuredDataList,
-    FileList,
+    DataObjectModal,
+    ReferencesTable,
+    RelatedObjectsTable,
   },
-  mixins: [DataObjectVue, ReferenceVue],
+  mixins: [DataObjectVue],
   data() {
     return {
       currentDataObject: undefined,
-      currentReferences: [],
-      hasTimeReference: false,
-      hasStructuredDataReference: false,
-      hasFileReference: false,
       hasAttribute: false,
-      hasMetaDataReference: false, // noch nicht implementiert
-      hasURIReference: false, // noch nicht implementiert
-      hasDataObjectReference: false, // noch nicht implementiert
       screenWidth: 0,
       readMore: false,
     } as DataObjectData;
@@ -246,52 +161,28 @@ export default (
           }
         })
         .catch(e => {
-          console.log("Error while fetching dataObject" + e);
-        })
-        .finally();
-
-      this.referenceApi
-        ?.getAllReferences({
-          collectionId: this.currentCollectionId,
-          dataObjectId: Number(this.$router.currentRoute.params.dataObjectId),
-        })
-        .then(response => {
-          this.currentReferences = response;
-          this.currentReferences.forEach(item => {
-            if (item.type === "TimeseriesReference") {
-              this.hasTimeReference = true;
-            }
-
-            if (item.type === "StructuredDataReference") {
-              this.hasStructuredDataReference = true;
-            }
-            if (item.type === "FileReference") {
-              this.hasFileReference = true;
-            }
-            if (item.type === "MetaDataReference") {
-              // noch nicht implementiert
-              this.hasMetaDataReference = true;
-            }
-            if (item.type === "URIReference") {
-              // noch nicht implementiert
-              this.hasURIReference = true;
-            }
-            if (item.type === "DataObjectReference") {
-              // noch nicht implementiert
-              this.hasDataObjectReference = true;
-            }
-          });
-        })
-        .catch(e => {
-          console.log("Error while fetching references" + e);
+          console.log("Error while fetching dataObject " + e);
         })
         .finally();
     },
-
-    // we have to overwrite createApi() since we extend two Apis
-    createApi() {
-      this.referenceApi = new ReferenceApi(this.config);
-      this.dataObjectApi = new DataObjectApi(this.config);
+    handleDelete() {
+      this.dataObjectApi
+        ?.deleteDataObject({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+        })
+        .then(() => {
+          this.$router.push({
+            name: "Collection",
+            params: {
+              collectionId: String(this.currentCollectionId),
+            },
+          });
+        })
+        .catch(e => {
+          console.log("Error while deleting dataObject " + e);
+        })
+        .finally();
     },
   },
 });
@@ -305,19 +196,8 @@ h4 {
   margin-top: 30px;
   margin-bottom: 10px;
 }
-
 .section {
   margin-top: 30px;
   margin-bottom: 10px;
-}
-
-.description {
-  font-style: italic;
-  text-align: justify;
-}
-
-.moreorless {
-  font-style: italic;
-  color: blue;
 }
 </style>
