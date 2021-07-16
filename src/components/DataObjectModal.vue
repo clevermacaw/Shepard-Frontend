@@ -93,8 +93,9 @@
                     name: '',
                   })
                 "
-                ><create-icon
-              /></b-button>
+              >
+                <create-icon />
+              </b-button>
             </b-col>
             <b-col cols="1">
               <b-button
@@ -102,8 +103,9 @@
                 class="fixed-width"
                 variant="danger"
                 @click="possiblePredecessors.splice(i, 1)"
-                ><remove-icon
-              /></b-button>
+              >
+                <remove-icon />
+              </b-button>
             </b-col>
           </b-row>
         </b-form-group>
@@ -142,8 +144,9 @@
                       value: '',
                     })
                   "
-                  ><create-icon
-                /></b-button>
+                >
+                  <create-icon />
+                </b-button>
               </b-col>
               <b-col cols="1">
                 <b-button
@@ -151,8 +154,9 @@
                   class="fixed-width"
                   variant="danger"
                   @click="possibleAttributes.splice(i, 1)"
-                  ><remove-icon
-                /></b-button>
+                >
+                  <remove-icon />
+                </b-button>
               </b-col>
             </b-row>
           </b-form-group>

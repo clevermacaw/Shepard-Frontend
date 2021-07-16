@@ -1,40 +1,45 @@
 <template>
   <div>
-    <div>
-      <h4>Api Keys List</h4>
-      <b-button v-b-modal.create-apikey-modal variant="primary">
-        <create-icon />
-      </b-button>
-      <b-modal
-        id="create-apikey-modal"
-        ref="modal"
-        title="Create Api Key"
-        @show="prepareCreate"
-        @ok="handleCreate"
-      >
-        <b-form-group label="Name" label-for="name-input">
-          <b-form-input id="name-input" v-model="newApiKey.name"></b-form-input>
-        </b-form-group>
-      </b-modal>
-      <b-modal id="created-apikey-model" ref="modal" title="Created Api Key">
-        <div v-if="createdApiKey">
-          <h6>Successfully created!</h6>
-          <p>{{ createdApiKey.name }} | {{ createdApiKey.uid }}</p>
-          <b-button size="sm" variant="primary" @click="copyApiKey">
-            Copy Api Key
-          </b-button>
-        </div>
-      </b-modal>
-    </div>
+    <h4>Api Keys List</h4>
+    <b-input-group class="component">
+      <b-form-input
+        v-model="newName"
+        class="fixed-height"
+        placeholder="Name"
+        @keyup.enter="handleCreate"
+      ></b-form-input>
+      <b-input-group-append>
+        <b-button variant="primary" @click="handleCreate">
+          <create-icon />
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
+    <b-modal
+      id="created-apikey-modal"
+      ref="modal"
+      title="Created Api Key"
+      @ok="createdApiKey = undefined"
+    >
+      <div v-if="createdApiKey">
+        <h6>Successfully created!</h6>
+        <p>{{ createdApiKey.name }} | {{ createdApiKey.uid }}</p>
+        <b-button size="sm" variant="primary" @click="copyApiKey">
+          Copy Api Key
+        </b-button>
+      </div>
+    </b-modal>
     <div>
       <b-list-group>
         <b-list-group-item v-for="(apiKey, index) in apiKeys" :key="index">
           {{ apiKey.name }}
-          <b-button-group style="float: right">
-            <b-button size="sm" variant="dark" @click="handleDelete(index)">
-              <delete-icon />
-            </b-button>
-          </b-button-group>
+          <b-button
+            class="float-right"
+            size="sm"
+            variant="dark"
+            @click="handleDelete(index)"
+          >
+            <delete-icon />
+          </b-button>
         </b-list-group-item>
       </b-list-group>
     </div>
@@ -48,8 +53,7 @@ import { ApiKeyVue } from "@/utils/api-mixin";
 
 declare interface ApiKeyListData {
   apiKeys: ApiKey[];
-  name: string;
-  newApiKey: ApiKey;
+  newName: string;
   createdApiKey?: ApiKeyWithJWT;
 }
 
@@ -66,8 +70,7 @@ export default (
   data() {
     return {
       apiKeys: new Array<ApiKey>(),
-      name: "",
-      newApiKey: {},
+      newName: "",
       createdApiKey: undefined,
     } as ApiKeyListData;
   },
@@ -92,10 +95,6 @@ export default (
         })
         .finally();
     },
-    prepareCreate() {
-      this.newApiKey = {};
-      this.createdApiKey = undefined;
-    },
     copyApiKey() {
       if (!this.createdApiKey || !this.createdApiKey.jwt) return;
       navigator.clipboard.writeText(this.createdApiKey.jwt);
@@ -104,17 +103,18 @@ export default (
       this.apiKeyApi
         ?.createApiKey({
           username: this.currentUsername,
-          apiKey: this.newApiKey,
+          apiKey: { name: this.newName } as ApiKey,
         })
         .then(response => {
           this.createdApiKey = response;
-          this.$bvModal.show("created-apikey-model");
+          this.$bvModal.show("created-apikey-modal");
         })
         .catch(e => {
           console.log("Error while creating api key" + e);
         })
         .finally(() => {
           this.retrieveApiKeys();
+          this.newName = "";
         });
     },
     handleDelete(index: number) {
@@ -133,3 +133,12 @@ export default (
   },
 });
 </script>
+
+<style scoped>
+.fixed-height {
+  height: 40px;
+}
+.float-right {
+  float: right;
+}
+</style>

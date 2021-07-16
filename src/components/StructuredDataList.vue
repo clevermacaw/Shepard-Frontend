@@ -41,16 +41,12 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import {
-  StructuredDataPayload,
-  StructuredDataReference,
-} from "@dlr-shepard/shepard-client";
+import { StructuredDataReference } from "@dlr-shepard/shepard-client";
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];
   structuredDataPayload: { [key: string]: string | undefined };
-  structuredDataPayloadReactive: { [key: string]: string | undefined };
 }
 
 export default (
@@ -71,7 +67,6 @@ export default (
     return {
       structuredDataList: [],
       structuredDataPayload: {},
-      structuredDataPayloadReactive: {},
     } as StructuredDataListData;
   },
   mounted() {
@@ -97,6 +92,7 @@ export default (
     },
 
     retrieveStructuredDataPayload(id: number) {
+      let tempMap = { ...this.structuredDataPayload };
       this.structuredDataReferenceApi
         ?.getStructuredDataPayload({
           collectionId: this.currentCollectionId,
@@ -106,11 +102,9 @@ export default (
         .then(response => {
           response.forEach(payload => {
             if (payload?.structuredData?.oid)
-              this.structuredDataPayloadReactive[payload.structuredData.oid] =
-                payload.payload;
+              tempMap[payload.structuredData.oid] = payload.payload;
           });
-          // TODO: get rid of "structuredDataPayloadReactive"
-          this.structuredDataPayload = this.structuredDataPayloadReactive;
+          this.structuredDataPayload = { ...tempMap };
         })
         .catch(e => {
           console.log("Error while fetching StructuredDataPayload " + e);

@@ -6,8 +6,8 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav id="nav">
-        <b-nav-item to="/explore">Explore</b-nav-item>
-        <b-nav-item-dropdown text="Data">
+        <b-nav-item to="/explore">Collections</b-nav-item>
+        <b-nav-item-dropdown text="Containers">
           <b-dropdown-item to="/files">Files</b-dropdown-item>
           <b-dropdown-item to="/structureddata">StructuredData</b-dropdown-item>
           <b-dropdown-item to="/timeseries">Timeseries</b-dropdown-item>

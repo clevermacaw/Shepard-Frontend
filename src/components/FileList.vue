@@ -2,26 +2,26 @@
   <div class="list">
     <b-list-group>
       <b-list-group-item
-        v-for="(fileItem, index) in fileList"
+        v-for="(fileReference, index) in fileReferenceList"
         :key="index"
         class="list-group-item list-group-item-action"
       >
         <div>
-          <b>{{ fileItem.name }}</b>
-          | ID: {{ fileItem.id }} | Container:
-          {{ fileItem.filecontainerId }}
+          <b>{{ fileReference.name }}</b>
+          | ID: {{ fileReference.id }} | Container:
+          {{ fileReference.fileContainerId }}
         </div>
 
         <small>
-          created at {{ fileItem.createdAt.toDateString() }} by
-          {{ fileItem.createdBy }}
+          created at {{ fileReference.createdAt.toDateString() }} by
+          {{ fileReference.createdBy }}
         </small>
 
-        <ul>
-          <li v-for="(oid, i) in fileItem.fileoids" :key="i">
-            {{ oid }}
-          </li>
-        </ul>
+        <div v-for="(file, i) in fileReference.files" :key="i">
+          <small>
+            <b>Oid:</b> {{ file.oid }} | <b>Filename:</b> {{ file.filename }}
+          </small>
+        </div>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -33,8 +33,7 @@ import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileReferenceVue } from "@/utils/api-mixin";
 
 declare interface FileListData {
-  fileList: FileReference[];
-  currentFile?: FileReference;
+  fileReferenceList: FileReference[];
 }
 
 export default (
@@ -53,8 +52,7 @@ export default (
   },
   data() {
     return {
-      fileList: new Array<FileReference>(),
-      currentfile: undefined,
+      fileReferenceList: new Array<FileReference>(),
     } as FileListData;
   },
   mounted() {
@@ -68,7 +66,7 @@ export default (
           dataObjectId: this.currentDataObjectId,
         })
         .then(response => {
-          this.fileList = response;
+          this.fileReferenceList = response;
         })
         .catch(e => {
           console.log("Error while fetching File References" + e);
