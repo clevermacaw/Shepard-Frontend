@@ -85,7 +85,7 @@
             <b-col cols="1">
               <b-button
                 v-show="i == possiblePredecessors.length - 1"
-                class="fixed_width"
+                class="fixed-width"
                 variant="success"
                 @click="
                   possiblePredecessors.push({
@@ -93,17 +93,17 @@
                     name: '',
                   })
                 "
-                >+</b-button
-              >
+                ><create-icon
+              /></b-button>
             </b-col>
             <b-col cols="1">
               <b-button
                 v-show="i || (!i && possiblePredecessors.length > 1)"
-                class="fixed_width"
+                class="fixed-width"
                 variant="danger"
                 @click="possiblePredecessors.splice(i, 1)"
-                >-</b-button
-              >
+                ><remove-icon
+              /></b-button>
             </b-col>
           </b-row>
         </b-form-group>
@@ -134,7 +134,7 @@
               <b-col cols="1">
                 <b-button
                   v-show="i == possibleAttributes.length - 1"
-                  class="fixed_width"
+                  class="fixed-width"
                   variant="success"
                   @click="
                     possibleAttributes.push({
@@ -142,17 +142,17 @@
                       value: '',
                     })
                   "
-                  >+</b-button
-                >
+                  ><create-icon
+                /></b-button>
               </b-col>
               <b-col cols="1">
                 <b-button
                   v-show="i || (!i && possibleAttributes.length > 1)"
-                  class="fixed_width"
+                  class="fixed-width"
                   variant="danger"
                   @click="possibleAttributes.splice(i, 1)"
-                  >-</b-button
-                >
+                  ><remove-icon
+                /></b-button>
               </b-col>
             </b-row>
           </b-form-group>
@@ -363,10 +363,9 @@ export default (
 </script>
 
 <style scoped>
-.fixed_width {
+.fixed-width {
   width: 40px;
-  height: 39px;
+  height: 40px;
   padding: 0px;
-  font-size: 1.5em;
 }
 </style>

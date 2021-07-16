@@ -22,6 +22,7 @@
         v-model="newName"
         placeholder="Name"
         @keyup.enter="createEntity"
+        class="fixed-height"
       ></b-form-input>
       <b-input-group-append>
         <b-button variant="primary" @click="createEntity">
@@ -93,5 +94,8 @@ export default Vue.extend({
 }
 .left-align {
   float: left;
+}
+.fixed-height {
+  height: 40px;
 }
 </style>
