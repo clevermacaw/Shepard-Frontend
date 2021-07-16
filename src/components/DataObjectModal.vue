@@ -229,7 +229,9 @@ export default (
 
   methods: {
     prepare() {
-      this.newDataObject = this.currentDataObject ? this.currentDataObject : {};
+      this.newDataObject = this.currentDataObject
+        ? { ...this.currentDataObject }
+        : {};
       this.possiblePredecessors = [];
       this.possibleAttributes = [];
       this.validationError = false;
@@ -316,7 +318,7 @@ export default (
         })
         .catch(e => {
           obj.name = "";
-          console.log("Error while validating dataObject" + e);
+          console.log("Error while validating dataObject " + e);
           this.validationError = true;
         })
         .finally();
@@ -338,7 +340,7 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while creating dataObject" + e);
+          console.log("Error while creating dataObject " + e);
         })
         .finally();
     },
@@ -358,7 +360,7 @@ export default (
           this.$emit("dataObjectChanged");
         })
         .catch(e => {
-          console.log("Error while updating dataObject" + e);
+          console.log("Error while updating dataObject " + e);
         })
         .finally();
     },

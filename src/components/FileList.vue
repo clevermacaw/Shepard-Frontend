@@ -69,7 +69,7 @@ export default (
           this.fileReferenceList = response;
         })
         .catch(e => {
-          console.log("Error while fetching File References" + e);
+          console.log("Error while fetching File References " + e);
         })
         .finally();
     },
@@ -87,7 +87,7 @@ export default (
           // this.getFile(response, filename);
         })
         .catch(e => {
-          console.log("Error while fetching Project File Reference" + e);
+          console.log("Error while fetching Project File Reference " + e);
         })
         .finally();
     },

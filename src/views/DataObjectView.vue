@@ -1,6 +1,9 @@
 <template>
   <div v-if="currentDataObject" class="dataObject">
     <b-button-group class="float-right">
+      <b-button v-b-modal.create-dataObject-modal variant="primary">
+        <create-icon />
+      </b-button>
       <b-button v-b-modal.edit-dataObject-modal variant="light">
         <edit-icon />
       </b-button>
@@ -29,8 +32,11 @@
     </div>
 
     <b-row class="section">
-      <b-col v-if="currentDataObject.parentId">
-        <parent-icon title="Parent" /> Parent
+      <b-col>
+        <parent-icon title="Parents" />
+        <a v-if="currentDataObject.parentId"> 1 </a>
+        <a v-else> 0 </a>
+        Parents
       </b-col>
       <b-col>
         <child-icon title="Children" />
@@ -94,6 +100,12 @@
       modal-id="edit-dataObject-modal"
       modal-name="Edit Data Object"
       @dataObjectChanged="retrieveDataObject()"
+    />
+    <DataObjectModal
+      :current-collection-id="currentCollectionId"
+      :current-data-object="{ parentId: currentDataObject.id }"
+      modal-id="create-dataObject-modal"
+      modal-name="Create Data Object"
     />
   </div>
 </template>

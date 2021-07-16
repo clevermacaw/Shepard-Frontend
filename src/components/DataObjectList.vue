@@ -39,8 +39,10 @@
           <child-icon title="Children" />
           {{ dataObject.childrenIds.length }}
         </div>
-        <div v-if="dataObject.parentId" class="icon">
-          <parent-icon title="Parent" /> 1
+        <div class="icon">
+          <parent-icon title="Parents" />
+          <a v-if="dataObject.parentId"> 1 </a>
+          <a v-else> 0 </a>
         </div>
       </b-list-group-item>
     </b-list-group>

@@ -142,7 +142,7 @@ export default (
           }
         })
         .catch(e => {
-          console.log("Error while fetching collection" + e);
+          console.log("Error while fetching collection " + e);
         })
         .finally();
     },
@@ -153,7 +153,7 @@ export default (
           this.$router.push({ name: "Explore" });
         })
         .catch(e => {
-          console.log("Error while deleting collection" + e);
+          console.log("Error while deleting collection " + e);
         })
         .finally();
     },

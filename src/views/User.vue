@@ -72,7 +72,7 @@ export default (
           this.user = response;
         })
         .catch(e => {
-          console.log("Error while fetching user" + e);
+          console.log("Error while fetching user " + e);
         });
     },
     userTableItems() {

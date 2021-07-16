@@ -71,7 +71,7 @@ export default (
           this.timeseriesList = response;
         })
         .catch(e => {
-          console.log("Error while fetching Timeseries References" + e);
+          console.log("Error while fetching Timeseries References " + e);
         })
         .finally();
     },

@@ -91,7 +91,7 @@ export default (
           this.apiKeys = response;
         })
         .catch(e => {
-          console.log("Error while fetching apiKeys" + e);
+          console.log("Error while fetching apiKeys " + e);
         })
         .finally();
     },
@@ -110,7 +110,7 @@ export default (
           this.$bvModal.show("created-apikey-modal");
         })
         .catch(e => {
-          console.log("Error while creating api key" + e);
+          console.log("Error while creating api key " + e);
         })
         .finally(() => {
           this.retrieveApiKeys();
@@ -124,7 +124,7 @@ export default (
         ?.deleteApiKey({ username: this.currentUsername, apikeyUid: uid })
         .then()
         .catch(e => {
-          console.log("Error while fetching apiKeys" + e);
+          console.log("Error while fetching apiKeys " + e);
         })
         .finally(() => {
           this.retrieveApiKeys();
