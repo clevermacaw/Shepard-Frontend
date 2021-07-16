@@ -33,16 +33,28 @@
         <b-list-group-item v-for="(apiKey, index) in apiKeys" :key="index">
           {{ apiKey.name }}
           <b-button
+            v-b-modal.delete-confirmation-modal
             class="float-right"
             size="sm"
             variant="dark"
-            @click="handleDelete(index)"
+            @click="currentApiKey = apiKey"
           >
             <delete-icon />
           </b-button>
         </b-list-group-item>
       </b-list-group>
     </div>
+    <DeleteConfirmationModal
+      v-if="currentApiKey"
+      modal-id="delete-confirmation-modal"
+      modal-name="Confirm to delete api key"
+      :modal-text="
+        'Do you really want do delete the api key with name ' +
+        currentApiKey.name +
+        '?'
+      "
+      @confirmation="handleDelete(currentApiKey.uid)"
+    />
   </div>
 </template>
 
@@ -50,16 +62,21 @@
 import Vue, { VueConstructor } from "vue";
 import { ApiKey, ApiKeyWithJWT } from "@dlr-shepard/shepard-client";
 import { ApiKeyVue } from "@/utils/api-mixin";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 declare interface ApiKeyListData {
   apiKeys: ApiKey[];
   newName: string;
   createdApiKey?: ApiKeyWithJWT;
+  currentApiKey?: ApiKey;
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof ApiKeyVue>>
 ).extend({
+  components: {
+    DeleteConfirmationModal,
+  },
   mixins: [ApiKeyVue],
   props: {
     currentUsername: {
@@ -72,6 +89,7 @@ export default (
       apiKeys: new Array<ApiKey>(),
       newName: "",
       createdApiKey: undefined,
+      currentApiKey: undefined,
     } as ApiKeyListData;
   },
   watch: {
@@ -117,9 +135,7 @@ export default (
           this.newName = "";
         });
     },
-    handleDelete(index: number) {
-      const uid = this.apiKeys[index].uid;
-      if (!uid) return;
+    handleDelete(uid: string) {
       this.apiKeyApi
         ?.deleteApiKey({ username: this.currentUsername, apikeyUid: uid })
         .then()

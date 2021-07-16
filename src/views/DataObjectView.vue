@@ -7,7 +7,7 @@
       <b-button v-b-modal.edit-dataObject-modal variant="light">
         <edit-icon />
       </b-button>
-      <b-button variant="dark" @click="handleDelete">
+      <b-button v-b-modal.delete-confirmation-modal variant="dark">
         <delete-icon />
       </b-button>
     </b-button-group>
@@ -107,6 +107,16 @@
       modal-id="create-dataObject-modal"
       modal-name="Create Data Object"
     />
+    <DeleteConfirmationModal
+      modal-id="delete-confirmation-modal"
+      modal-name="Confirm to delete data object"
+      :modal-text="
+        'Do you really want do delete the data object with name ' +
+        currentDataObject.name +
+        '?'
+      "
+      @confirmation="handleDelete()"
+    />
   </div>
 </template>
 
@@ -118,6 +128,7 @@ import { DataObjectVue } from "@/utils/api-mixin";
 import DataObjectModal from "@/components/DataObjectModal.vue";
 import ReferencesTable from "@/components/ReferencesTable.vue";
 import RelatedObjectsTable from "@/components/RelatedObjectsTable.vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface DataObjectData {
   currentDataObject?: DataObject;
@@ -134,6 +145,7 @@ export default (
     DataObjectModal,
     ReferencesTable,
     RelatedObjectsTable,
+    DeleteConfirmationModal,
   },
   mixins: [DataObjectVue],
   data() {

@@ -8,7 +8,7 @@
         <b-button v-b-modal.edit-collection-modal variant="light">
           <edit-icon />
         </b-button>
-        <b-button variant="dark" @click="handleDelete">
+        <b-button v-b-modal.delete-confirmation-modal variant="dark">
           <delete-icon />
         </b-button>
       </b-button-group>
@@ -79,11 +79,20 @@
       modal-name="Edit Collection"
       @collectionChanged="retrieveCollection()"
     />
-
     <DataObjectModal
       :current-collection-id="currentCollectionId"
       modal-id="create-data-object-modal"
       modal-name="Create Data Object"
+    />
+    <DeleteConfirmationModal
+      modal-id="delete-confirmation-modal"
+      modal-name="Confirm to delete collection"
+      :modal-text="
+        'Do you really want do delete the collection with name ' +
+        currentCollection.name +
+        '?'
+      "
+      @confirmation="handleDelete()"
     />
   </div>
 </template>
@@ -96,6 +105,7 @@ import DataObjectModal from "@/components/DataObjectModal.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
 import { Collection } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface CollectionData {
   currentCollection?: Collection;
@@ -111,6 +121,7 @@ export default (
     DataObjectList,
     DataObjectModal,
     CollectionModal,
+    DeleteConfirmationModal,
   },
   mixins: [CollectionVue],
   data() {

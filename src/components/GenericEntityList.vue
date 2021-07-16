@@ -46,19 +46,52 @@
           <b-button variant="light" :to="String(entity.id)" append>
             <edit-icon />
           </b-button>
-          <b-button variant="dark" @click="deleteEntity(entity.id)">
+          <b-button
+            v-b-modal.delete-confirmation-modal
+            variant="dark"
+            @click="currentEntity = entity"
+          >
             <delete-icon />
           </b-button>
         </b-button-group>
       </b-list-group-item>
     </b-list-group>
+    <DeleteConfirmationModal
+      v-if="currentEntity"
+      modal-id="delete-confirmation-modal"
+      modal-name="Confirm to delete"
+      :modal-text="
+        'Do you really want do delete the entity with name ' +
+        currentEntity.name +
+        '?'
+      "
+      @confirmation="deleteEntity(currentEntity.id)"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+
+interface Entity {
+  name: string;
+  id: number;
+  createdAt: Date;
+  createdBy: string;
+}
+
+interface GenericEntityListData {
+  currentEntity?: Entity;
+  showCreate: boolean;
+  showDelete: boolean;
+  newName: string;
+}
 
 export default Vue.extend({
+  components: {
+    DeleteConfirmationModal,
+  },
   props: {
     entities: {
       type: Array,
@@ -69,10 +102,11 @@ export default Vue.extend({
   },
   data() {
     return {
+      currentEntity: undefined,
       showCreate: false,
       showDelete: false,
       newName: "",
-    };
+    } as GenericEntityListData;
   },
   methods: {
     createEntity() {
