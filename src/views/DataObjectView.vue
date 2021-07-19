@@ -77,14 +77,9 @@
       </div>
     </div>
 
-    <div v-if="hasAttribute">
-      <h4>Attributes</h4>
-      <ul>
-        <li v-for="(value, key) in currentDataObject.attributes" :key="key">
-          <b>{{ key }}:</b> {{ value }}
-        </li>
-      </ul>
-    </div>
+    <GenericCollapse title="Attributes" v-if="attributeItems.length" visible>
+      <b-table striped small hover :items="attributeItems"> </b-table>
+    </GenericCollapse>
 
     <GenericCollapse title="Related Objects" visible>
       <RelatedObjectsTable :current-data-object="currentDataObject" />
@@ -132,7 +127,7 @@ import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface DataObjectData {
   currentDataObject?: DataObject;
-  hasAttribute: boolean;
+  attributeItems: Array<{ key: string; value: string }>;
   screenWidth: number;
   readMore: boolean;
 }
@@ -151,7 +146,7 @@ export default (
   data() {
     return {
       currentDataObject: undefined,
-      hasAttribute: false,
+      attributeItems: [],
       screenWidth: 0,
       readMore: false,
     } as DataObjectData;
@@ -177,11 +172,12 @@ export default (
         })
         .then(response => {
           this.currentDataObject = response;
-
+          this.attributeItems = [];
           if (this.currentDataObject.attributes !== undefined) {
-            if (Object.keys(this.currentDataObject?.attributes).length > 0) {
-              this.hasAttribute = true;
-            }
+            Object.entries(this.currentDataObject.attributes).forEach(
+              ([key, value]) =>
+                this.attributeItems.push({ key: key, value: value }),
+            );
           }
         })
         .catch(e => {

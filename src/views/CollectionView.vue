@@ -53,14 +53,9 @@
       </div>
     </div>
 
-    <div v-if="hasAttribute">
-      <h4>Attributes</h4>
-      <ul>
-        <li v-for="(value, key) in currentCollection.attributes" :key="key">
-          <b>{{ key }}:</b> {{ value }}
-        </li>
-      </ul>
-    </div>
+    <GenericCollapse title="Attributes" v-if="attributeItems.length" visible>
+      <b-table striped small hover :items="attributeItems"> </b-table>
+    </GenericCollapse>
 
     <GenericCollapse
       v-if="currentCollection.dataObjectIds.length"
@@ -109,7 +104,7 @@ import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface CollectionData {
   currentCollection?: Collection;
-  hasAttribute: boolean;
+  attributeItems: Array<{ key: string; value: string }>;
   readMore: boolean;
 }
 
@@ -127,7 +122,7 @@ export default (
   data() {
     return {
       currentCollection: undefined,
-      hasAttribute: false,
+      attributeItems: [],
       readMore: false,
     } as CollectionData;
   },
@@ -145,11 +140,12 @@ export default (
         ?.getCollection({ collectionId: this.currentCollectionId })
         .then(response => {
           this.currentCollection = response;
-
+          this.attributeItems = [];
           if (this.currentCollection.attributes !== undefined) {
-            if (Object.keys(this.currentCollection?.attributes).length > 0) {
-              this.hasAttribute = true;
-            }
+            Object.entries(this.currentCollection.attributes).forEach(
+              ([key, value]) =>
+                this.attributeItems.push({ key: key, value: value }),
+            );
           }
         })
         .catch(e => {
