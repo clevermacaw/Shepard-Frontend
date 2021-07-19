@@ -7,9 +7,8 @@
         class="list-group-item list-group-item-action"
       >
         <div>
-          <b>{{ fileReference.name }}</b>
-          | ID: {{ fileReference.id }} | Container:
-          {{ fileReference.fileContainerId }}
+          <b>{{ fileReference.name }}</b> | ID: {{ fileReference.id }} |
+          Container: {{ fileReference.fileContainerId }}
         </div>
 
         <small>
@@ -20,6 +19,12 @@
         <div v-for="(file, i) in fileReference.files" :key="i">
           <small>
             <b>Oid:</b> {{ file.oid }} | <b>Filename:</b> {{ file.filename }}
+            <b-link
+              class="float-right"
+              @click="getFilePayload(fileReference.id, file.oid, file.filename)"
+            >
+              Dowload
+            </b-link>
           </small>
         </div>
       </b-list-group-item>
@@ -74,7 +79,7 @@ export default (
         .finally();
     },
 
-    getFilePayload(fileReferenceId: number, oid: string) {
+    getFilePayload(fileReferenceId: number, oid: string, filename: string) {
       this.fileReferenceApi
         ?.getFilePayload({
           collectionId: this.currentCollectionId,
@@ -84,7 +89,7 @@ export default (
         })
         .then(response => {
           console.log("Success");
-          // this.getFile(response, filename);
+          this.getFile(response, filename);
         })
         .catch(e => {
           console.log("Error while fetching Project File Reference " + e);
