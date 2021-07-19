@@ -18,10 +18,12 @@
     </b-alert>
 
     <b-input-group class="component">
+      <!-- Dirty fix: https://stackoverflow.com/a/57044265 -->
       <b-form-input
-        v-model="newName"
         placeholder="Name"
         class="fixed-height"
+        :value="newName"
+        @change="value => (newName = value)"
         @keyup.enter="createEntity"
       ></b-form-input>
       <b-input-group-append>
