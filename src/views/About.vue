@@ -1,23 +1,23 @@
 <template>
   <div class="about">
     <div class="component">
-      <h4>This is an about page</h4>
-      <ul>
-        <li>
-          <strong>Frontend Version</strong> :
-          <code>{{ appVersion }}</code>
-        </li>
-        <li>
-          <strong>Backend Version</strong> :
-          <code v-if="backend">{{ backend.info.version }}</code>
-          <code v-else>unknown</code>
-        </li>
-        <li>
-          <strong>OpenAPI Version</strong> :
-          <code v-if="backend">{{ backend.openapi }}</code>
-          <code v-else>unknown</code>
-        </li>
-      </ul>
+      <h4>About shepard</h4>
+      <b-list-group>
+        <b-list-group-item>
+          <strong>Frontend Version:</strong>
+          <code> {{ appVersion }} </code>
+        </b-list-group-item>
+        <b-list-group-item>
+          <strong>Backend Version:</strong>
+          <code v-if="backend"> {{ backend.info.version }} </code>
+          <code v-else> unknown </code>
+        </b-list-group-item>
+        <b-list-group-item>
+          <strong>OpenAPI Version:</strong>
+          <code v-if="backend"> {{ backend.openapi }} </code>
+          <code v-else> unknown </code>
+        </b-list-group-item>
+      </b-list-group>
     </div>
   </div>
 </template>

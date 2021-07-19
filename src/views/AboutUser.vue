@@ -2,14 +2,11 @@
   <div class="about-user">
     <div class="component">
       <h4>Your current user</h4>
-      <ul class="claims">
-        <li v-for="c in claims" :key="c.key">
-          <strong>{{ c.key }}</strong> : {{ c.value }}
-        </li>
-        <li>
-          <strong>accessToken</strong> : <code>{{ oidcAccessToken }}</code>
-        </li>
-      </ul>
+      <b-list-group>
+        <b-list-group-item v-for="c in claims" :key="c.key">
+          <strong>{{ c.key }}:</strong> {{ c.value }}
+        </b-list-group-item>
+      </b-list-group>
     </div>
   </div>
 </template>
@@ -37,10 +34,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style>
-.claims {
-  list-style: none;
-  text-align: left;
-}
-</style>

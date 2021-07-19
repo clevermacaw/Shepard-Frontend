@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <GenericCollapse title="Attributes" v-if="attributeItems.length" visible>
+    <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
       <b-table striped small hover :items="attributeItems"> </b-table>
     </GenericCollapse>
 
