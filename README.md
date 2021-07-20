@@ -1,31 +1,33 @@
 # shepard frontend
 
-## Project setup
+The shepard frontend is based on [Vue.js](https://vuejs.org/) and [OpenAPI Generator](https://openapi-generator.tech/).
 
-```ps
-npm install
-```
+## Documentation
 
-### Compiles and hot-reloads for development
+- [Vue.js](https://vuejs.org/v2/guide/)
+- [Typescript](https://www.typescriptlang.org/docs/)
+- [BootstrapVue](https://bootstrap-vue.org/)
+- [Material Design Icons](materialdesignicons)
 
-```ps
-npm run serve
-```
+## Downloads
 
-### Compiles and minifies for production
+- NodeJS and npm: <https://nodejs.org/en/download/>
+- Visual Studio Code: <https://code.visualstudio.com/>
+- Vue tooling for VS Code: <https://vuejs.github.io/vetur/>
+- Vue Devtools for Firefox: <https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/>
+- Vue Devtools for Chrome: <https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd>
 
-```ps
-npm run build
-```
+## Installation
 
-### Lints and fixes files
+1. Update environment variables in `.env.development`
+2. Install packages via `npm install`
+3. Run development server via `npm run serve`
 
-```ps
-npm run lint
-```
+## Commands
 
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
-[Views and components](https://stackoverflow.com/a/50866150)
-[Modes and Environment](https://cli.vuejs.org/guide/mode-and-env.html)
+- Install node modules: `npm install`
+- Update packages: `npm update`
+- Compile for development: `npm run serve`
+- Run linter: `npm run lint`
+- Fix linting issues: `npm run fix`
+- Compile for production: `npm run build`
