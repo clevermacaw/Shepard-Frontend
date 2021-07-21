@@ -5,19 +5,18 @@
       <b-form-input
         v-model="newName"
         class="fixed-height"
-        placeholder="Name"
+        placeholder="Please enter a name for the api key you want to create"
         @keyup.enter="handleCreate"
       ></b-form-input>
       <b-input-group-append>
-        <b-button variant="primary" @click="handleCreate">
-          <create-icon />
-        </b-button>
+        <b-button variant="primary" @click="handleCreate"> Create </b-button>
       </b-input-group-append>
     </b-input-group>
     <b-modal
       id="created-apikey-modal"
       ref="modal"
       title="Created Api Key"
+      ok-only
       @ok="createdApiKey = undefined"
     >
       <div v-if="createdApiKey">

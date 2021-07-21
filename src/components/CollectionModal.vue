@@ -4,6 +4,7 @@
     ref="modal"
     size="lg"
     :title="modalName"
+    lazy
     @show="prepareEdit"
     @ok="handleEdit"
   >

@@ -20,16 +20,14 @@
     <b-input-group class="component">
       <!-- Dirty fix: https://stackoverflow.com/a/57044265 -->
       <b-form-input
-        placeholder="Name"
+        placeholder="Please enter a name for the object you want to create"
         class="fixed-height"
         :value="newName"
         @change="value => (newName = value)"
         @keyup.enter="createEntity"
       ></b-form-input>
       <b-input-group-append>
-        <b-button variant="primary" @click="createEntity">
-          <create-icon />
-        </b-button>
+        <b-button variant="primary" @click="createEntity"> Create </b-button>
       </b-input-group-append>
     </b-input-group>
 
@@ -46,7 +44,7 @@
         </div>
         <b-button-group class="right-align">
           <b-button variant="light" :to="String(entity.id)" append>
-            <edit-icon />
+            <open-icon />
           </b-button>
           <b-button
             v-b-modal.delete-confirmation-modal
