@@ -19,6 +19,7 @@ import Delete from "vue-material-design-icons/Delete.vue";
 import Pencil from "vue-material-design-icons/Pencil.vue";
 import Plus from "vue-material-design-icons/Plus.vue";
 import Minus from "vue-material-design-icons/Minus.vue";
+import FileDownloadOutline from "vue-material-design-icons/FileDownloadOutline.vue";
 
 Vue.component("parent-icon", ClipboardArrowUpOutline);
 Vue.component("child-icon", ClipboardArrowDownOutline);
@@ -39,3 +40,4 @@ Vue.component("delete-icon", Delete);
 Vue.component("edit-icon", Pencil);
 Vue.component("create-icon", Plus);
 Vue.component("remove-icon", Minus);
+Vue.component("download-icon", FileDownloadOutline);

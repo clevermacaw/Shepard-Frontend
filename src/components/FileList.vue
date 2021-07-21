@@ -1,5 +1,19 @@
 <template>
   <div class="list">
+    <b-alert
+      v-model="downloadStarted"
+      variant="success"
+      dismissible
+      class="d-flex align-items-center"
+    >
+      Download started. Depending on the size of the file this may take a while.
+      <b-spinner
+        :hidden="!downloadActive"
+        class="ml-auto"
+        small
+        type="grow"
+      ></b-spinner>
+    </b-alert>
     <b-list-group>
       <b-list-group-item
         v-for="(fileReference, index) in fileReferenceList"
@@ -21,9 +35,10 @@
             <b>Oid:</b> {{ file.oid }} | <b>Filename:</b> {{ file.filename }}
             <b-link
               class="float-right"
+              :disabled="downloadActive"
               @click="getFilePayload(fileReference.id, file.oid, file.filename)"
             >
-              Dowload
+              <download-icon />
             </b-link>
           </small>
         </div>
@@ -36,9 +51,12 @@
 import Vue, { VueConstructor } from "vue";
 import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileReferenceVue } from "@/utils/api-mixin";
+import { downloadFile } from "@/utils/download";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];
+  downloadStarted: boolean;
+  downloadActive: boolean;
 }
 
 export default (
@@ -58,6 +76,8 @@ export default (
   data() {
     return {
       fileReferenceList: new Array<FileReference>(),
+      downloadStarted: false,
+      downloadActive: false,
     } as FileListData;
   },
   mounted() {
@@ -80,6 +100,8 @@ export default (
     },
 
     getFilePayload(fileReferenceId: number, oid: string, filename: string) {
+      this.downloadStarted = true;
+      this.downloadActive = true;
       this.fileReferenceApi
         ?.getFilePayload({
           collectionId: this.currentCollectionId,
@@ -88,21 +110,12 @@ export default (
           oid: oid,
         })
         .then(response => {
-          console.log("Success");
-          this.getFile(response, filename);
+          downloadFile(response, filename);
         })
         .catch(e => {
           console.log("Error while fetching Project File Reference " + e);
         })
-        .finally();
-    },
-
-    getFile(response: Blob, filename: string) {
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(response);
-      link.download = filename || "shepard-file";
-      link.click();
-      URL.revokeObjectURL(link.href);
+        .finally(() => (this.downloadActive = false));
     },
   },
 });
