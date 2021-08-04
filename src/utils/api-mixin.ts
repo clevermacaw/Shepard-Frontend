@@ -7,6 +7,8 @@ import {
   TimeseriesReferenceApi,
   StructureddataReferenceApi,
   FileReferenceApi,
+  UriReferenceApi,
+  DataObjectReferenceApi,
   UserApi,
   ApikeyApi,
   ReferenceApi,
@@ -196,6 +198,40 @@ const FileVue = ApiVue.extend({
   },
 });
 
+declare interface DataObjectReferenceData {
+  dataObjectReferenceApi?: DataObjectReferenceApi;
+}
+
+const DataObjectReferenceVue = ApiVue.extend({
+  data() {
+    return {
+      dataObjectReferenceApi: undefined,
+    } as DataObjectReferenceData;
+  },
+  methods: {
+    createApi() {
+      this.dataObjectReferenceApi = new DataObjectReferenceApi(this.config);
+    },
+  },
+});
+
+declare interface UriReferenceData {
+  uriReferenceApi?: UriReferenceApi;
+}
+
+const UriReferenceVue = ApiVue.extend({
+  data() {
+    return {
+      uriReferenceApi: undefined,
+    } as UriReferenceData;
+  },
+  methods: {
+    createApi() {
+      this.uriReferenceApi = new UriReferenceApi(this.config);
+    },
+  },
+});
+
 declare interface UserData {
   userApi?: UserApi;
 }
@@ -239,6 +275,8 @@ export {
   StructuredDataVue,
   FileReferenceVue,
   FileVue,
+  DataObjectReferenceVue,
+  UriReferenceVue,
   UserVue,
   ApiKeyVue,
   ReferenceVue,
