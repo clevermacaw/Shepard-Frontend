@@ -37,7 +37,7 @@ export default (
   methods: {
     retrieveContainers() {
       this.timeseriesApi
-        ?.getAllTimeseriesContainers()
+        ?.getAllTimeseriesContainers({})
         .then(response => {
           this.containers = response;
         })

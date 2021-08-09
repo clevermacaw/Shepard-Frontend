@@ -37,7 +37,7 @@ export default (
   methods: {
     retrieveContainers() {
       this.fileApi
-        ?.getAllFileContainers()
+        ?.getAllFileContainers({})
         .then(response => {
           this.containers = response;
         })

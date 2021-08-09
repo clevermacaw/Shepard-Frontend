@@ -58,7 +58,7 @@ export default (
   methods: {
     retrieveURI() {
       this.uriReferenceApi
-        ?.getAllReferences1({
+        ?.getAllUriReferences({
           collectionId: this.currentCollectionId,
           dataObjectId: this.currentDataObjectId,
         })

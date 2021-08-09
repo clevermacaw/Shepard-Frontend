@@ -37,7 +37,7 @@ export default (
   methods: {
     retrieveContainers() {
       this.structuredDataApi
-        ?.getAllStructuredDataContainers()
+        ?.getAllStructuredDataContainers({})
         .then(response => {
           this.containers = response;
         })
