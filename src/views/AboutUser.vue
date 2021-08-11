@@ -8,19 +8,20 @@
         </b-list-group-item>
       </b-list-group>
     </div>
+    <b-button variant="danger" @click="signOutOidc()"> Sign out </b-button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   computed: {
     ...mapGetters("oidcStore", [
+      "oidcAccessToken",
       "oidcIsAuthenticated",
       "oidcUser",
-      "oidcAccessToken",
     ]),
     claims() {
       if (this.oidcIsAuthenticated) {
@@ -31,6 +32,9 @@ export default Vue.extend({
       }
       return [];
     },
+  },
+  methods: {
+    ...mapActions("oidcStore", ["signOutOidc"]),
   },
 });
 </script>
