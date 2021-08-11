@@ -33,6 +33,10 @@
         <div v-for="(file, i) in fileReference.files" :key="i">
           <small>
             <b>Oid:</b> {{ file.oid }} | <b>Filename:</b> {{ file.filename }}
+            <a v-if="file.createdAt">
+              | <b>Created at:</b>
+              {{ new Date(file.createdAt).toLocaleString() }}
+            </a>
             <b-link
               class="float-right"
               :disabled="downloadActive"

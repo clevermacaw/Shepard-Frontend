@@ -17,8 +17,8 @@
           {{ timeseriesItem.createdBy }}
           <br />
           <b>start:</b>
-          {{ new Date(timeseriesItem.start / 1e6).toISOString() }} |
-          <b>end:</b> {{ new Date(timeseriesItem.end / 1e6).toISOString() }}
+          {{ new Date(timeseriesItem.start / 1e6).toLocaleString() }} |
+          <b>end:</b> {{ new Date(timeseriesItem.end / 1e6).toLocaleString() }}
         </small>
         <b-table striped hover small :items="timeseriesItem.timeseries">
         </b-table>
