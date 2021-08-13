@@ -34,6 +34,9 @@
     <div class="component">
       <ApiKeyList :current-username="user ? user.username : undefined" />
     </div>
+    <div class="component">
+      <SubscriptionList :current-username="user ? user.username : undefined" />
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,7 @@
 import Vue, { VueConstructor } from "vue";
 import { User } from "@dlr-shepard/shepard-client";
 import ApiKeyList from "@/components/ApiKeysList.vue";
+import SubscriptionList from "@/components/SubscriptionList.vue";
 import { UserVue } from "@/utils/api-mixin";
 
 interface UserData {
@@ -53,6 +57,7 @@ export default (
 ).extend({
   components: {
     ApiKeyList,
+    SubscriptionList,
   },
   mixins: [UserVue],
   data() {

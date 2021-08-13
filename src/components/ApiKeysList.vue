@@ -137,9 +137,8 @@ export default (
     handleDelete(uid: string) {
       this.apiKeyApi
         ?.deleteApiKey({ username: this.currentUsername, apikeyUid: uid })
-        .then()
         .catch(e => {
-          console.log("Error while fetching apiKeys " + e);
+          console.log("Error while deleting apiKey " + e);
         })
         .finally(() => {
           this.retrieveApiKeys();

@@ -15,6 +15,7 @@ import {
   TimeseriesApi,
   StructureddataApi,
   FileApi,
+  SubscriptionApi,
 } from "@dlr-shepard/shepard-client";
 import getEnv from "@/utils/env";
 
@@ -266,6 +267,23 @@ const ApiKeyVue = ApiVue.extend({
   },
 });
 
+declare interface SubscriptionData {
+  subscriptionApi?: SubscriptionApi;
+}
+
+const SubscriptionVue = ApiVue.extend({
+  data() {
+    return {
+      subscriptionApi: undefined,
+    } as SubscriptionData;
+  },
+  methods: {
+    createApi() {
+      this.subscriptionApi = new SubscriptionApi(this.config);
+    },
+  },
+});
+
 export {
   CollectionVue,
   DataObjectVue,
@@ -280,4 +298,5 @@ export {
   UserVue,
   ApiKeyVue,
   ReferenceVue,
+  SubscriptionVue,
 };
