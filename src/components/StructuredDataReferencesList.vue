@@ -17,18 +17,21 @@
         </small>
         <br />
         <div
-          v-for="(
-            structuredData, oidIndex
-          ) in structuredDataReference.structuredDatas"
-          :key="oidIndex"
+          v-for="(oid, i) in structuredDataReference.structuredDataOids"
+          :key="i"
           class="list-group-item list-group-item-action"
         >
-          <small>
-            <b>Oid: </b>
-            {{ structuredData.oid }}
+          <small v-if="structuredDatas[oid]">
+            <b>Oid:</b> {{ oid }} | <b>Name:</b>
+            {{ structuredDatas[oid].structuredData.name }} | <b>Created at:</b>
+            {{
+              new Date(
+                structuredDatas[oid].structuredData.createdAt,
+              ).toLocaleString()
+            }}
             <br />
             <b>Payload: </b>
-            <code> {{ structuredDataPayload[structuredData.oid] }} </code>
+            <code> {{ structuredDatas[oid].payload }} </code>
           </small>
         </div>
       </b-list-group-item>
@@ -38,12 +41,15 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import { StructuredDataReference } from "@dlr-shepard/shepard-client";
+import {
+  StructuredDataPayload,
+  StructuredDataReference,
+} from "@dlr-shepard/shepard-client";
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];
-  structuredDataPayload: { [key: string]: string | undefined };
+  structuredDatas: { [key: string]: StructuredDataPayload | undefined };
 }
 
 export default (
@@ -63,7 +69,7 @@ export default (
   data() {
     return {
       structuredDataList: [],
-      structuredDataPayload: {},
+      structuredDatas: {},
     } as StructuredDataListData;
   },
   mounted() {
@@ -79,7 +85,7 @@ export default (
         .then(response => {
           this.structuredDataList = response;
           this.structuredDataList.forEach(reference => {
-            if (reference.id) this.retrieveStructuredDataPayload(reference.id);
+            if (reference.id) this.retrieveStructuredDatas(reference.id);
           });
         })
         .catch(e => {
@@ -88,7 +94,7 @@ export default (
         .finally();
     },
 
-    retrieveStructuredDataPayload(id: number) {
+    retrieveStructuredDatas(id: number) {
       this.structuredDataReferenceApi
         ?.getStructuredDataPayload({
           collectionId: this.currentCollectionId,
@@ -98,10 +104,9 @@ export default (
         .then(response => {
           response.forEach(payload => {
             if (payload?.structuredData?.oid)
-              this.structuredDataPayload[payload.structuredData.oid] =
-                payload.payload;
+              this.structuredDatas[payload.structuredData.oid] = payload;
           });
-          this.structuredDataPayload = { ...this.structuredDataPayload };
+          this.structuredDatas = { ...this.structuredDatas };
         })
         .catch(e => {
           console.log("Error while fetching StructuredDataPayload " + e);

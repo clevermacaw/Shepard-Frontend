@@ -30,17 +30,19 @@
           {{ fileReference.createdBy }}
         </small>
 
-        <div v-for="(file, i) in fileReference.files" :key="i">
-          <small>
-            <b>Oid:</b> {{ file.oid }} | <b>Filename:</b> {{ file.filename }}
-            <a v-if="file.createdAt">
+        <div v-for="(oid, i) in fileReference.fileOids" :key="i">
+          <small v-if="files[oid]">
+            <b>Oid:</b> {{ oid }} | <b>Filename:</b> {{ files[oid].filename }}
+            <a v-if="files[oid].createdAt">
               | <b>Created at:</b>
-              {{ new Date(file.createdAt).toLocaleString() }}
+              {{ new Date(files[oid].createdAt).toLocaleString() }}
             </a>
             <b-link
               class="float-right"
               :disabled="downloadActive"
-              @click="getFilePayload(fileReference.id, file.oid, file.filename)"
+              @click="
+                getFilePayload(fileReference.id, oid, files[oid].filename)
+              "
             >
               <download-icon />
             </b-link>
@@ -59,6 +61,7 @@ import { downloadFile } from "@/utils/download";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];
+  files: { [key: string]: string | undefined };
   downloadStarted: boolean;
   downloadActive: boolean;
 }
@@ -79,7 +82,8 @@ export default (
   },
   data() {
     return {
-      fileReferenceList: new Array<FileReference>(),
+      fileReferenceList: [],
+      files: {},
       downloadStarted: false,
       downloadActive: false,
     } as FileListData;
@@ -96,9 +100,32 @@ export default (
         })
         .then(response => {
           this.fileReferenceList = response;
+          this.fileReferenceList.forEach(reference => {
+            if (reference.id) this.getFiles(reference.id);
+          });
         })
         .catch(e => {
           console.log("Error while fetching File References " + e);
+        })
+        .finally();
+    },
+
+    getFiles(id: number) {
+      this.fileReferenceApi
+        ?.getFiles({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          fileReferenceId: id,
+        })
+        .then(response => {
+          response.forEach(payload => {
+            console.log(payload);
+            if (payload?.oid) this.files[payload.oid] = payload;
+          });
+          this.files = { ...this.files };
+        })
+        .catch(e => {
+          console.log("Error while fetching Files " + e);
         })
         .finally();
     },
