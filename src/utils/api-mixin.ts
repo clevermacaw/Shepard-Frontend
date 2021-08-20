@@ -44,15 +44,13 @@ const ApiVue = Vue.extend({
   },
 });
 
-declare interface CollectionData {
+interface CollectionData {
   collectionApi?: CollectionApi;
 }
 
 const CollectionVue = ApiVue.extend({
   data() {
-    return {
-      collectionApi: undefined,
-    } as CollectionData;
+    return { collectionApi: undefined } as CollectionData;
   },
   methods: {
     createApi() {
@@ -61,15 +59,13 @@ const CollectionVue = ApiVue.extend({
   },
 });
 
-declare interface DataObjectData {
+interface DataObjectData {
   dataObjectApi?: DataObjectApi;
 }
 
 const DataObjectVue = ApiVue.extend({
   data() {
-    return {
-      dataObjectApi: undefined,
-    } as DataObjectData;
+    return { dataObjectApi: undefined } as DataObjectData;
   },
   methods: {
     createApi() {
@@ -78,15 +74,13 @@ const DataObjectVue = ApiVue.extend({
   },
 });
 
-declare interface ReferenceData {
+interface ReferenceData {
   referenceApi?: ReferenceApi;
 }
 
 const ReferenceVue = ApiVue.extend({
   data() {
-    return {
-      referenceApi: undefined,
-    } as ReferenceData;
+    return { referenceApi: undefined } as ReferenceData;
   },
   methods: {
     createApi() {
@@ -95,15 +89,13 @@ const ReferenceVue = ApiVue.extend({
   },
 });
 
-declare interface TimeseriesReferenceData {
+interface TimeseriesReferenceData {
   timeseriesReferenceApi?: TimeseriesReferenceApi;
 }
 
 const TimeseriesReferenceVue = ApiVue.extend({
   data() {
-    return {
-      timeseriesReferenceApi: undefined,
-    } as TimeseriesReferenceData;
+    return { timeseriesReferenceApi: undefined } as TimeseriesReferenceData;
   },
   methods: {
     createApi() {
@@ -112,15 +104,13 @@ const TimeseriesReferenceVue = ApiVue.extend({
   },
 });
 
-declare interface TimeseriesData {
+interface TimeseriesData {
   timeseriesApi?: TimeseriesApi;
 }
 
 const TimeseriesVue = ApiVue.extend({
   data() {
-    return {
-      timeseriesApi: undefined,
-    } as TimeseriesData;
+    return { timeseriesApi: undefined } as TimeseriesData;
   },
   methods: {
     createApi() {
@@ -129,7 +119,7 @@ const TimeseriesVue = ApiVue.extend({
   },
 });
 
-declare interface StructuredDataReferenceData {
+interface StructuredDataReferenceData {
   structuredDataReferenceApi?: StructureddataReferenceApi;
 }
 
@@ -148,15 +138,13 @@ const StructuredDataReferenceVue = ApiVue.extend({
   },
 });
 
-declare interface StructuredDataData {
+interface StructuredDataData {
   structuredDataApi?: StructureddataApi;
 }
 
 const StructuredDataVue = ApiVue.extend({
   data() {
-    return {
-      structuredDataApi: undefined,
-    } as StructuredDataData;
+    return { structuredDataApi: undefined } as StructuredDataData;
   },
   methods: {
     createApi() {
@@ -165,15 +153,13 @@ const StructuredDataVue = ApiVue.extend({
   },
 });
 
-declare interface FileReferenceData {
+interface FileReferenceData {
   fileReferenceApi?: FileReferenceApi;
 }
 
 const FileReferenceVue = ApiVue.extend({
   data() {
-    return {
-      fileReferenceApi: undefined,
-    } as FileReferenceData;
+    return { fileReferenceApi: undefined } as FileReferenceData;
   },
   methods: {
     createApi() {
@@ -182,15 +168,13 @@ const FileReferenceVue = ApiVue.extend({
   },
 });
 
-declare interface FileData {
+interface FileData {
   fileApi?: FileApi;
 }
 
 const FileVue = ApiVue.extend({
   data() {
-    return {
-      fileApi: undefined,
-    } as FileData;
+    return { fileApi: undefined } as FileData;
   },
   methods: {
     createApi() {
@@ -199,15 +183,13 @@ const FileVue = ApiVue.extend({
   },
 });
 
-declare interface DataObjectReferenceData {
+interface DataObjectReferenceData {
   dataObjectReferenceApi?: DataObjectReferenceApi;
 }
 
 const DataObjectReferenceVue = ApiVue.extend({
   data() {
-    return {
-      dataObjectReferenceApi: undefined,
-    } as DataObjectReferenceData;
+    return { dataObjectReferenceApi: undefined } as DataObjectReferenceData;
   },
   methods: {
     createApi() {
@@ -216,15 +198,13 @@ const DataObjectReferenceVue = ApiVue.extend({
   },
 });
 
-declare interface UriReferenceData {
+interface UriReferenceData {
   uriReferenceApi?: UriReferenceApi;
 }
 
 const UriReferenceVue = ApiVue.extend({
   data() {
-    return {
-      uriReferenceApi: undefined,
-    } as UriReferenceData;
+    return { uriReferenceApi: undefined } as UriReferenceData;
   },
   methods: {
     createApi() {
@@ -233,15 +213,13 @@ const UriReferenceVue = ApiVue.extend({
   },
 });
 
-declare interface UserData {
+interface UserData {
   userApi?: UserApi;
 }
 
 const UserVue = ApiVue.extend({
   data() {
-    return {
-      userApi: undefined,
-    } as UserData;
+    return { userApi: undefined } as UserData;
   },
   methods: {
     createApi() {
@@ -250,15 +228,13 @@ const UserVue = ApiVue.extend({
   },
 });
 
-declare interface ApiKeyData {
+interface ApiKeyData {
   apiKeyApi?: ApikeyApi;
 }
 
 const ApiKeyVue = ApiVue.extend({
   data() {
-    return {
-      apiKeyApi: undefined,
-    } as ApiKeyData;
+    return { apiKeyApi: undefined } as ApiKeyData;
   },
   methods: {
     createApi() {
@@ -267,15 +243,13 @@ const ApiKeyVue = ApiVue.extend({
   },
 });
 
-declare interface SubscriptionData {
+interface SubscriptionData {
   subscriptionApi?: SubscriptionApi;
 }
 
 const SubscriptionVue = ApiVue.extend({
   data() {
-    return {
-      subscriptionApi: undefined,
-    } as SubscriptionData;
+    return { subscriptionApi: undefined } as SubscriptionData;
   },
   methods: {
     createApi() {
