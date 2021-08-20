@@ -32,26 +32,7 @@
       </small>
     </p>
 
-    <div v-if="currentCollection.description">
-      <h4>Description</h4>
-      <div class="description">
-        <div v-if="currentCollection.description.length < 300">
-          {{ currentCollection.description }}
-        </div>
-        <div v-else>
-          <a v-if="readMore">
-            {{ currentCollection.description }}
-          </a>
-          <a v-else>
-            {{ currentCollection.description.substring(0, 300) + "..." }}
-          </a>
-          <a @click="readMore = !readMore">
-            <span v-if="readMore" class="moreorless">Read Less</span>
-            <span v-else class="moreorless">Read More</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    <GenericDescription :text="currentCollection.description" />
 
     <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
       <b-table striped small hover :items="attributeItems"> </b-table>
@@ -94,18 +75,18 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
+import { Collection } from "@dlr-shepard/shepard-client";
+import { CollectionVue } from "@/utils/api-mixin";
 import DataObjectList from "@/components/DataObjectList.vue";
 import CollectionModal from "@/components/CollectionModal.vue";
 import DataObjectModal from "@/components/DataObjectModal.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
-import { Collection } from "@dlr-shepard/shepard-client";
-import { CollectionVue } from "@/utils/api-mixin";
+import GenericDescription from "@/components/GenericDescription.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface CollectionData {
   currentCollection?: Collection;
   attributeItems: Array<{ key: string; value: string }>;
-  readMore: boolean;
 }
 
 export default (
@@ -113,6 +94,7 @@ export default (
 ).extend({
   components: {
     GenericCollapse,
+    GenericDescription,
     DataObjectList,
     DataObjectModal,
     CollectionModal,
@@ -123,7 +105,6 @@ export default (
     return {
       currentCollection: undefined,
       attributeItems: [],
-      readMore: false,
     } as CollectionData;
   },
   computed: {

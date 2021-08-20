@@ -33,11 +33,6 @@ export default Vue.extend({
   opacity: 0.6;
 }
 
-.moreorless {
-  font-style: italic;
-  color: blue;
-}
-
 .description {
   font-style: italic;
   text-align: justify;

@@ -56,26 +56,7 @@
       </b-col>
     </b-row>
 
-    <div v-if="currentDataObject.description">
-      <h4>Description</h4>
-      <div class="description">
-        <div v-if="currentDataObject.description.length < 300">
-          {{ currentDataObject.description }}
-        </div>
-        <div v-else>
-          <a v-if="readMore">
-            {{ currentDataObject.description }}
-          </a>
-          <a v-else>
-            {{ currentDataObject.description.substring(0, 300) + "..." }}
-          </a>
-          <a @click="readMore = !readMore">
-            <span v-if="readMore" class="moreorless">Read Less</span>
-            <span v-else class="moreorless">Read More</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    <GenericDescription :text="currentDataObject.description" />
 
     <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
       <b-table striped small hover :items="attributeItems"> </b-table>
@@ -117,9 +98,10 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import GenericCollapse from "@/components/GenericCollapse.vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
+import GenericCollapse from "@/components/GenericCollapse.vue";
+import GenericDescription from "@/components/GenericDescription.vue";
 import DataObjectModal from "@/components/DataObjectModal.vue";
 import ReferencesTable from "@/components/ReferencesTable.vue";
 import RelatedObjectsTable from "@/components/RelatedObjectsTable.vue";
@@ -129,7 +111,6 @@ interface DataObjectData {
   currentDataObject?: DataObject;
   attributeItems: Array<{ key: string; value: string }>;
   screenWidth: number;
-  readMore: boolean;
 }
 
 export default (
@@ -137,6 +118,7 @@ export default (
 ).extend({
   components: {
     GenericCollapse,
+    GenericDescription,
     DataObjectModal,
     ReferencesTable,
     RelatedObjectsTable,
@@ -148,7 +130,6 @@ export default (
       currentDataObject: undefined,
       attributeItems: [],
       screenWidth: 0,
-      readMore: false,
     } as DataObjectData;
   },
   computed: {
