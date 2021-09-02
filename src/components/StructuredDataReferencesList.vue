@@ -21,7 +21,7 @@
           :key="i"
           class="list-group-item list-group-item-action"
         >
-          <small>
+          <small v-if="structuredDatas[oid]">
             <div v-if="structuredDatas[oid].structuredData.createdAt">
               <b>Oid:</b> {{ oid }} | <b>Name:</b>
               {{ structuredDatas[oid].structuredData.name }} |

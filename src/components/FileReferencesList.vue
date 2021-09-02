@@ -39,7 +39,7 @@
         </small>
 
         <div v-for="(oid, i) in fileReference.fileOids" :key="i">
-          <small>
+          <small v-if="files[oid]">
             <b>Oid:</b> {{ oid }} | <b>Filename:</b> {{ files[oid].filename }}
             <a v-if="files[oid].createdAt">
               | <b>Created at:</b>
