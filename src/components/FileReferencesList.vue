@@ -14,6 +14,14 @@
         type="grow"
       ></b-spinner>
     </b-alert>
+    <b-alert
+      v-model="downloadError"
+      variant="danger"
+      dismissible
+      class="d-flex align-items-center"
+    >
+      File is missing
+    </b-alert>
     <b-list-group>
       <b-list-group-item
         v-for="(fileReference, index) in fileReferenceList"
@@ -31,7 +39,7 @@
         </small>
 
         <div v-for="(oid, i) in fileReference.fileOids" :key="i">
-          <small v-if="files[oid]">
+          <small>
             <b>Oid:</b> {{ oid }} | <b>Filename:</b> {{ files[oid].filename }}
             <a v-if="files[oid].createdAt">
               | <b>Created at:</b>
@@ -61,9 +69,10 @@ import { downloadFile } from "@/utils/download";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];
-  files: { [key: string]: string | undefined };
+  files: { [key: string]: string };
   downloadStarted: boolean;
   downloadActive: boolean;
+  downloadError: boolean;
 }
 
 export default (
@@ -86,6 +95,7 @@ export default (
       files: {},
       downloadStarted: false,
       downloadActive: false,
+      downloadError: false,
     } as FileListData;
   },
   mounted() {
@@ -118,11 +128,13 @@ export default (
           fileReferenceId: id,
         })
         .then(response => {
+          const temp: { [key: string]: string } = {};
           response.forEach(payload => {
-            console.log(payload);
-            if (payload?.oid) this.files[payload.oid] = payload;
+            if (payload?.oid) {
+              temp[payload.oid] = payload;
+            }
           });
-          this.files = { ...this.files };
+          this.files = { ...this.files, ...temp };
         })
         .catch(e => {
           console.log("Error while fetching Files " + e);
@@ -144,7 +156,9 @@ export default (
           downloadFile(response, filename);
         })
         .catch(e => {
-          console.log("Error while fetching Project File Reference " + e);
+          console.log("Error while fetching File Payload " + e);
+          this.downloadStarted = false;
+          this.downloadError = true;
         })
         .finally(() => (this.downloadActive = false));
     },

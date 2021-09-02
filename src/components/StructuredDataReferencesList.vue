@@ -21,17 +21,23 @@
           :key="i"
           class="list-group-item list-group-item-action"
         >
-          <small v-if="structuredDatas[oid]">
-            <b>Oid:</b> {{ oid }} | <b>Name:</b>
-            {{ structuredDatas[oid].structuredData.name }} | <b>Created at:</b>
-            {{
-              new Date(
-                structuredDatas[oid].structuredData.createdAt,
-              ).toLocaleString()
-            }}
-            <br />
+          <small>
+            <div v-if="structuredDatas[oid].structuredData.createdAt">
+              <b>Oid:</b> {{ oid }} | <b>Name:</b>
+              {{ structuredDatas[oid].structuredData.name }} |
+              <b>Created at:</b>
+              {{
+                new Date(
+                  structuredDatas[oid].structuredData.createdAt,
+                ).toLocaleString()
+              }}
+            </div>
+            <div v-else><b>Oid:</b> {{ oid }}</div>
             <b>Payload: </b>
-            <code> {{ structuredDatas[oid].payload }} </code>
+            <code v-if="structuredDatas[oid].payload">
+              {{ structuredDatas[oid].payload }}
+            </code>
+            <code v-else>Payload is missing</code>
           </small>
         </div>
       </b-list-group-item>
@@ -49,7 +55,7 @@ import { StructuredDataReferenceVue } from "@/utils/api-mixin";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];
-  structuredDatas: { [key: string]: StructuredDataPayload | undefined };
+  structuredDatas: { [key: string]: StructuredDataPayload };
 }
 
 export default (
@@ -102,11 +108,13 @@ export default (
           structureddataReferenceId: id,
         })
         .then(response => {
+          const temp: { [key: string]: StructuredDataPayload } = {};
           response.forEach(payload => {
-            if (payload?.structuredData?.oid)
-              this.structuredDatas[payload.structuredData.oid] = payload;
+            if (payload?.structuredData?.oid) {
+              temp[payload.structuredData.oid] = payload;
+            }
           });
-          this.structuredDatas = { ...this.structuredDatas };
+          this.structuredDatas = { ...this.structuredDatas, ...temp };
         })
         .catch(e => {
           console.log("Error while fetching StructuredDataPayload " + e);
