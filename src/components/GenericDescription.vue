@@ -48,6 +48,10 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.description {
+  font-style: italic;
+  text-align: justify;
+}
 .moreorless {
   font-style: italic;
   color: blue;

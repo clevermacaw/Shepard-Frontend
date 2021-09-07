@@ -150,13 +150,6 @@ export default (
 </script>
 
 <style scoped>
-h3 {
-  font-weight: bold;
-}
-h4 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
 .listElement {
   border: solid thin;
   border-color: #e3e3e3;

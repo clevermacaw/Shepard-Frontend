@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .breadcrumb {
   font-style: italic;
   margin-top: 30px;

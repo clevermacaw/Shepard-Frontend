@@ -188,13 +188,6 @@ export default (
 </script>
 
 <style scoped>
-h3 {
-  font-weight: bold;
-}
-h4 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
 .section {
   margin-top: 30px;
   margin-bottom: 10px;

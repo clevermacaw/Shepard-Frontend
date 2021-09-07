@@ -33,8 +33,12 @@ export default Vue.extend({
   opacity: 0.6;
 }
 
-.description {
-  font-style: italic;
-  text-align: justify;
+h3 {
+  font-weight: bold;
+}
+
+h4 {
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 </style>

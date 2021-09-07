@@ -41,7 +41,7 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style scoped>
 #brand {
   margin-left: 20px;
 }
