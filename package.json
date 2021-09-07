@@ -9,9 +9,9 @@
     "fix": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dlr-shepard/shepard-client": "^2021.8.17",
+    "@dlr-shepard/shepard-client": "^2021.9.7",
     "bootstrap-vue": "^2.21.2",
-    "nanoid": "^3.1.23",
+    "nanoid": "^3.1.25",
     "oidc-client": "^1.11.5",
     "vue": "^2.6.14",
     "vue-material-design-icons": "^4.12.1",
@@ -20,8 +20,8 @@
     "vuex-oidc": "^3.10.3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-plugin-typescript": "^4.5.13",
@@ -31,15 +31,15 @@
     "@vue/eslint-config-typescript": "^7.0.0",
     "bootstrap": "^4.6.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-vue": "^7.17.0",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
-    "prettier": "^2.3.1",
-    "sass": "^1.35.1",
+    "prettier": "^2.3.2",
+    "sass": "^1.39.0",
     "sass-loader": "^10.2.0",
-    "typescript": "^4.3.4",
-    "vue-cli-plugin-bootstrap-vue": "^0.7.0",
+    "typescript": "^4.4.2",
+    "vue-cli-plugin-bootstrap-vue": "^0.8.1",
     "vue-template-compiler": "^2.6.14"
   }
 }
