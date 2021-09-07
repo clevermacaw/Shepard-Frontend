@@ -40,10 +40,10 @@
 import Vue, { VueConstructor } from "vue";
 import { BasicReference, DataObject } from "@dlr-shepard/shepard-client";
 import { ReferenceVue } from "@/utils/api-mixin";
-import TimeseriesReferencesList from "@/components/TimeseriesReferencesList.vue";
-import StructuredDataReferencesList from "@/components/StructuredDataReferencesList.vue";
-import FileReferencesList from "@/components/FileReferencesList.vue";
-import UriReferencesList from "@/components/UriReferencesList.vue";
+import TimeseriesReferencesList from "@/components/references/TimeseriesReferencesList.vue";
+import StructuredDataReferencesList from "@/components/references/StructuredDataReferencesList.vue";
+import FileReferencesList from "@/components/references/FileReferencesList.vue";
+import UriReferencesList from "@/components/references/UriReferencesList.vue";
 
 interface DataObjectData {
   currentReferences: BasicReference[];

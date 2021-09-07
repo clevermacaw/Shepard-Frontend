@@ -49,7 +49,7 @@ import {
   GetAllDataObjectsOrderByEnum,
 } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
-import DataObjectListItem from "@/components/DataObjectListItem.vue";
+import DataObjectListItem from "@/components/dataobjects/DataObjectListItem.vue";
 
 interface DataObjectListData {
   dataObjects: DataObject[];

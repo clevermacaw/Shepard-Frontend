@@ -75,9 +75,9 @@
 import Vue, { VueConstructor } from "vue";
 import { Collection } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
-import ChildrenList from "@/components/ChildrenList.vue";
+import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
 import CollectionModal from "@/components/CollectionModal.vue";
-import DataObjectModal from "@/components/DataObjectModal.vue";
+import DataObjectModal from "@/components/dataobjects/DataObjectModal.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
 import GenericDescription from "@/components/GenericDescription.vue";
 import CreatedByLine from "@/components/CreatedByLine.vue";

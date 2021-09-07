@@ -99,9 +99,9 @@ import { DataObjectVue } from "@/utils/api-mixin";
 import GenericCollapse from "@/components/GenericCollapse.vue";
 import GenericDescription from "@/components/GenericDescription.vue";
 import CreatedByLine from "@/components/CreatedByLine.vue";
-import DataObjectModal from "@/components/DataObjectModal.vue";
-import ReferencesTable from "@/components/ReferencesTable.vue";
-import RelatedObjectsTable from "@/components/RelatedObjectsTable.vue";
+import DataObjectModal from "@/components/dataobjects/DataObjectModal.vue";
+import ReferencesTable from "@/components/references/ReferencesTable.vue";
+import RelatedObjectsTable from "@/components/dataobjects/RelatedObjectsTable.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface DataObjectData {
