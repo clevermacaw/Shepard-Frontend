@@ -15,20 +15,16 @@
     <h3>{{ currentDataObject.name }}</h3>
     <div>
       Object ID: {{ currentDataObject.id }}
-      <br />
-      <small v-if="currentDataObject.createdAt">
-        created at {{ currentDataObject.createdAt.toDateString() }}
-      </small>
-      <small v-if="currentDataObject.createdBy">
-        by {{ currentDataObject.createdBy }}
-      </small>
-      <br />
-      <small v-if="currentDataObject.updatedAt">
-        updated at {{ currentDataObject.updatedAt.toDateString() }}
-      </small>
-      <small v-if="currentDataObject.updatedBy">
-        by {{ currentDataObject.updatedBy }}
-      </small>
+      <CreatedByLine
+        :created-at="currentDataObject.createdAt"
+        :created-by="currentDataObject.createdBy"
+      />
+      <CreatedByLine
+        v-if="currentDataObject.updatedBy"
+        :created-at="currentDataObject.updatedAt"
+        :created-by="currentDataObject.updatedBy"
+        updated
+      />
     </div>
 
     <b-row class="section">
@@ -102,6 +98,7 @@ import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
 import GenericCollapse from "@/components/GenericCollapse.vue";
 import GenericDescription from "@/components/GenericDescription.vue";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 import DataObjectModal from "@/components/DataObjectModal.vue";
 import ReferencesTable from "@/components/ReferencesTable.vue";
 import RelatedObjectsTable from "@/components/RelatedObjectsTable.vue";
@@ -119,6 +116,7 @@ export default (
   components: {
     GenericCollapse,
     GenericDescription,
+    CreatedByLine,
     DataObjectModal,
     ReferencesTable,
     RelatedObjectsTable,

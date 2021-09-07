@@ -14,10 +14,10 @@
       <div>
         <b>{{ dataObject.name }}</b> ID: {{ dataObject.id }}
       </div>
-      <small>
-        created at {{ dataObject.createdAt.toDateString() }} by
-        {{ dataObject.createdBy }}
-      </small>
+      <CreatedByLine
+        :created-by="dataObject.createdBy"
+        :created-at="dataObject.createdAt"
+      />
     </div>
     <div class="icon">
       <references-icon title="References" />
@@ -45,8 +45,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 export default Vue.extend({
+  components: { CreatedByLine },
   props: {
     dataObject: {
       type: Object,

@@ -11,11 +11,10 @@
           | ID: {{ structuredDataReference.id }} | Container:
           {{ structuredDataReference.structuredDataContainerId }}
         </div>
-        <small>
-          created at {{ structuredDataReference.createdAt.toDateString() }} by
-          {{ structuredDataReference.createdBy }}
-        </small>
-        <br />
+        <CreatedByLine
+          :created-by="structuredDataReference.createdBy"
+          :created-at="structuredDataReference.createdAt"
+        />
         <div
           v-for="(oid, i) in structuredDataReference.structuredDataOids"
           :key="i"
@@ -52,6 +51,7 @@ import {
   StructuredDataReference,
 } from "@dlr-shepard/shepard-client";
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];
@@ -61,6 +61,7 @@ declare interface StructuredDataListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataReferenceVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [StructuredDataReferenceVue],
   props: {
     currentCollectionId: {

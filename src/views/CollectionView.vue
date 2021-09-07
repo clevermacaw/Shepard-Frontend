@@ -16,20 +16,16 @@
     </div>
     <p>
       Object ID: {{ currentCollection.id }}
-      <br />
-      <small v-if="currentCollection.createdAt">
-        created at {{ currentCollection.createdAt.toDateString() }}
-      </small>
-      <small v-if="currentCollection.createdBy">
-        by {{ currentCollection.createdBy }}
-      </small>
-      <br />
-      <small v-if="currentCollection.updatedAt">
-        updated at {{ currentCollection.updatedAt.toDateString() }}
-      </small>
-      <small v-if="currentCollection.updatedBy">
-        by {{ currentCollection.updatedBy }}
-      </small>
+      <CreatedByLine
+        :created-at="currentCollection.createdAt"
+        :created-by="currentCollection.createdBy"
+      />
+      <CreatedByLine
+        v-if="currentCollection.updatedBy"
+        :created-at="currentCollection.updatedAt"
+        :created-by="currentCollection.updatedBy"
+        updated
+      />
     </p>
 
     <GenericDescription :text="currentCollection.description" />
@@ -84,6 +80,7 @@ import CollectionModal from "@/components/CollectionModal.vue";
 import DataObjectModal from "@/components/DataObjectModal.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
 import GenericDescription from "@/components/GenericDescription.vue";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface CollectionData {
@@ -97,6 +94,7 @@ export default (
   components: {
     GenericCollapse,
     GenericDescription,
+    CreatedByLine,
     ChildrenList,
     DataObjectModal,
     CollectionModal,

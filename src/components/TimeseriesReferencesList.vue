@@ -11,14 +11,15 @@
           | ID: {{ timeseriesItem.id }} | Container:
           {{ timeseriesItem.timeseriesContainerId }}
         </div>
-
+        <CreatedByLine
+          :created-by="timeseriesItem.createdBy"
+          :created-at="timeseriesItem.createdAt"
+        />
         <small>
-          created at {{ timeseriesItem.createdAt.toDateString() }} by
-          {{ timeseriesItem.createdBy }}
-          <br />
           <b>start:</b>
           {{ new Date(timeseriesItem.start / 1e6).toLocaleString() }} |
-          <b>end:</b> {{ new Date(timeseriesItem.end / 1e6).toLocaleString() }}
+          <b>end:</b>
+          {{ new Date(timeseriesItem.end / 1e6).toLocaleString() }}
         </small>
         <b-table striped hover small :items="timeseriesItem.timeseries">
         </b-table>
@@ -31,6 +32,7 @@
 import Vue, { VueConstructor } from "vue";
 import { TimeseriesReference } from "@dlr-shepard/shepard-client";
 import { TimeseriesReferenceVue } from "@/utils/api-mixin";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 declare interface TimeseriesListData {
   timeseriesList: TimeseriesReference[];
@@ -40,6 +42,7 @@ declare interface TimeseriesListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof TimeseriesReferenceVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [TimeseriesReferenceVue],
   props: {
     currentCollectionId: {

@@ -17,7 +17,7 @@
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item v-if="oidcIsAuthenticated" to="/about-user">
-          Signed in as {{ username }}
+          Signed in as {{ fullName }}
         </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
@@ -34,8 +34,8 @@ export default Vue.extend({
     hasAccess() {
       return this.oidcIsAuthenticated || this.$route.meta?.isPublic;
     },
-    username() {
-      return this.oidcUser?.preferred_username;
+    fullName() {
+      return this.oidcUser?.family_name + ", " + this.oidcUser?.given_name;
     },
   },
 });

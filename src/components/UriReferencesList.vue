@@ -9,13 +9,10 @@
         <div>
           <b>{{ uriItem.name }}</b> | ID: {{ uriItem.id }}
         </div>
-
-        <small>
-          created at {{ uriItem.createdAt.toDateString() }} by
-          {{ uriItem.createdBy }}
-        </small>
-        <br />
-
+        <CreatedByLine
+          :created-by="uriItem.createdBy"
+          :created-at="uriItem.createdAt"
+        />
         <b-link :href="uriItem.uri">{{ uriItem.uri }}</b-link>
       </b-list-group-item>
     </b-list-group>
@@ -26,6 +23,7 @@
 import Vue, { VueConstructor } from "vue";
 import { URIReference } from "@dlr-shepard/shepard-client";
 import { UriReferenceVue } from "@/utils/api-mixin";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 declare interface URIListData {
   uriList: URIReference[];
@@ -35,6 +33,7 @@ declare interface URIListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof UriReferenceVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [UriReferenceVue],
   props: {
     currentCollectionId: {

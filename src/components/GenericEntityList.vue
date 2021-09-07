@@ -38,9 +38,11 @@
         class="list-group-item list-group-item-action"
       >
         <div class="left-align">
-          {{ entity.name }}<br />
-          <small>created at {{ entity.createdAt.toDateString() }}</small>
-          <small> by {{ entity.createdBy }}</small>
+          <b>{{ entity.name }}</b> ID: {{ entity.id }}
+          <CreatedByLine
+            :created-by="entity.createdBy"
+            :created-at="entity.createdAt"
+          />
         </div>
         <b-button-group class="right-align">
           <b-button variant="light" :to="String(entity.id)" append>
@@ -73,6 +75,7 @@
 <script lang="ts">
 import Vue from "vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 interface Entity {
   name: string;
@@ -90,6 +93,7 @@ interface GenericEntityListData {
 
 export default Vue.extend({
   components: {
+    CreatedByLine,
     DeleteConfirmationModal,
   },
   props: {

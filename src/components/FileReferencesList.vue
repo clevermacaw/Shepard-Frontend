@@ -32,12 +32,10 @@
           <b>{{ fileReference.name }}</b> | ID: {{ fileReference.id }} |
           Container: {{ fileReference.fileContainerId }}
         </div>
-
-        <small>
-          created at {{ fileReference.createdAt.toDateString() }} by
-          {{ fileReference.createdBy }}
-        </small>
-
+        <CreatedByLine
+          :created-by="fileReference.createdBy"
+          :created-at="fileReference.createdAt"
+        />
         <div v-for="(oid, i) in fileReference.fileOids" :key="i">
           <small v-if="files[oid]">
             <b>Oid:</b> {{ oid }} | <b>Filename:</b> {{ files[oid].filename }}
@@ -66,6 +64,7 @@ import Vue, { VueConstructor } from "vue";
 import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileReferenceVue } from "@/utils/api-mixin";
 import { downloadFile } from "@/utils/download";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];
@@ -78,6 +77,7 @@ declare interface FileListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileReferenceVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [FileReferenceVue],
   props: {
     currentCollectionId: {
