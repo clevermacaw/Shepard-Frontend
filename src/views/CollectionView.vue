@@ -43,10 +43,12 @@
       title="Data Objects"
       visible
     >
-      <DataObjectList
-        :current-collection-id="currentCollectionId"
-        :parent-id="-1"
-      />
+      <div class="listElement">
+        <ChildrenList
+          :current-collection-id="currentCollectionId"
+          :parent-id="-1"
+        />
+      </div>
     </GenericCollapse>
 
     <CollectionModal
@@ -77,7 +79,7 @@
 import Vue, { VueConstructor } from "vue";
 import { Collection } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
-import DataObjectList from "@/components/DataObjectList.vue";
+import ChildrenList from "@/components/ChildrenList.vue";
 import CollectionModal from "@/components/CollectionModal.vue";
 import DataObjectModal from "@/components/DataObjectModal.vue";
 import GenericCollapse from "@/components/GenericCollapse.vue";
@@ -95,7 +97,7 @@ export default (
   components: {
     GenericCollapse,
     GenericDescription,
-    DataObjectList,
+    ChildrenList,
     DataObjectModal,
     CollectionModal,
     DeleteConfirmationModal,
@@ -156,5 +158,11 @@ h3 {
 h4 {
   margin-top: 30px;
   margin-bottom: 10px;
+}
+.listElement {
+  border: solid thin;
+  border-color: #e3e3e3;
+  border-radius: 5px;
+  padding: 20px;
 }
 </style>

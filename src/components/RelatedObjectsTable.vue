@@ -10,9 +10,10 @@
         />
       </b-tab>
       <b-tab title="Children" :disabled="!currentDataObject.childrenIds.length">
-        <DataObjectList
+        <ChildrenList
           :current-collection-id="currentDataObject.collectionId"
           :parent-id="currentDataObject.id"
+          :max-objects="currentDataObject.childrenIds.length"
         />
       </b-tab>
       <b-tab
@@ -38,16 +39,13 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import Vue from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
-import { DataObjectVue } from "@/utils/api-mixin";
 import DataObjectList from "@/components/DataObjectList.vue";
+import ChildrenList from "@/components/ChildrenList.vue";
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
-).extend({
-  components: { DataObjectList },
-  mixins: [DataObjectVue],
+export default Vue.extend({
+  components: { DataObjectList, ChildrenList },
   props: {
     currentDataObject: {
       type: Object as () => DataObject,

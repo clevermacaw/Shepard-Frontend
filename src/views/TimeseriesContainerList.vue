@@ -7,18 +7,31 @@
         @createEntity="createContainer($event)"
         @deleteEntity="deleteContainer($event)"
       />
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="calcTotalRows"
+        :per-page="perPage"
+        align="center"
+        size="sm"
+        @change="retrieveContainers($event)"
+      ></b-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { TimeseriesVue } from "@/utils/api-mixin";
-import { TimeseriesContainer } from "@dlr-shepard/shepard-client";
+import {
+  GetAllTimeseriesContainersOrderByEnum,
+  TimeseriesContainer,
+} from "@dlr-shepard/shepard-client";
 import GenericEntityList from "@/components/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface TimeseriesListData {
-  containers?: TimeseriesContainer[];
+  containers: TimeseriesContainer[];
+  perPage: number;
+  currentPage: number;
 }
 
 export default (
@@ -29,15 +42,31 @@ export default (
   data() {
     return {
       containers: [],
+      perPage: 10,
+      currentPage: 1,
     } as TimeseriesListData;
+  },
+  computed: {
+    calcTotalRows(): number {
+      if (this.containers.length < this.perPage) {
+        return this.currentPage * this.perPage;
+      }
+      return (this.currentPage + 1) * this.perPage;
+    },
   },
   mounted() {
     this.retrieveContainers();
   },
   methods: {
-    retrieveContainers() {
+    retrieveContainers(page?: number) {
+      const nextPage = page || this.currentPage;
       this.timeseriesApi
-        ?.getAllTimeseriesContainers({})
+        ?.getAllTimeseriesContainers({
+          size: this.perPage,
+          page: nextPage - 1,
+          orderBy: GetAllTimeseriesContainersOrderByEnum.CreatedAt,
+          orderDesc: true,
+        })
         .then(response => {
           this.containers = response;
         })
@@ -51,8 +80,8 @@ export default (
         ?.createTimeseriesContainer({
           timeseriesContainer: { name: newName } as TimeseriesContainer,
         })
-        .then(response => {
-          this.containers?.push(response);
+        .then(() => {
+          this.retrieveContainers();
         })
         .catch(e => {
           console.log("Error while creating timeseries container " + e);
@@ -65,9 +94,7 @@ export default (
           timeseriesContainerId: id,
         })
         .then(() => {
-          this.containers = this.containers?.filter(x => {
-            return x.id != id;
-          });
+          this.retrieveContainers();
         })
         .catch(e => {
           console.log("Error while deleting timeseries container " + e);

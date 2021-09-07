@@ -7,18 +7,31 @@
         @createEntity="createContainer($event)"
         @deleteEntity="deleteContainer($event)"
       />
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="calcTotalRows"
+        :per-page="perPage"
+        align="center"
+        size="sm"
+        @change="retrieveContainers($event)"
+      ></b-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { StructuredDataVue } from "@/utils/api-mixin";
-import { StructuredDataContainer } from "@dlr-shepard/shepard-client";
+import {
+  GetAllStructuredDataContainersOrderByEnum,
+  StructuredDataContainer,
+} from "@dlr-shepard/shepard-client";
 import GenericEntityList from "@/components/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface StructuredDatasListData {
-  containers?: StructuredDataContainer[];
+  containers: StructuredDataContainer[];
+  perPage: number;
+  currentPage: number;
 }
 
 export default (
@@ -29,15 +42,31 @@ export default (
   data() {
     return {
       containers: [],
+      perPage: 10,
+      currentPage: 1,
     } as StructuredDatasListData;
+  },
+  computed: {
+    calcTotalRows(): number {
+      if (this.containers.length < this.perPage) {
+        return this.currentPage * this.perPage;
+      }
+      return (this.currentPage + 1) * this.perPage;
+    },
   },
   mounted() {
     this.retrieveContainers();
   },
   methods: {
-    retrieveContainers() {
+    retrieveContainers(page?: number) {
+      const nextPage = page || this.currentPage;
       this.structuredDataApi
-        ?.getAllStructuredDataContainers({})
+        ?.getAllStructuredDataContainers({
+          size: this.perPage,
+          page: nextPage - 1,
+          orderBy: GetAllStructuredDataContainersOrderByEnum.CreatedAt,
+          orderDesc: true,
+        })
         .then(response => {
           this.containers = response;
         })
@@ -51,8 +80,8 @@ export default (
         ?.createStructuredDataContainer({
           structuredDataContainer: { name: newName } as StructuredDataContainer,
         })
-        .then(response => {
-          this.containers?.push(response);
+        .then(() => {
+          this.retrieveContainers();
         })
         .catch(e => {
           console.log("Error while creating structured data container " + e);
@@ -65,9 +94,7 @@ export default (
           structureddataContainerId: id,
         })
         .then(() => {
-          this.containers = this.containers?.filter(x => {
-            return x.id != id;
-          });
+          this.retrieveContainers();
         })
         .catch(e => {
           console.log("Error while deleting structured data container " + e);

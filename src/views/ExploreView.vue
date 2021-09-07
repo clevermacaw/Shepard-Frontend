@@ -7,6 +7,14 @@
         @createEntity="createCollection($event)"
         @deleteEntity="deleteCollection($event)"
       />
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="calcTotalRows"
+        :per-page="perPage"
+        align="center"
+        size="sm"
+        @change="retrieveCollections($event)"
+      ></b-pagination>
     </div>
   </div>
 </template>
@@ -14,12 +22,18 @@
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
 import GenericEntityList from "@/components/GenericEntityList.vue";
-import { CollectionApi, Collection } from "@dlr-shepard/shepard-client";
+import {
+  CollectionApi,
+  Collection,
+  GetAllCollectionsOrderByEnum,
+} from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
 
 interface ExploreData {
   collectionApi?: CollectionApi;
   collections: Collection[];
+  perPage: number;
+  currentPage: number;
 }
 
 export default (
@@ -30,15 +44,31 @@ export default (
   data() {
     return {
       collections: [],
+      perPage: 10,
+      currentPage: 1,
     } as ExploreData;
+  },
+  computed: {
+    calcTotalRows(): number {
+      if (this.collections.length < this.perPage) {
+        return this.currentPage * this.perPage;
+      }
+      return this.currentPage + 1 * this.perPage;
+    },
   },
   mounted() {
     this.retrieveCollections();
   },
   methods: {
-    retrieveCollections() {
+    retrieveCollections(page?: number) {
+      const nextPage = page || this.currentPage;
       this.collectionApi
-        ?.getAllCollections({})
+        ?.getAllCollections({
+          size: this.perPage,
+          page: nextPage - 1,
+          orderBy: GetAllCollectionsOrderByEnum.CreatedAt,
+          orderDesc: true,
+        })
         .then(response => {
           this.collections = response;
         })
@@ -52,8 +82,8 @@ export default (
         ?.createCollection({
           collection: { name: newName } as Collection,
         })
-        .then(response => {
-          this.collections?.push(response);
+        .then(() => {
+          this.retrieveCollections();
         })
         .catch(e => {
           console.log("Error while creating collection " + e);
@@ -66,9 +96,7 @@ export default (
           collectionId: id,
         })
         .then(() => {
-          this.collections = this.collections?.filter(x => {
-            return x.id != id;
-          });
+          this.retrieveCollections();
         })
         .catch(e => {
           console.log("Error while deleting collection " + e);

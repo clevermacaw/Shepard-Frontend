@@ -7,18 +7,31 @@
         @createEntity="createContainer($event)"
         @deleteEntity="deleteContainer($event)"
       />
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="calcTotalRows"
+        :per-page="perPage"
+        align="center"
+        size="sm"
+        @change="retrieveContainers($event)"
+      ></b-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { FileVue } from "@/utils/api-mixin";
-import { FileContainer } from "@dlr-shepard/shepard-client";
+import {
+  FileContainer,
+  GetAllFileContainersOrderByEnum,
+} from "@dlr-shepard/shepard-client";
 import GenericEntityList from "@/components/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface FilesListData {
-  containers?: FileContainer[];
+  containers: FileContainer[];
+  perPage: number;
+  currentPage: number;
 }
 
 export default (
@@ -29,15 +42,31 @@ export default (
   data() {
     return {
       containers: [],
+      perPage: 10,
+      currentPage: 1,
     } as FilesListData;
+  },
+  computed: {
+    calcTotalRows(): number {
+      if (this.containers.length < this.perPage) {
+        return this.currentPage * this.perPage;
+      }
+      return (this.currentPage + 1) * this.perPage;
+    },
   },
   mounted() {
     this.retrieveContainers();
   },
   methods: {
-    retrieveContainers() {
+    retrieveContainers(page?: number) {
+      const nextPage = page || this.currentPage;
       this.fileApi
-        ?.getAllFileContainers({})
+        ?.getAllFileContainers({
+          size: this.perPage,
+          page: nextPage - 1,
+          orderBy: GetAllFileContainersOrderByEnum.CreatedAt,
+          orderDesc: true,
+        })
         .then(response => {
           this.containers = response;
         })
@@ -51,8 +80,8 @@ export default (
         ?.createFileContainer({
           fileContainer: { name: newName } as FileContainer,
         })
-        .then(response => {
-          this.containers?.push(response);
+        .then(() => {
+          this.retrieveContainers();
         })
         .catch(e => {
           console.log("Error while creating file container " + e);
@@ -65,9 +94,7 @@ export default (
           fileContainerId: id,
         })
         .then(() => {
-          this.containers = this.containers?.filter(x => {
-            return x.id != id;
-          });
+          this.retrieveContainers();
         })
         .catch(e => {
           console.log("Error while deleting file container " + e);
