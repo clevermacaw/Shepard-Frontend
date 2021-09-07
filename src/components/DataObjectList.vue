@@ -65,10 +65,10 @@ export default (
       currentDataObject: undefined,
       descendingSelected: false,
       descendingOptions: [
-        { value: true, text: "Descending" },
         { value: false, text: "Ascending" },
+        { value: true, text: "Descending" },
       ],
-      orderBySelected: "name",
+      orderBySelected: GetAllDataObjectsOrderByEnum.CreatedAt,
       orderByOptions: [
         { value: GetAllDataObjectsOrderByEnum.CreatedAt, text: "Created At" },
         { value: GetAllDataObjectsOrderByEnum.CreatedBy, text: "Created By" },

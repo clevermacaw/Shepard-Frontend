@@ -86,10 +86,10 @@ export default (
       currentPage: 1,
       descendingSelected: false,
       descendingOptions: [
-        { value: true, text: "Descending" },
         { value: false, text: "Ascending" },
+        { value: true, text: "Descending" },
       ],
-      orderBySelected: "name",
+      orderBySelected: GetAllDataObjectsOrderByEnum.CreatedAt,
       orderByOptions: [
         { value: GetAllDataObjectsOrderByEnum.CreatedAt, text: "Created At" },
         { value: GetAllDataObjectsOrderByEnum.CreatedBy, text: "Created By" },
@@ -103,8 +103,6 @@ export default (
         { value: 10, text: "10" },
         { value: 25, text: "25" },
         { value: 50, text: "50" },
-        { value: 100, text: "100" },
-        { value: 150, text: "150" },
       ],
     } as DataObjectListData;
   },

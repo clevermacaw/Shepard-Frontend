@@ -44,7 +44,7 @@ export default (
   data() {
     return {
       collections: [],
-      perPage: 10,
+      perPage: 25,
       currentPage: 1,
     } as ExploreData;
   },
@@ -67,7 +67,6 @@ export default (
           size: this.perPage,
           page: nextPage - 1,
           orderBy: GetAllCollectionsOrderByEnum.CreatedAt,
-          orderDesc: true,
         })
         .then(response => {
           this.collections = response;

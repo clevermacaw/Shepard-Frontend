@@ -42,7 +42,7 @@ export default (
   data() {
     return {
       containers: [],
-      perPage: 10,
+      perPage: 25,
       currentPage: 1,
     } as StructuredDatasListData;
   },
@@ -65,7 +65,6 @@ export default (
           size: this.perPage,
           page: nextPage - 1,
           orderBy: GetAllStructuredDataContainersOrderByEnum.CreatedAt,
-          orderDesc: true,
         })
         .then(response => {
           this.containers = response;
