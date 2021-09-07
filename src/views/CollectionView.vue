@@ -3,13 +3,13 @@
     <div>
       <b-button-group class="float-right">
         <b-button v-b-modal.create-data-object-modal variant="primary">
-          <create-icon />
+          <CreateIcon />
         </b-button>
         <b-button v-b-modal.edit-collection-modal variant="light">
-          <edit-icon />
+          <EditIcon />
         </b-button>
         <b-button v-b-modal.delete-confirmation-modal variant="dark">
-          <delete-icon />
+          <DeleteIcon />
         </b-button>
       </b-button-group>
       <h3>{{ currentCollection.name }}</h3>

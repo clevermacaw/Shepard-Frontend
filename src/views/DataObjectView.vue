@@ -2,13 +2,13 @@
   <div v-if="currentDataObject" class="dataObject">
     <b-button-group class="float-right">
       <b-button v-b-modal.create-dataObject-modal variant="primary">
-        <create-icon />
+        <CreateIcon />
       </b-button>
       <b-button v-b-modal.edit-dataObject-modal variant="light">
-        <edit-icon />
+        <EditIcon />
       </b-button>
       <b-button v-b-modal.delete-confirmation-modal variant="dark">
-        <delete-icon />
+        <DeleteIcon />
       </b-button>
     </b-button-group>
 
@@ -29,25 +29,25 @@
 
     <b-row class="section">
       <b-col>
-        <parent-icon title="Parents" />
+        <ParentIcon title="Parents" />
         <a v-if="currentDataObject.parentId"> 1 </a>
         <a v-else> 0 </a>
         Parents
       </b-col>
       <b-col>
-        <child-icon title="Children" />
+        <ChildIcon title="Children" />
         {{ currentDataObject.childrenIds.length }} Children</b-col
       >
       <b-col>
-        <predecessor-icon title="Predecessors" />
+        <PredecessorIcon title="Predecessors" />
         {{ currentDataObject.predecessorIds.length }} Predecessors</b-col
       >
       <b-col>
-        <successor-icon title="Successors" />
+        <SuccessorIcon title="Successors" />
         {{ currentDataObject.successorIds.length }} Successors</b-col
       >
       <b-col>
-        <references-icon title="References" />
+        <ReferencesIcon title="References" />
         {{ currentDataObject.referenceIds.length }} References
       </b-col>
     </b-row>

@@ -95,7 +95,7 @@
                   })
                 "
               >
-                <create-icon />
+                <CreateIcon />
               </b-button>
             </b-col>
             <b-col cols="1">
@@ -105,7 +105,7 @@
                 variant="danger"
                 @click="possiblePredecessors.splice(i, 1)"
               >
-                <remove-icon />
+                <RemoveIcon />
               </b-button>
             </b-col>
           </b-row>
@@ -146,7 +146,7 @@
                     })
                   "
                 >
-                  <create-icon />
+                  <CreateIcon />
                 </b-button>
               </b-col>
               <b-col cols="1">
@@ -156,7 +156,7 @@
                   variant="danger"
                   @click="possibleAttributes.splice(i, 1)"
                 >
-                  <remove-icon />
+                  <RemoveIcon />
                 </b-button>
               </b-col>
             </b-row>

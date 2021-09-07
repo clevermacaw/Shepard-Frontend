@@ -38,7 +38,7 @@
             variant="dark"
             @click="currentApiKey = apiKey"
           >
-            <delete-icon />
+            <DeleteIcon />
           </b-button>
         </b-list-group-item>
       </b-list-group>

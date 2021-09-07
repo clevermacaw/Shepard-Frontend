@@ -50,7 +50,7 @@
                 getFilePayload(fileReference.id, oid, files[oid].filename)
               "
             >
-              <download-icon />
+              <DownloadIcon />
             </b-link>
           </small>
         </div>

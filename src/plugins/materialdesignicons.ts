@@ -22,24 +22,24 @@ import Minus from "vue-material-design-icons/Minus.vue";
 import FolderOpen from "vue-material-design-icons/FolderOpen.vue";
 import FileDownloadOutline from "vue-material-design-icons/FileDownloadOutline.vue";
 
-Vue.component("parent-icon", ClipboardArrowUpOutline);
-Vue.component("child-icon", ClipboardArrowDownOutline);
-Vue.component("predecessor-icon", ClipboardArrowLeftOutline);
-Vue.component("successor-icon", ClipboardArrowRightOutline);
-Vue.component("references-icon", DatabaseImportOutline);
+Vue.component("ParentIcon", ClipboardArrowUpOutline);
+Vue.component("ChildIcon", ClipboardArrowDownOutline);
+Vue.component("PredecessorIcon", ClipboardArrowLeftOutline);
+Vue.component("SuccessorIcon", ClipboardArrowRightOutline);
+Vue.component("ReferencesIcon", DatabaseImportOutline);
 
-Vue.component("timeseries-icon", ChartLine);
-Vue.component("structured-data-icon", GraphOutline);
-Vue.component("file-icon", FileDocumentOutline);
-Vue.component("data-object-icon", ClipboardOutline);
+Vue.component("TimeseriesIcon", ChartLine);
+Vue.component("StructuredDataIcon", GraphOutline);
+Vue.component("FileIcon", FileDocumentOutline);
+Vue.component("DataObjectIcon", ClipboardOutline);
 
-Vue.component("home-icon", HomeOutline);
-Vue.component("collaps-icon", ChevronUp);
-Vue.component("extend-icon", ChevronDown);
+Vue.component("HomeIcon", HomeOutline);
+Vue.component("CollapsIcon", ChevronUp);
+Vue.component("ExtendIcon", ChevronDown);
 
-Vue.component("delete-icon", Delete);
-Vue.component("edit-icon", Pencil);
-Vue.component("create-icon", Plus);
-Vue.component("remove-icon", Minus);
-Vue.component("open-icon", FolderOpen);
-Vue.component("download-icon", FileDownloadOutline);
+Vue.component("DeleteIcon", Delete);
+Vue.component("EditIcon", Pencil);
+Vue.component("CreateIcon", Plus);
+Vue.component("RemoveIcon", Minus);
+Vue.component("OpenIcon", FolderOpen);
+Vue.component("DownloadIcon", FileDownloadOutline);

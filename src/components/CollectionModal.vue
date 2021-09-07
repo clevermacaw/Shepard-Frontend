@@ -70,8 +70,9 @@
                       value: '',
                     })
                   "
-                  ><create-icon
-                /></b-button>
+                >
+                  <CreateIcon />
+                </b-button>
               </b-col>
               <b-col cols="1">
                 <b-button
@@ -79,8 +80,9 @@
                   class="fixed-width"
                   variant="danger"
                   @click="possibleAttributes.splice(i, 1)"
-                  ><remove-icon
-                /></b-button>
+                >
+                  <RemoveIcon />
+                </b-button>
               </b-col>
             </b-row>
           </b-form-group>

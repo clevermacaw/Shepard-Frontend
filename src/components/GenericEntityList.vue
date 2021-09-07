@@ -46,14 +46,14 @@
         </div>
         <b-button-group class="right-align">
           <b-button variant="light" :to="String(entity.id)" append>
-            <open-icon />
+            <OpenIcon />
           </b-button>
           <b-button
             v-b-modal.delete-confirmation-modal
             variant="dark"
             @click="currentEntity = entity"
           >
-            <delete-icon />
+            <DeleteIcon />
           </b-button>
         </b-button-group>
       </b-list-group-item>

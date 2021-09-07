@@ -20,23 +20,23 @@
       />
     </div>
     <div class="icon">
-      <references-icon title="References" />
+      <ReferencesIcon title="References" />
       {{ dataObject.referenceIds.length }}
     </div>
     <div class="icon">
-      <successor-icon title="Successors" />
+      <SuccessorIcon title="Successors" />
       {{ dataObject.successorIds.length }}
     </div>
     <div class="icon">
-      <predecessor-icon title="Predecessors" />
+      <PredecessorIcon title="Predecessors" />
       {{ dataObject.predecessorIds.length }}
     </div>
     <div class="icon">
-      <child-icon title="Children" />
+      <ChildIcon title="Children" />
       {{ dataObject.childrenIds.length }}
     </div>
     <div class="icon">
-      <parent-icon title="Parents" />
+      <ParentIcon title="Parents" />
       <a v-if="dataObject.parentId"> 1 </a>
       <a v-else> 0 </a>
     </div>

@@ -2,10 +2,10 @@
   <div class="component">
     <h4 @click="toggleVisible()">
       <span v-if="collapsed">
-        <collaps-icon />
+        <CollapsIcon />
       </span>
       <span v-else>
-        <extend-icon />
+        <ExtendIcon />
       </span>
       {{ title }}
     </h4>
