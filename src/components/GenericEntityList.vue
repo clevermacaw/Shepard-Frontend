@@ -32,19 +32,15 @@
     </b-input-group>
 
     <b-list-group class="component">
-      <b-list-group-item
-        v-for="(entity, index) in entities"
-        :key="index"
-        class="list-group-item list-group-item-action"
-      >
-        <div class="left-align">
+      <b-list-group-item v-for="(entity, index) in entities" :key="index">
+        <b-link :to="String(entity.id)" append>
           <b>{{ entity.name }}</b> ID: {{ entity.id }}
           <CreatedByLine
             :created-by="entity.createdBy"
             :created-at="entity.createdAt"
           />
-        </div>
-        <b-button-group class="right-align">
+        </b-link>
+        <b-button-group>
           <b-button variant="light" :to="String(entity.id)" append>
             <OpenIcon />
           </b-button>
@@ -127,13 +123,14 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.right-align {
-  float: right;
-}
-.left-align {
-  float: left;
-}
 .fixed-height {
   height: 40px;
+}
+.list-group-item a {
+  color: #495057;
+  float: left;
+}
+.list-group-item .btn-group {
+  float: right;
 }
 </style>

@@ -31,7 +31,7 @@
     <GenericDescription :text="currentCollection.description" />
 
     <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
-      <b-table striped small hover :items="attributeItems"> </b-table>
+      <b-table striped small :items="attributeItems"> </b-table>
     </GenericCollapse>
 
     <GenericCollapse

@@ -55,7 +55,7 @@
     <GenericDescription :text="currentDataObject.description" />
 
     <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
-      <b-table striped small hover :items="attributeItems"> </b-table>
+      <b-table striped small :items="attributeItems"> </b-table>
     </GenericCollapse>
 
     <GenericCollapse title="Related Objects" visible>
