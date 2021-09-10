@@ -30,7 +30,14 @@
       >
         <div>
           <b>{{ fileReference.name }}</b> | ID: {{ fileReference.id }} |
-          Container: {{ fileReference.fileContainerId }}
+          <b-link
+            :to="{
+              name: 'Files',
+              params: { fileId: fileReference.fileContainerId },
+            }"
+          >
+            Container: {{ fileReference.fileContainerId }}
+          </b-link>
         </div>
         <CreatedByLine
           :created-by="fileReference.createdBy"

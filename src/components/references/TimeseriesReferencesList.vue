@@ -7,9 +7,15 @@
         class="list-group-item list-group-item-action"
       >
         <div>
-          <b>{{ timeseriesItem.name }}</b>
-          | ID: {{ timeseriesItem.id }} | Container:
-          {{ timeseriesItem.timeseriesContainerId }}
+          <b>{{ timeseriesItem.name }}</b> | ID: {{ timeseriesItem.id }} |
+          <b-link
+            :to="{
+              name: 'Timeseries',
+              params: { timeseriesId: timeseriesItem.timeseriesContainerId },
+            }"
+          >
+            Container: {{ timeseriesItem.timeseriesContainerId }}
+          </b-link>
         </div>
         <CreatedByLine
           :created-by="timeseriesItem.createdBy"

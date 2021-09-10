@@ -7,9 +7,19 @@
         class="list-group-item list-group-item-action"
       >
         <div>
-          <b>{{ structuredDataReference.name }}</b>
-          | ID: {{ structuredDataReference.id }} | Container:
-          {{ structuredDataReference.structuredDataContainerId }}
+          <b>{{ structuredDataReference.name }}</b> | ID:
+          {{ structuredDataReference.id }} |
+          <b-link
+            :to="{
+              name: 'StructuredData',
+              params: {
+                structuredDataId:
+                  structuredDataReference.structuredDataContainerId,
+              },
+            }"
+          >
+            Container: {{ structuredDataReference.structuredDataContainerId }}
+          </b-link>
         </div>
         <CreatedByLine
           :created-by="structuredDataReference.createdBy"
