@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- Sometimes mounted() is not executed in combination with pagination -->
-    {{ retrieveUser() }}
     <small v-if="updated">updated</small>
     <small v-else>created</small>
     <small v-if="createdAt"> at {{ createdAt.toDateString() }} </small>
@@ -13,14 +11,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import Vue from "vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import { UserVue } from "@/utils/api-mixin";
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof UserVue>>
-).extend({
-  mixins: [UserVue],
+export default Vue.extend({
   props: {
     createdBy: {
       type: String,
@@ -42,8 +36,10 @@ export default (
       "getAllUsers",
     ]),
   },
+  updated() {
+    this.retrieveUser();
+  },
   mounted() {
-    // This is not always executed in combination with pagination, for the bugfix see template
     this.retrieveUser();
   },
   methods: {
