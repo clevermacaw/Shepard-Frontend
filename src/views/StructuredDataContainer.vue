@@ -5,12 +5,10 @@
       <p>
         <b>ID:</b> {{ currentStructuredData.id }}<br />
         <b>Oid:</b> {{ currentStructuredData.oid }}<br />
-        <small v-if="currentStructuredData.createdAt">
-          created at {{ currentStructuredData.createdAt.toDateString() }}
-        </small>
-        <small v-if="currentStructuredData.createdBy">
-          by {{ currentStructuredData.createdBy }}
-        </small>
+        <CreatedByLine
+          :created-at="currentStructuredData.createdAt"
+          :created-by="currentStructuredData.createdBy"
+        />
       </p>
       <b-list-group>
         <b-list-group-item
@@ -25,12 +23,13 @@
 </template>
 
 <script lang="ts">
-import { StructuredDataVue } from "@/utils/api-mixin";
+import Vue, { VueConstructor } from "vue";
 import {
   StructuredData,
   StructuredDataContainer,
 } from "@dlr-shepard/shepard-client";
-import Vue, { VueConstructor } from "vue";
+import { StructuredDataVue } from "@/utils/api-mixin";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 interface StructuredDataData {
   currentStructuredData?: StructuredDataContainer;
@@ -40,6 +39,7 @@ interface StructuredDataData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [StructuredDataVue],
   data() {
     return {

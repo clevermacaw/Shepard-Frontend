@@ -5,21 +5,20 @@
       <p>
         <b>ID:</b> {{ currentTimeseries.id }}<br />
         <b>Database:</b> {{ currentTimeseries.database }}<br />
-        <small v-if="currentTimeseries.createdAt">
-          created at {{ currentTimeseries.createdAt.toDateString() }}
-        </small>
-        <small v-if="currentTimeseries.createdBy">
-          by {{ currentTimeseries.createdBy }}
-        </small>
+        <CreatedByLine
+          :created-at="currentTimeseries.createdAt"
+          :created-by="currentTimeseries.createdBy"
+        />
       </p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { TimeseriesVue } from "@/utils/api-mixin";
-import { TimeseriesContainer } from "@dlr-shepard/shepard-client";
 import Vue, { VueConstructor } from "vue";
+import { TimeseriesContainer } from "@dlr-shepard/shepard-client";
+import CreatedByLine from "@/components/CreatedByLine.vue";
+import { TimeseriesVue } from "@/utils/api-mixin";
 
 interface TimeseriesData {
   currentTimeseries?: TimeseriesContainer;
@@ -28,6 +27,7 @@ interface TimeseriesData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof TimeseriesVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [TimeseriesVue],
   data() {
     return {

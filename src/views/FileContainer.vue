@@ -5,12 +5,10 @@
       <p>
         <b>ID:</b> {{ currentFile.id }}<br />
         <b>Oid:</b> {{ currentFile.oid }}<br />
-        <small v-if="currentFile.createdAt">
-          created at {{ currentFile.createdAt.toDateString() }}
-        </small>
-        <small v-if="currentFile.createdBy">
-          by {{ currentFile.createdBy }}
-        </small>
+        <CreatedByLine
+          :created-at="currentFile.createdAt"
+          :created-by="currentFile.createdBy"
+        />
       </p>
       <b-list-group>
         <b-list-group-item v-for="(file, index) in fileList" :key="index">
@@ -22,9 +20,10 @@
 </template>
 
 <script lang="ts">
+import Vue, { VueConstructor } from "vue";
 import { FileVue } from "@/utils/api-mixin";
 import { FileContainer } from "@dlr-shepard/shepard-client";
-import Vue, { VueConstructor } from "vue";
+import CreatedByLine from "@/components/CreatedByLine.vue";
 
 interface FileData {
   currentFile?: FileContainer;
@@ -34,6 +33,7 @@ interface FileData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileVue>>
 ).extend({
+  components: { CreatedByLine },
   mixins: [FileVue],
   data() {
     return {

@@ -3,20 +3,17 @@
     <small v-if="updated">updated</small>
     <small v-else>created</small>
     <small v-if="createdAt"> at {{ createdAt.toDateString() }} </small>
-    <small v-if="currentUser">
-      by {{ currentUser.lastName }}, {{ currentUser.firstName }}
+    <small v-if="getAllUsers[createdBy]">
+      by {{ getAllUsers[createdBy].lastName }},
+      {{ getAllUsers[createdBy].firstName }}
     </small>
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import { User } from "@dlr-shepard/shepard-client";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { UserVue } from "@/utils/api-mixin";
-
-interface UserData {
-  currentUser?: User;
-}
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof UserVue>>
@@ -36,25 +33,23 @@ export default (
       default: false,
     },
   },
-  data() {
-    return {
-      currentUser: undefined,
-    } as UserData;
+  computed: {
+    ...mapGetters("userCache", [
+      "isUserInCache",
+      "getUserFromCache",
+      "getAllUsers",
+    ]),
   },
   mounted() {
     this.retrieveUser();
   },
   methods: {
+    ...mapActions("userCache", ["fetchUser"]),
+    ...mapMutations("userCache", ["addUserToCache"]),
     retrieveUser() {
-      this.userApi
-        ?.getUser({ username: this.createdBy })
-        .then(response => {
-          this.currentUser = response;
-        })
-        .catch(e => {
-          console.log("Error while fetching User " + e);
-        })
-        .finally();
+      if (!this.isUserInCache(this.createdBy)) {
+        this.fetchUser(this.createdBy);
+      }
     },
   },
 });
