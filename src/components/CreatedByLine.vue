@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- Sometimes mounted() is not executed in combination with pagination -->
+    {{ retrieveUser() }}
     <small v-if="updated">updated</small>
     <small v-else>created</small>
     <small v-if="createdAt"> at {{ createdAt.toDateString() }} </small>
@@ -41,6 +43,7 @@ export default (
     ]),
   },
   mounted() {
+    // This is not always executed in combination with pagination, for the bugfix see template
     this.retrieveUser();
   },
   methods: {
