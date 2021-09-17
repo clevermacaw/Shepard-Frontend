@@ -96,9 +96,9 @@
 import Vue, { VueConstructor } from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
-import GenericCollapse from "@/components/GenericCollapse.vue";
-import GenericDescription from "@/components/GenericDescription.vue";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import GenericCollapse from "@/components/generic/GenericCollapse.vue";
+import GenericDescription from "@/components/generic/GenericDescription.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DataObjectModal from "@/components/dataobjects/DataObjectModal.vue";
 import ReferencesTable from "@/components/references/ReferencesTable.vue";
 import RelatedObjectsTable from "@/components/dataobjects/RelatedObjectsTable.vue";

@@ -78,9 +78,9 @@ import { CollectionVue } from "@/utils/api-mixin";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
 import CollectionModal from "@/components/CollectionModal.vue";
 import DataObjectModal from "@/components/dataobjects/DataObjectModal.vue";
-import GenericCollapse from "@/components/GenericCollapse.vue";
-import GenericDescription from "@/components/GenericDescription.vue";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import GenericCollapse from "@/components/generic/GenericCollapse.vue";
+import GenericDescription from "@/components/generic/GenericDescription.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 interface CollectionData {

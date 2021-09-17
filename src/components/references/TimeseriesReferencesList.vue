@@ -38,7 +38,7 @@
 import Vue, { VueConstructor } from "vue";
 import { TimeseriesReference } from "@dlr-shepard/shepard-client";
 import { TimeseriesReferenceVue } from "@/utils/api-mixin";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface TimeseriesListData {
   timeseriesList: TimeseriesReference[];

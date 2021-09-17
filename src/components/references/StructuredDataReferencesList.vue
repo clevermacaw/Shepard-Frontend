@@ -61,7 +61,7 @@ import {
   StructuredDataReference,
 } from "@dlr-shepard/shepard-client";
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];

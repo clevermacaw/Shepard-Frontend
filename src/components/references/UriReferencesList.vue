@@ -23,7 +23,7 @@
 import Vue, { VueConstructor } from "vue";
 import { URIReference } from "@dlr-shepard/shepard-client";
 import { UriReferenceVue } from "@/utils/api-mixin";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface URIListData {
   uriList: URIReference[];

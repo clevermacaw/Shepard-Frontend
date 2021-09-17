@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 export default Vue.extend({
   components: { CreatedByLine },

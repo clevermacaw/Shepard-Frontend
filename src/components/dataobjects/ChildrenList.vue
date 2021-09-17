@@ -1,37 +1,13 @@
 <template>
   <div>
-    <b-row>
-      <b-col v-if="maxObjects">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="maxObjects"
-          :per-page="sizeSelected"
-          size="sm"
-          @change="retrieveDataObjects($event)"
-        ></b-pagination>
-      </b-col>
-      <b-col v-if="maxObjects">
-        <b-form-select
-          v-model="sizeSelected"
-          :options="sizeOptions"
-          @change="retrieveDataObjects()"
-        ></b-form-select>
-      </b-col>
-      <b-col>
-        <b-form-select
-          v-model="orderBySelected"
-          :options="orderByOptions"
-          @change="retrieveDataObjects()"
-        ></b-form-select>
-      </b-col>
-      <b-col>
-        <b-form-select
-          v-model="descendingSelected"
-          :options="descendingOptions"
-          @change="retrieveDataObjects()"
-        ></b-form-select>
-      </b-col>
-    </b-row>
+    <FilterListLine
+      v-if="maxObjects"
+      :total-rows="maxObjects"
+      :default-size="sizeSelected"
+      :default-descending="descendingSelected"
+      :default-order-by="orderBySelected"
+      @filterChanged="filterChanged($event)"
+    />
     <b-list-group>
       <DataObjectListItem
         v-for="(dataObject, index) in dataObjects"
@@ -48,14 +24,16 @@ import {
   DataObject,
   GetAllDataObjectsOrderByEnum,
 } from "@dlr-shepard/shepard-client";
-import { DataObjectVue } from "@/utils/api-mixin";
 import DataObjectListItem from "@/components/dataobjects/DataObjectListItem.vue";
+import FilterListLine from "@/components/generic/FilterListLine.vue";
+import { DataObjectVue } from "@/utils/api-mixin";
+import { FilterChangedData } from "../generic/FilterListLine.vue";
 
 interface DataObjectListData {
   dataObjects: DataObject[];
   currentDataObject?: DataObject;
   sizeSelected: number;
-  orderBySelected: GetAllDataObjectsOrderByEnum;
+  orderBySelected: string;
   descendingSelected: boolean;
   currentPage: number;
 }
@@ -63,7 +41,7 @@ interface DataObjectListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
 ).extend({
-  components: { DataObjectListItem },
+  components: { DataObjectListItem, FilterListLine },
   mixins: [DataObjectVue],
   props: {
     currentCollectionId: {
@@ -85,40 +63,31 @@ export default (
       currentDataObject: undefined,
       currentPage: 1,
       descendingSelected: false,
-      descendingOptions: [
-        { value: false, text: "Ascending" },
-        { value: true, text: "Descending" },
-      ],
       orderBySelected: GetAllDataObjectsOrderByEnum.CreatedAt,
-      orderByOptions: [
-        { value: GetAllDataObjectsOrderByEnum.CreatedAt, text: "Created At" },
-        { value: GetAllDataObjectsOrderByEnum.CreatedBy, text: "Created By" },
-        { value: GetAllDataObjectsOrderByEnum.UpdatedAt, text: "Updated At" },
-        { value: GetAllDataObjectsOrderByEnum.UpdatedBy, text: "Updated By" },
-        { value: GetAllDataObjectsOrderByEnum.Name, text: "Name" },
-        { value: GetAllDataObjectsOrderByEnum.ParentId, text: "Parent Id" },
-      ],
       sizeSelected: 10,
-      sizeOptions: [
-        { value: 10, text: "10" },
-        { value: 25, text: "25" },
-        { value: 50, text: "50" },
-        { value: 100, text: "100" },
-      ],
     } as DataObjectListData;
   },
   mounted() {
     this.retrieveDataObjects();
   },
   methods: {
+    filterChanged(options: FilterChangedData) {
+      this.currentPage = options.currentPage;
+      this.sizeSelected = options.currentSize;
+      this.descendingSelected = options.descending;
+      this.orderBySelected = options.orderBy;
+      this.retrieveDataObjects();
+    },
     retrieveDataObjects(page?: number) {
       const nextPage = page || this.currentPage;
+      const nextOrderBy = this
+        .orderBySelected as keyof typeof GetAllDataObjectsOrderByEnum as GetAllDataObjectsOrderByEnum;
       this.dataObjectApi
         ?.getAllDataObjects({
           collectionId: this.currentCollectionId,
           parentId: this.parentId,
           size: this.sizeSelected,
-          orderBy: this.orderBySelected,
+          orderBy: nextOrderBy,
           orderDesc: this.descendingSelected,
           page: nextPage - 1,
         })

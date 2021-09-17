@@ -2,6 +2,14 @@
   <div class="explore">
     <div class="component">
       <h4>Explore Collections</h4>
+      <FilterListLine
+        :total-rows="totalRows"
+        :default-page="currentPage"
+        :default-size="perPage"
+        :default-descending="descending"
+        :default-order-by="orderBy"
+        @filterChanged="filterChanged($event)"
+      />
       <GenericEntityList
         :entities="collections"
         @createEntity="createCollection($event)"
@@ -9,7 +17,7 @@
       />
       <b-pagination
         v-model="currentPage"
-        :total-rows="calcTotalRows"
+        :total-rows="totalRows"
         :per-page="perPage"
         align="center"
         size="sm"
@@ -21,7 +29,10 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import GenericEntityList from "@/components/GenericEntityList.vue";
+import GenericEntityList from "@/components/generic/GenericEntityList.vue";
+import FilterListLine, {
+  FilterChangedData,
+} from "@/components/generic/FilterListLine.vue";
 import {
   CollectionApi,
   Collection,
@@ -34,39 +45,53 @@ interface ExploreData {
   collections: Collection[];
   perPage: number;
   currentPage: number;
+  orderBy: string;
+  descending: boolean;
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof CollectionVue>>
 ).extend({
-  components: { GenericEntityList },
+  components: { GenericEntityList, FilterListLine },
   mixins: [CollectionVue],
   data() {
     return {
       collections: [],
-      perPage: 25,
+      perPage: 10,
       currentPage: 1,
+      orderBy: "createdAt",
+      descending: false,
     } as ExploreData;
   },
   computed: {
-    calcTotalRows(): number {
+    totalRows(): number {
       if (this.collections.length < this.perPage) {
         return this.currentPage * this.perPage;
       }
-      return this.currentPage + 1 * this.perPage;
+      return (this.currentPage + 1) * this.perPage;
     },
   },
   mounted() {
     this.retrieveCollections();
   },
   methods: {
+    filterChanged(options: FilterChangedData) {
+      this.currentPage = options.currentPage;
+      this.perPage = options.currentSize;
+      this.descending = options.descending;
+      this.orderBy = options.orderBy;
+      this.retrieveCollections();
+    },
     retrieveCollections(page?: number) {
       const nextPage = page || this.currentPage;
+      const nextOrderBy = this
+        .orderBy as keyof typeof GetAllCollectionsOrderByEnum as GetAllCollectionsOrderByEnum;
       this.collectionApi
         ?.getAllCollections({
           size: this.perPage,
           page: nextPage - 1,
-          orderBy: GetAllCollectionsOrderByEnum.CreatedAt,
+          orderBy: nextOrderBy,
+          orderDesc: this.descending,
         })
         .then(response => {
           this.collections = response;

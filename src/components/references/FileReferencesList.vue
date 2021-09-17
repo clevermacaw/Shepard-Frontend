@@ -71,7 +71,7 @@ import Vue, { VueConstructor } from "vue";
 import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileReferenceVue } from "@/utils/api-mixin";
 import { downloadFile } from "@/utils/download";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];

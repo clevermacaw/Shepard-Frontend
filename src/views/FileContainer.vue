@@ -23,7 +23,7 @@
 import Vue, { VueConstructor } from "vue";
 import { FileVue } from "@/utils/api-mixin";
 import { FileContainer } from "@dlr-shepard/shepard-client";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 interface FileData {
   currentFile?: FileContainer;

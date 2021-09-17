@@ -29,7 +29,7 @@ import {
   StructuredDataContainer,
 } from "@dlr-shepard/shepard-client";
 import { StructuredDataVue } from "@/utils/api-mixin";
-import CreatedByLine from "@/components/CreatedByLine.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 interface StructuredDataData {
   currentStructuredData?: StructuredDataContainer;
