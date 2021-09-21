@@ -39,12 +39,10 @@
       title="Data Objects"
       visible
     >
-      <div class="listElement">
-        <ChildrenList
-          :current-collection-id="currentCollectionId"
-          :parent-id="-1"
-        />
-      </div>
+      <ChildrenList
+        :current-collection-id="currentCollectionId"
+        :parent-id="-1"
+      />
     </GenericCollapse>
 
     <CollectionModal

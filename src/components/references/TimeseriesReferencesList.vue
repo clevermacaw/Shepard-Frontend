@@ -42,7 +42,6 @@ import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface TimeseriesListData {
   timeseriesList: TimeseriesReference[];
-  currentTimeseries?: TimeseriesReference;
 }
 
 export default (
@@ -63,7 +62,6 @@ export default (
   data() {
     return {
       timeseriesList: new Array<TimeseriesReference>(),
-      currentTimeseries: undefined,
     } as TimeseriesListData;
   },
   mounted() {

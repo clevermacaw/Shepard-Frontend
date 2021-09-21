@@ -90,9 +90,7 @@ export default Vue.extend({
       orderBy: this.defaultOrderBy,
       orderByOptions: [
         { value: "createdAt", text: "Created At" },
-        { value: "createdBy", text: "Created By" },
         { value: "updatedAt", text: "Updated At" },
-        { value: "updatedBy", text: "Updated By" },
         { value: "name", text: "Name" },
       ],
       descending: this.defaultDescending,

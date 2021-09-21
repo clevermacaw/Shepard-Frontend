@@ -25,13 +25,13 @@ import {
   GetAllDataObjectsOrderByEnum,
 } from "@dlr-shepard/shepard-client";
 import DataObjectListItem from "@/components/dataobjects/DataObjectListItem.vue";
-import FilterListLine from "@/components/generic/FilterListLine.vue";
+import FilterListLine, {
+  FilterChangedData,
+} from "@/components/generic/FilterListLine.vue";
 import { DataObjectVue } from "@/utils/api-mixin";
-import { FilterChangedData } from "../generic/FilterListLine.vue";
 
 interface DataObjectListData {
   dataObjects: DataObject[];
-  currentDataObject?: DataObject;
   sizeSelected: number;
   orderBySelected: string;
   descendingSelected: boolean;
@@ -60,7 +60,6 @@ export default (
   data() {
     return {
       dataObjects: [],
-      currentDataObject: undefined,
       currentPage: 1,
       descendingSelected: false,
       orderBySelected: GetAllDataObjectsOrderByEnum.CreatedAt,

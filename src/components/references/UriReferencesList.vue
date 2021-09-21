@@ -27,7 +27,6 @@ import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface URIListData {
   uriList: URIReference[];
-  currentURI?: URIReference;
 }
 
 export default (
@@ -48,7 +47,6 @@ export default (
   data() {
     return {
       uriList: new Array<URIReference>(),
-      currentURI: undefined,
     } as URIListData;
   },
   mounted() {
