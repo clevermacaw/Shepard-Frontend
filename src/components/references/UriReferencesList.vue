@@ -1,11 +1,7 @@
 <template>
   <div class="list">
     <b-list-group>
-      <b-list-group-item
-        v-for="(uriItem, index) in uriList"
-        :key="index"
-        class="list-group-item list-group-item-action"
-      >
+      <b-list-group-item v-for="(uriItem, index) in uriList" :key="index">
         <div>
           <b>{{ uriItem.name }}</b> | ID: {{ uriItem.id }}
         </div>
@@ -50,10 +46,10 @@ export default (
     } as URIListData;
   },
   mounted() {
-    this.retrieveURI();
+    this.retrieveReferences();
   },
   methods: {
-    retrieveURI() {
+    retrieveReferences() {
       this.uriReferenceApi
         ?.getAllUriReferences({
           collectionId: this.currentCollectionId,

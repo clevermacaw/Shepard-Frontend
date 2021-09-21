@@ -29,9 +29,19 @@
         />
       </b-tab>
 
-      <b-tab title="Collection" :disabled="!hasCollectionReference"> </b-tab>
+      <b-tab title="Collection" :disabled="!hasCollectionReference">
+        <CollectionReferencesList
+          :current-collection-id="currentDataObject.collectionId"
+          :current-data-object-id="currentDataObject.id"
+        />
+      </b-tab>
 
-      <b-tab title="Data Object" :disabled="!hasDataObjectReference"> </b-tab>
+      <b-tab title="Data Object" :disabled="!hasDataObjectReference">
+        <DataObjectReferencesList
+          :current-collection-id="currentDataObject.collectionId"
+          :current-data-object-id="currentDataObject.id"
+        />
+      </b-tab>
     </b-tabs>
   </b-card>
 </template>
@@ -44,15 +54,17 @@ import TimeseriesReferencesList from "@/components/references/TimeseriesReferenc
 import StructuredDataReferencesList from "@/components/references/StructuredDataReferencesList.vue";
 import FileReferencesList from "@/components/references/FileReferencesList.vue";
 import UriReferencesList from "@/components/references/UriReferencesList.vue";
+import CollectionReferencesList from "@/components/references/CollectionReferencesList.vue";
+import DataObjectReferencesList from "@/components/references/DataObjectReferencesList.vue";
 
 interface DataObjectData {
   currentReferences: BasicReference[];
   hasTimeReference: boolean;
   hasStructuredDataReference: boolean;
   hasFileReference: boolean;
-  hasURIReference: boolean; // not yet implemented
-  hasCollectionReference: boolean; // not yet implemented
-  hasDataObjectReference: boolean; // not yet implemented
+  hasURIReference: boolean;
+  hasCollectionReference: boolean;
+  hasDataObjectReference: boolean;
 }
 
 export default (
@@ -63,6 +75,8 @@ export default (
     StructuredDataReferencesList,
     FileReferencesList,
     UriReferencesList,
+    CollectionReferencesList,
+    DataObjectReferencesList,
   },
   mixins: [ReferenceVue],
   props: {
@@ -77,9 +91,9 @@ export default (
       hasTimeReference: false,
       hasStructuredDataReference: false,
       hasFileReference: false,
-      hasURIReference: false, // not yet implemented
-      hasCollectionReference: false, // not yet implemented
-      hasDataObjectReference: false, // not yet implemented
+      hasURIReference: false,
+      hasCollectionReference: false,
+      hasDataObjectReference: false,
     } as DataObjectData;
   },
   mounted() {
@@ -110,10 +124,10 @@ export default (
               case "URIReference":
                 this.hasURIReference = true;
                 break;
-              case "CollectionReference": // not yet implemented
+              case "CollectionReference":
                 this.hasCollectionReference = true;
                 break;
-              case "DataObjectReference": // not yet implemented
+              case "DataObjectReference":
                 this.hasDataObjectReference = true;
                 break;
             }

@@ -9,6 +9,7 @@ import {
   FileReferenceApi,
   UriReferenceApi,
   DataObjectReferenceApi,
+  CollectionReferenceApi,
   UserApi,
   ApikeyApi,
   ReferenceApi,
@@ -198,6 +199,21 @@ const DataObjectReferenceVue = ApiVue.extend({
   },
 });
 
+interface CollectionReferenceData {
+  collectionReferenceApi?: CollectionReferenceApi;
+}
+
+const CollectionReferenceVue = ApiVue.extend({
+  data() {
+    return { collectionReferenceApi: undefined } as CollectionReferenceData;
+  },
+  methods: {
+    createApi() {
+      this.collectionReferenceApi = new CollectionReferenceApi(this.config);
+    },
+  },
+});
+
 interface UriReferenceData {
   uriReferenceApi?: UriReferenceApi;
 }
@@ -268,6 +284,7 @@ export {
   FileReferenceVue,
   FileVue,
   DataObjectReferenceVue,
+  CollectionReferenceVue,
   UriReferenceVue,
   UserVue,
   ApiKeyVue,

@@ -26,7 +26,6 @@
       <b-list-group-item
         v-for="(fileReference, index) in fileReferenceList"
         :key="index"
-        class="list-group-item list-group-item-action"
       >
         <div>
           <b>{{ fileReference.name }}</b> | ID: {{ fileReference.id }} |
@@ -106,10 +105,10 @@ export default (
     } as FileListData;
   },
   mounted() {
-    this.getFileReference();
+    this.retrieveReferences();
   },
   methods: {
-    getFileReference() {
+    retrieveReferences() {
       this.fileReferenceApi
         ?.getAllFileReferences({
           collectionId: this.currentCollectionId,

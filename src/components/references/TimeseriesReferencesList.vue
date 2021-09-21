@@ -4,7 +4,6 @@
       <b-list-group-item
         v-for="(timeseriesItem, index) in timeseriesList"
         :key="index"
-        class="list-group-item list-group-item-action"
       >
         <div>
           <b>{{ timeseriesItem.name }}</b> | ID: {{ timeseriesItem.id }} |
@@ -65,10 +64,10 @@ export default (
     } as TimeseriesListData;
   },
   mounted() {
-    this.retrieveTimeseries();
+    this.retrieveReferences();
   },
   methods: {
-    retrieveTimeseries() {
+    retrieveReferences() {
       this.timeseriesReferenceApi
         ?.getAllTimeseriesReferences({
           collectionId: this.currentCollectionId,

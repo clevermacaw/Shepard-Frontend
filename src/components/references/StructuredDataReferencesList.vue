@@ -4,7 +4,6 @@
       <b-list-group-item
         v-for="(structuredDataReference, index) in structuredDataList"
         :key="index"
-        class="list-group-item list-group-item-action"
       >
         <div>
           <b>{{ structuredDataReference.name }}</b> | ID:
@@ -28,7 +27,6 @@
         <div
           v-for="(oid, i) in structuredDataReference.structuredDataOids"
           :key="i"
-          class="list-group-item list-group-item-action"
         >
           <small v-if="structuredDatas[oid]">
             <div v-if="structuredDatas[oid].structuredData.createdAt">
@@ -90,10 +88,10 @@ export default (
     } as StructuredDataListData;
   },
   mounted() {
-    this.retrieveStructuredDataReferences();
+    this.retrieveReferences();
   },
   methods: {
-    retrieveStructuredDataReferences() {
+    retrieveReferences() {
       this.structuredDataReferenceApi
         ?.getAllStructuredDataReferences({
           collectionId: this.currentCollectionId,

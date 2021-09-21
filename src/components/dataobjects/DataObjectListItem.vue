@@ -8,7 +8,6 @@
       },
     }"
     append
-    class="list-group-item list-group-item-action"
   >
     <div class="float-left">
       <div>
