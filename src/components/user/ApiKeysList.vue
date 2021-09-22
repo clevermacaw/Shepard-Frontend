@@ -33,6 +33,8 @@
           {{ apiKey.name }}
           <b-button
             v-b-modal.delete-confirmation-modal
+            v-b-tooltip.hover
+            title="Delete"
             class="float-right"
             size="sm"
             variant="dark"

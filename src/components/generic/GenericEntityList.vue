@@ -41,11 +41,19 @@
           />
         </b-link>
         <b-button-group>
-          <b-button variant="light" :to="String(entity.id)" append>
+          <b-button
+            v-b-tooltip.hover
+            title="Open"
+            variant="light"
+            :to="String(entity.id)"
+            append
+          >
             <OpenIcon />
           </b-button>
           <b-button
             v-b-modal.delete-confirmation-modal
+            v-b-tooltip.hover
+            title="Delete"
             variant="dark"
             @click="currentEntity = entity"
           >

@@ -2,8 +2,10 @@
   <div>
     <small v-if="updated">updated</small>
     <small v-else>created</small>
-    <small v-if="createdAt"> at {{ createdAt.toDateString() }} </small>
-    <small v-if="getAllUsers[createdBy]">
+    <small v-if="createdAt" v-b-tooltip.hover :title="createdAt.toString()">
+      at {{ createdAt.toDateString() }}
+    </small>
+    <small v-if="getAllUsers[createdBy]" v-b-tooltip.hover :title="createdBy">
       by {{ getAllUsers[createdBy].lastName }},
       {{ getAllUsers[createdBy].firstName }}
     </small>

@@ -2,13 +2,28 @@
   <div v-if="currentCollection" class="collection">
     <div>
       <b-button-group class="float-right">
-        <b-button v-b-modal.create-data-object-modal variant="primary">
+        <b-button
+          v-b-modal.create-data-object-modal
+          v-b-tooltip.hover
+          title="Create"
+          variant="primary"
+        >
           <CreateIcon />
         </b-button>
-        <b-button v-b-modal.edit-collection-modal variant="light">
+        <b-button
+          v-b-modal.edit-collection-modal
+          v-b-tooltip.hover
+          title="Edit"
+          variant="light"
+        >
           <EditIcon />
         </b-button>
-        <b-button v-b-modal.delete-confirmation-modal variant="dark">
+        <b-button
+          v-b-modal.delete-confirmation-modal
+          v-b-tooltip.hover
+          title="Delete"
+          variant="dark"
+        >
           <DeleteIcon />
         </b-button>
       </b-button-group>
