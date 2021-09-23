@@ -1,6 +1,6 @@
 <template>
   <b-card no-body>
-    <b-tabs card>
+    <b-tabs card lazy>
       <b-tab title="Timeseries" :disabled="!hasTimeReference">
         <TimeseriesReferencesList
           :current-collection-id="currentDataObject.collectionId"
@@ -82,7 +82,7 @@ export default (
   props: {
     currentDataObject: {
       type: Object as () => DataObject,
-      default: undefined,
+      required: true,
     },
   },
   data() {

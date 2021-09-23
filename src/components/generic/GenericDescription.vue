@@ -32,7 +32,7 @@ export default Vue.extend({
   props: {
     text: {
       type: String,
-      default: undefined,
+      required: true,
     },
     wordCount: {
       type: Number,

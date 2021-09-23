@@ -17,6 +17,10 @@ export default Vue.extend({
 </script>
 
 <style>
+#app {
+  margin-bottom: 20%;
+}
+
 #view {
   margin: auto;
   max-width: 850px;

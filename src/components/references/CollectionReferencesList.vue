@@ -12,20 +12,21 @@
           :created-by="collectionItem.createdBy"
           :created-at="collectionItem.createdAt"
         />
-        <b-link
-          v-if="referencedList[collectionItem.id]"
-          :to="{
-            name: 'Collection',
-            params: {
-              collectionId: collectionItem.referencedCollectionId,
-            },
-          }"
-        >
-          <small>
+        <small>
+          {{ collectionItem.relationship }}:
+          <b-link
+            v-if="referencedList[collectionItem.id]"
+            :to="{
+              name: 'Collection',
+              params: {
+                collectionId: collectionItem.referencedCollectionId,
+              },
+            }"
+          >
             <b>{{ referencedList[collectionItem.id].name }}</b> | ID:
             {{ referencedList[collectionItem.id].id }}
-          </small>
-        </b-link>
+          </b-link>
+        </small>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -50,11 +51,11 @@ export default (
   props: {
     currentCollectionId: {
       type: Number,
-      default: undefined,
+      required: true,
     },
     currentDataObjectId: {
       type: Number,
-      default: undefined,
+      required: true,
     },
   },
   data() {

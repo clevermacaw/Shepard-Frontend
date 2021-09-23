@@ -31,11 +31,11 @@
         </tbody>
       </table>
     </div>
-    <div class="component">
-      <ApiKeyList :current-username="user ? user.username : undefined" />
+    <div v-if="user" class="component">
+      <ApiKeyList :current-username="user.username" />
     </div>
-    <div class="component">
-      <SubscriptionList :current-username="user ? user.username : undefined" />
+    <div v-if="user" class="component">
+      <SubscriptionList :current-username="user.username" />
     </div>
   </div>
 </template>

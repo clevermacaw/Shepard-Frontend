@@ -1,37 +1,29 @@
 <template>
   <b-card no-body>
     <b-tabs card>
-      <b-tab title="Parent" :disabled="!currentDataObject.parentId">
+      <b-tab title="Parent" :disabled="!parentIds.length">
         <DataObjectList
           :current-collection-id="currentDataObject.collectionId"
-          :data-object-ids="
-            currentDataObject.parentId ? [currentDataObject.parentId] : []
-          "
+          :data-object-ids="parentIds"
         />
       </b-tab>
-      <b-tab title="Children" :disabled="!currentDataObject.childrenIds.length">
+      <b-tab title="Children" :disabled="!childrenIds.length">
         <ChildrenList
           :current-collection-id="currentDataObject.collectionId"
           :parent-id="currentDataObject.id"
-          :max-objects="currentDataObject.childrenIds.length"
+          :max-objects="childrenIds.length"
         />
       </b-tab>
-      <b-tab
-        title="Predecessors"
-        :disabled="!currentDataObject.predecessorIds.length"
-      >
+      <b-tab title="Predecessors" :disabled="!predecessorIds.length">
         <DataObjectList
           :current-collection-id="currentDataObject.collectionId"
-          :data-object-ids="currentDataObject.predecessorIds"
+          :data-object-ids="predecessorIds"
         />
       </b-tab>
-      <b-tab
-        title="Successors"
-        :disabled="!currentDataObject.successorIds.length"
-      >
+      <b-tab title="Successors" :disabled="!successorIds.length">
         <DataObjectList
           :current-collection-id="currentDataObject.collectionId"
-          :data-object-ids="currentDataObject.successorIds"
+          :data-object-ids="successorIds"
         />
       </b-tab>
     </b-tabs>
@@ -44,14 +36,30 @@ import { DataObject } from "@dlr-shepard/shepard-client";
 import DataObjectList from "@/components/dataobjects/DataObjectList.vue";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
 
+interface RelatedObjectsTableData {
+  parentIds: number[];
+  childrenIds: number[];
+  predecessorIds: number[];
+  successorIds: number[];
+}
+
 export default Vue.extend({
   components: { DataObjectList, ChildrenList },
   props: {
     currentDataObject: {
       type: Object as () => DataObject,
-      default: undefined,
+      required: true,
     },
   },
-  methods: {},
+  data() {
+    return {
+      parentIds: this.currentDataObject.parentId
+        ? [this.currentDataObject.parentId]
+        : [],
+      childrenIds: this.currentDataObject.childrenIds || [],
+      predecessorIds: this.currentDataObject.predecessorIds || [],
+      successorIds: this.currentDataObject.successorIds || [],
+    } as RelatedObjectsTableData;
+  },
 });
 </script>

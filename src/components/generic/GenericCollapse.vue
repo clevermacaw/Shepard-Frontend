@@ -19,8 +19,14 @@
 import Vue from "vue";
 export default Vue.extend({
   props: {
-    title: { type: String, required: true },
-    visible: { type: Boolean, default: false },
+    title: {
+      type: String,
+      required: true,
+    },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return { collapsed: this.visible };

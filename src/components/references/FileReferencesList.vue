@@ -88,11 +88,11 @@ export default (
   props: {
     currentCollectionId: {
       type: Number,
-      default: undefined,
+      required: true,
     },
     currentDataObjectId: {
       type: Number,
-      default: undefined,
+      required: true,
     },
   },
   data() {

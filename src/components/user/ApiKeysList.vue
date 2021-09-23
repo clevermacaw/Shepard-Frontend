@@ -82,7 +82,7 @@ export default (
   props: {
     currentUsername: {
       type: String,
-      default: undefined,
+      required: true,
     },
   },
   data() {

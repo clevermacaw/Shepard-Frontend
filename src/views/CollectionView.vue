@@ -43,7 +43,10 @@
       />
     </p>
 
-    <GenericDescription :text="currentCollection.description" />
+    <GenericDescription
+      v-if="currentCollection.description"
+      :text="currentCollection.description"
+    />
 
     <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
       <b-table striped small :items="attributeItems"> </b-table>

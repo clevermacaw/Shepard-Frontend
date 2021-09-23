@@ -67,7 +67,10 @@
       </b-col>
     </b-row>
 
-    <GenericDescription :text="currentDataObject.description" />
+    <GenericDescription
+      v-if="currentDataObject.description"
+      :text="currentDataObject.description"
+    />
 
     <GenericCollapse v-if="attributeItems.length" title="Attributes" visible>
       <b-table striped small :items="attributeItems"> </b-table>
