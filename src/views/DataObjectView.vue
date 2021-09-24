@@ -165,7 +165,7 @@ export default (
       this.dataObjectApi
         ?.getDataObject({
           collectionId: this.currentCollectionId,
-          dataObjectId: Number(this.$router.currentRoute.params.dataObjectId),
+          dataObjectId: this.currentDataObjectId,
         })
         .then(response => {
           this.currentDataObject = response;

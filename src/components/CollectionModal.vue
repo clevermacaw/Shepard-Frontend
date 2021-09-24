@@ -159,7 +159,7 @@ export default (
       }
     },
     handleEdit() {
-      if (!this.currentCollection.id) return;
+      if (!this.currentCollection?.id) return;
       let attributes: { [key: string]: string } = {};
       this.possibleAttributes.forEach(attr => {
         if (attr.key != "") {

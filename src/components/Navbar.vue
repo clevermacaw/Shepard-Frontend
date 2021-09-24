@@ -31,10 +31,10 @@ import { mapGetters } from "vuex";
 export default Vue.extend({
   computed: {
     ...mapGetters("oidcStore", ["oidcIsAuthenticated", "oidcUser"]),
-    hasAccess() {
+    hasAccess(): boolean {
       return this.oidcIsAuthenticated || this.$route.meta?.isPublic;
     },
-    fullName() {
+    fullName(): string {
       return this.oidcUser?.family_name + ", " + this.oidcUser?.given_name;
     },
   },

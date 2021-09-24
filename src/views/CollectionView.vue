@@ -138,7 +138,7 @@ export default (
         .then(response => {
           this.currentCollection = response;
           this.attributeItems = [];
-          if (this.currentCollection.attributes !== undefined) {
+          if (this.currentCollection?.attributes !== undefined) {
             Object.entries(this.currentCollection.attributes).forEach(
               ([key, value]) =>
                 this.attributeItems.push({ key: key, value: value }),

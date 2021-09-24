@@ -204,7 +204,7 @@ export default (
     },
     currentCollectionId: {
       type: Number,
-      default: undefined,
+      required: true,
     },
     currentDataObject: {
       type: Object as () => DataObject,
