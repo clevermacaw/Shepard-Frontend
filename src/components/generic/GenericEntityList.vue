@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
@@ -95,7 +95,7 @@ interface GenericEntityListData {
   newName: string;
 }
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     CreatedByLine,
     DeleteConfirmationModal,
@@ -108,6 +108,7 @@ export default Vue.extend({
       },
     },
   },
+  emits: ["createEntity", "deleteEntity"],
   data() {
     return {
       currentEntity: undefined,

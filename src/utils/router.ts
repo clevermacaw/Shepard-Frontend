@@ -1,11 +1,8 @@
-import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { vuexOidcCreateRouterMiddleware } from "vuex-oidc";
 import store from "@/utils/vuex-store";
 
-Vue.use(VueRouter);
-
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: { name: "Explore" },
@@ -94,9 +91,8 @@ const routes: Array<RouteConfig> = [
   },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 router.beforeEach(vuexOidcCreateRouterMiddleware(store, "oidcStore"));

@@ -37,7 +37,7 @@ import FilterListLine, {
   FilterChangedData,
 } from "@/components/generic/FilterListLine.vue";
 import GenericEntityList from "@/components/generic/GenericEntityList.vue";
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 
 interface FilesListData {
   containers: FileContainer[];
@@ -47,9 +47,7 @@ interface FilesListData {
   descending: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof FileVue>>
-).extend({
+export default defineComponent({
   components: { GenericEntityList, FilterListLine },
   mixins: [FileVue],
   data() {

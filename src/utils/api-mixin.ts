@@ -1,4 +1,6 @@
-import Vue from "vue";
+/* eslint vue/one-component-per-file: 0 */ // --> OFF
+
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import {
   Configuration,
@@ -20,7 +22,7 @@ import {
 } from "@dlr-shepard/shepard-client";
 import getEnv from "@/utils/env";
 
-const ApiVue = Vue.extend({
+const ApiVue = defineComponent({
   computed: {
     ...mapGetters("oidcStore", ["oidcAccessToken"]),
     config(): Configuration {
@@ -49,7 +51,8 @@ interface CollectionData {
   collectionApi?: CollectionApi;
 }
 
-const CollectionVue = ApiVue.extend({
+const CollectionVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { collectionApi: undefined } as CollectionData;
   },
@@ -64,7 +67,8 @@ interface DataObjectData {
   dataObjectApi?: DataObjectApi;
 }
 
-const DataObjectVue = ApiVue.extend({
+const DataObjectVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { dataObjectApi: undefined } as DataObjectData;
   },
@@ -79,7 +83,8 @@ interface ReferenceData {
   referenceApi?: ReferenceApi;
 }
 
-const ReferenceVue = ApiVue.extend({
+const ReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { referenceApi: undefined } as ReferenceData;
   },
@@ -94,7 +99,8 @@ interface TimeseriesReferenceData {
   timeseriesReferenceApi?: TimeseriesReferenceApi;
 }
 
-const TimeseriesReferenceVue = ApiVue.extend({
+const TimeseriesReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { timeseriesReferenceApi: undefined } as TimeseriesReferenceData;
   },
@@ -109,7 +115,8 @@ interface TimeseriesData {
   timeseriesApi?: TimeseriesApi;
 }
 
-const TimeseriesVue = ApiVue.extend({
+const TimeseriesVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { timeseriesApi: undefined } as TimeseriesData;
   },
@@ -124,7 +131,8 @@ interface StructuredDataReferenceData {
   structuredDataReferenceApi?: StructureddataReferenceApi;
 }
 
-const StructuredDataReferenceVue = ApiVue.extend({
+const StructuredDataReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return {
       structuredDataReferenceApi: undefined,
@@ -143,7 +151,8 @@ interface StructuredDataData {
   structuredDataApi?: StructureddataApi;
 }
 
-const StructuredDataVue = ApiVue.extend({
+const StructuredDataVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { structuredDataApi: undefined } as StructuredDataData;
   },
@@ -158,7 +167,8 @@ interface FileReferenceData {
   fileReferenceApi?: FileReferenceApi;
 }
 
-const FileReferenceVue = ApiVue.extend({
+const FileReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { fileReferenceApi: undefined } as FileReferenceData;
   },
@@ -173,7 +183,8 @@ interface FileData {
   fileApi?: FileApi;
 }
 
-const FileVue = ApiVue.extend({
+const FileVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { fileApi: undefined } as FileData;
   },
@@ -188,7 +199,8 @@ interface DataObjectReferenceData {
   dataObjectReferenceApi?: DataObjectReferenceApi;
 }
 
-const DataObjectReferenceVue = ApiVue.extend({
+const DataObjectReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { dataObjectReferenceApi: undefined } as DataObjectReferenceData;
   },
@@ -203,7 +215,8 @@ interface CollectionReferenceData {
   collectionReferenceApi?: CollectionReferenceApi;
 }
 
-const CollectionReferenceVue = ApiVue.extend({
+const CollectionReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { collectionReferenceApi: undefined } as CollectionReferenceData;
   },
@@ -218,7 +231,8 @@ interface UriReferenceData {
   uriReferenceApi?: UriReferenceApi;
 }
 
-const UriReferenceVue = ApiVue.extend({
+const UriReferenceVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { uriReferenceApi: undefined } as UriReferenceData;
   },
@@ -233,7 +247,8 @@ interface UserData {
   userApi?: UserApi;
 }
 
-const UserVue = ApiVue.extend({
+const UserVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { userApi: undefined } as UserData;
   },
@@ -248,7 +263,8 @@ interface ApiKeyData {
   apiKeyApi?: ApikeyApi;
 }
 
-const ApiKeyVue = ApiVue.extend({
+const ApiKeyVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { apiKeyApi: undefined } as ApiKeyData;
   },
@@ -263,7 +279,8 @@ interface SubscriptionData {
   subscriptionApi?: SubscriptionApi;
 }
 
-const SubscriptionVue = ApiVue.extend({
+const SubscriptionVue = defineComponent({
+  mixins: [ApiVue],
   data() {
     return { subscriptionApi: undefined } as SubscriptionData;
   },

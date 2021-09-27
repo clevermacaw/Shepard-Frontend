@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import DataObjectList from "@/components/dataobjects/DataObjectList.vue";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
@@ -43,7 +43,7 @@ interface RelatedObjectsTableData {
   successorIds: number[];
 }
 
-export default Vue.extend({
+export default defineComponent({
   components: { DataObjectList, ChildrenList },
   props: {
     currentDataObject: {

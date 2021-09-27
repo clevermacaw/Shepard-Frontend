@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { Collection, CollectionReference } from "@dlr-shepard/shepard-client";
 import { CollectionReferenceVue } from "@/utils/api-mixin";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
@@ -43,9 +43,7 @@ declare interface CollectionListData {
   referencedList: { [key: number]: Collection };
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof CollectionReferenceVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [CollectionReferenceVue],
   props: {

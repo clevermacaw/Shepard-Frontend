@@ -88,7 +88,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import { Collection } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
@@ -104,9 +105,7 @@ interface CollectionData {
   attributeItems: Array<{ key: string; value: string }>;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof CollectionVue>>
-).extend({
+export default defineComponent({
   components: {
     GenericCollapse,
     GenericDescription,
@@ -117,16 +116,16 @@ export default (
     DeleteConfirmationModal,
   },
   mixins: [CollectionVue],
+  setup() {
+    const route = useRoute();
+    const currentCollectionId = Number(route.params.collectionId);
+    return { currentCollectionId };
+  },
   data() {
     return {
       currentCollection: undefined,
       attributeItems: [],
     } as CollectionData;
-  },
-  computed: {
-    currentCollectionId(): number {
-      return Number(this.$router.currentRoute.params.collectionId);
-    },
   },
   mounted() {
     this.retrieveCollection();

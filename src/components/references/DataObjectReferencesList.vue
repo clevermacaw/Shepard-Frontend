@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { DataObjectReference, DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectReferenceVue } from "@/utils/api-mixin";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
@@ -44,9 +44,7 @@ declare interface DataObjectListData {
   referencedList: { [key: number]: DataObject };
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectReferenceVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [DataObjectReferenceVue],
   props: {

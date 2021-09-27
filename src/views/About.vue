@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 import getEnv from "@/utils/env";
 import { version } from "../../package.json";
 
@@ -32,7 +32,7 @@ declare interface AboutData {
   appVersion: string;
 }
 
-export default Vue.extend({
+export default defineComponent({
   data() {
     return {
       backend: undefined,

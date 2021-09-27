@@ -20,7 +20,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import { FileVue } from "@/utils/api-mixin";
 import { FileContainer } from "@dlr-shepard/shepard-client";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
@@ -30,21 +31,19 @@ interface FileData {
   fileList: unknown[];
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof FileVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [FileVue],
+  setup() {
+    const route = useRoute();
+    const currentFileId = Number(route.params.fileId);
+    return { currentFileId };
+  },
   data() {
     return {
       currentFile: undefined,
       fileList: [],
     } as FileData;
-  },
-  computed: {
-    currentFileId(): number {
-      return Number(this.$router.currentRoute.params.fileId);
-    },
   },
   mounted() {
     this.retrieveFile();

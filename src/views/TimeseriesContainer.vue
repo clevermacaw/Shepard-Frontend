@@ -15,7 +15,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import { TimeseriesContainer } from "@dlr-shepard/shepard-client";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import { TimeseriesVue } from "@/utils/api-mixin";
@@ -24,20 +25,18 @@ interface TimeseriesData {
   currentTimeseries?: TimeseriesContainer;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof TimeseriesVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [TimeseriesVue],
+  setup() {
+    const route = useRoute();
+    const currentTimeseriesId = Number(route.params.timeseriesId);
+    return { currentTimeseriesId };
+  },
   data() {
     return {
       currentTimeseries: undefined,
     } as TimeseriesData;
-  },
-  computed: {
-    currentTimeseriesId(): number {
-      return Number(this.$router.currentRoute.params.timeseriesId);
-    },
   },
   mounted() {
     this.retrieveTimeseries();

@@ -111,7 +111,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
 import GenericCollapse from "@/components/generic/GenericCollapse.vue";
@@ -128,9 +129,7 @@ interface DataObjectData {
   screenWidth: number;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
-).extend({
+export default defineComponent({
   components: {
     GenericCollapse,
     GenericDescription,
@@ -141,20 +140,18 @@ export default (
     DeleteConfirmationModal,
   },
   mixins: [DataObjectVue],
+  setup() {
+    const route = useRoute();
+    const currentCollectionId = Number(route.params.collectionId);
+    const currentDataObjectId = Number(route.params.dataObjectId);
+    return { currentCollectionId, currentDataObjectId };
+  },
   data() {
     return {
       currentDataObject: undefined,
       attributeItems: [],
       screenWidth: 0,
     } as DataObjectData;
-  },
-  computed: {
-    currentCollectionId(): number {
-      return Number(this.$router.currentRoute.params.collectionId);
-    },
-    currentDataObjectId(): number {
-      return Number(this.$router.currentRoute.params.dataObjectId);
-    },
   },
   mounted() {
     this.retrieveDataObject();

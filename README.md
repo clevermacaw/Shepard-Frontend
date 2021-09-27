@@ -6,7 +6,7 @@ The shepard frontend is based on [Vue.js](https://vuejs.org/) and [OpenAPI Gener
 
 - [Vue.js](https://vuejs.org/v2/guide/)
 - [Typescript](https://www.typescriptlang.org/docs/)
-- [BootstrapVue](https://bootstrap-vue.org/)
+- [BootstrapVue 3](https://cdmoro.github.io/bootstrap-vue-3/)
 - [Material Design Icons](https://materialdesignicons.com/)
 
 ## Downloads

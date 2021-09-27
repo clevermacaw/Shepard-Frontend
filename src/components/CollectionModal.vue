@@ -95,7 +95,7 @@
 <script lang="ts">
 import { CollectionVue } from "@/utils/api-mixin";
 import { Collection } from "@dlr-shepard/shepard-client";
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 
 interface CollectionModalData {
   newCollection: Collection;
@@ -106,9 +106,7 @@ interface CollectionModalData {
   validationError: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof CollectionVue>>
-).extend({
+export default defineComponent({
   mixins: [CollectionVue],
   props: {
     modalId: {
@@ -124,6 +122,7 @@ export default (
       default: undefined,
     },
   },
+  emits: ["collectionChanged"],
 
   data() {
     return {

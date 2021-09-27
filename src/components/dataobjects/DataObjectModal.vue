@@ -168,7 +168,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
 
@@ -189,9 +189,7 @@ declare interface DataObjectModelData {
   validationError: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
-).extend({
+export default defineComponent({
   mixins: [DataObjectVue],
   props: {
     modalId: {
@@ -211,6 +209,7 @@ export default (
       default: undefined,
     },
   },
+  emits: ["dataObjectChanged"],
 
   data() {
     return {

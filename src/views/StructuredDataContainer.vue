@@ -23,7 +23,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
 import {
   StructuredData,
   StructuredDataContainer,
@@ -36,21 +37,19 @@ interface StructuredDataData {
   structuredDataList: StructuredData[];
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [StructuredDataVue],
+  setup() {
+    const route = useRoute();
+    const currentStructuredDataId = Number(route.params.structuredDataId);
+    return { currentStructuredDataId };
+  },
   data() {
     return {
       currentStructuredData: undefined,
       structuredDataList: [],
     } as StructuredDataData;
-  },
-  computed: {
-    currentStructuredDataId(): number {
-      return Number(this.$router.currentRoute.params.structuredDataId);
-    },
   },
   mounted() {
     this.retrieveStructuredData();

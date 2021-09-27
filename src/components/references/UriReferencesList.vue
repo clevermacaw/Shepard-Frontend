@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { URIReference } from "@dlr-shepard/shepard-client";
 import { UriReferenceVue } from "@/utils/api-mixin";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
@@ -25,9 +25,7 @@ declare interface URIListData {
   uriList: URIReference[];
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof UriReferenceVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [UriReferenceVue],
   props: {

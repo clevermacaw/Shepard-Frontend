@@ -1,12 +1,9 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from "vuex";
 import { vuexOidcCreateStoreModule } from "vuex-oidc";
 import { VuexOidcClientSettings } from "vuex-oidc";
 import { nanoid } from "nanoid";
 import getEnv from "@/utils/env";
 import { Configuration, User, UserApi } from "@dlr-shepard/shepard-client";
-
-Vue.use(Vuex);
 
 // OIDC
 const loco = window.location;
@@ -88,7 +85,7 @@ const userCache = {
   },
 };
 
-export default new Vuex.Store({
+export default createStore({
   modules: {
     oidcStore: vuexOidcCreateStoreModule(clientSettings, {
       namespaced: true,

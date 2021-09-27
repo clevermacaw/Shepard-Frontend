@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { TimeseriesReference } from "@dlr-shepard/shepard-client";
 import { TimeseriesReferenceVue } from "@/utils/api-mixin";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
@@ -43,9 +43,7 @@ declare interface TimeseriesListData {
   timeseriesList: TimeseriesReference[];
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof TimeseriesReferenceVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [TimeseriesReferenceVue],
   props: {

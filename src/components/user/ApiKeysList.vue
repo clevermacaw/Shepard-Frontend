@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { ApiKey, ApiKeyWithJWT } from "@dlr-shepard/shepard-client";
 import { ApiKeyVue } from "@/utils/api-mixin";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
@@ -72,9 +72,7 @@ declare interface ApiKeyListData {
   currentApiKey?: ApiKey;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof ApiKeyVue>>
-).extend({
+export default defineComponent({
   components: {
     DeleteConfirmationModal,
   },
@@ -126,7 +124,8 @@ export default (
         })
         .then(response => {
           this.createdApiKey = response;
-          this.$bvModal.show("created-apikey-modal");
+          // TODO: show modal
+          //this.$bvModal.show("created-apikey-modal");
         })
         .catch(e => {
           console.log("Error while creating api key " + e);

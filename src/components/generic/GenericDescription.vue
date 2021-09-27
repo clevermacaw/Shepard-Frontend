@@ -22,13 +22,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 
 interface DescriptionData {
   readMore: boolean;
 }
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     text: {
       type: String,

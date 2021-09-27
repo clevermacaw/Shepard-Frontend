@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { BasicReference, DataObject } from "@dlr-shepard/shepard-client";
 import { ReferenceVue } from "@/utils/api-mixin";
 import TimeseriesReferencesList from "@/components/references/TimeseriesReferencesList.vue";
@@ -67,9 +67,7 @@ interface DataObjectData {
   hasDataObjectReference: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof ReferenceVue>>
-).extend({
+export default defineComponent({
   components: {
     TimeseriesReferencesList,
     StructuredDataReferencesList,

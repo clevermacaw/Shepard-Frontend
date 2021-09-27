@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType, VueConstructor } from "vue";
+import { defineComponent, PropType } from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
 import DataObjectListItem from "@/components/dataobjects/DataObjectListItem.vue";
@@ -20,9 +20,7 @@ interface DataObjectListData {
   dataObjects: DataObject[];
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
-).extend({
+export default defineComponent({
   components: { DataObjectListItem },
   mixins: [DataObjectVue],
   props: {

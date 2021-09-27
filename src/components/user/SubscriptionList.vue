@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import {
   Subscription,
   SubscriptionRequestMethodEnum,
@@ -90,9 +90,7 @@ declare interface SubscriptionListData {
   requestMethods: string[];
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof SubscriptionVue>>
-).extend({
+export default defineComponent({
   components: { DeleteConfirmationModal },
   mixins: [SubscriptionVue],
   props: {

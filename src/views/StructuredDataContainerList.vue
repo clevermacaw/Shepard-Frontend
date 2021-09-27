@@ -37,7 +37,7 @@ import FilterListLine, {
   FilterChangedData,
 } from "@/components/generic/FilterListLine.vue";
 import GenericEntityList from "@/components/generic/GenericEntityList.vue";
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 
 interface StructuredDatasListData {
   containers: StructuredDataContainer[];
@@ -47,9 +47,7 @@ interface StructuredDatasListData {
   descending: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataVue>>
-).extend({
+export default defineComponent({
   components: { GenericEntityList, FilterListLine },
   mixins: [StructuredDataVue],
   data() {

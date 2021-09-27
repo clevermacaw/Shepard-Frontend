@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import GenericEntityList from "@/components/generic/GenericEntityList.vue";
 import FilterListLine, {
   FilterChangedData,
@@ -49,9 +49,7 @@ interface ExploreData {
   descending: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof CollectionVue>>
-).extend({
+export default defineComponent({
   components: { GenericEntityList, FilterListLine },
   mixins: [CollectionVue],
   data() {

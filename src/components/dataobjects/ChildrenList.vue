@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import {
   DataObject,
   GetAllDataObjectsOrderByEnum,
@@ -38,9 +38,7 @@ interface DataObjectListData {
   currentPage: number;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof DataObjectVue>>
-).extend({
+export default defineComponent({
   components: { DataObjectListItem, FilterListLine },
   mixins: [DataObjectVue],
   props: {

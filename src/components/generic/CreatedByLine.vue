@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     createdBy: {
       type: String,

@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 
 export interface FilterChangedData {
   currentPage: number;
@@ -54,7 +54,7 @@ interface FilterListLineData {
   descendingOptions: Array<{ value: boolean; text: string }>;
 }
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     totalRows: {
       type: Number,
@@ -77,6 +77,7 @@ export default Vue.extend({
       default: false,
     },
   },
+  emits: ["filterChanged"],
   data() {
     return {
       currentPage: this.defaultPage,

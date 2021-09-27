@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { User } from "@dlr-shepard/shepard-client";
 import ApiKeyList from "@/components/user/ApiKeysList.vue";
 import SubscriptionList from "@/components/user/SubscriptionList.vue";
@@ -52,9 +52,7 @@ interface UserData {
   user?: User;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof UserVue>>
-).extend({
+export default defineComponent({
   components: {
     ApiKeyList,
     SubscriptionList,

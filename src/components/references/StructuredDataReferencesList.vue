@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import {
   StructuredDataPayload,
   StructuredDataReference,
@@ -66,9 +66,7 @@ declare interface StructuredDataListData {
   structuredDatas: { [key: string]: StructuredDataPayload };
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataReferenceVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [StructuredDataReferenceVue],
   props: {

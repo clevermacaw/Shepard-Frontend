@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import { defineComponent } from "vue";
 import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileReferenceVue } from "@/utils/api-mixin";
 import { downloadFile } from "@/utils/download";
@@ -80,9 +80,7 @@ declare interface FileListData {
   downloadError: boolean;
 }
 
-export default (
-  Vue as VueConstructor<Vue & InstanceType<typeof FileReferenceVue>>
-).extend({
+export default defineComponent({
   components: { CreatedByLine },
   mixins: [FileReferenceVue],
   props: {
