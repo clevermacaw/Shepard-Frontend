@@ -45,22 +45,22 @@
     <b-row class="section">
       <b-col>
         <ParentIcon title="Parents" />
-        <a v-if="currentDataObject.parentId"> 1 </a>
-        <a v-else> 0 </a>
+        <span v-if="currentDataObject.parentId"> 1 </span>
+        <span v-else> 0 </span>
         Parents
       </b-col>
       <b-col>
         <ChildIcon title="Children" />
-        {{ currentDataObject.childrenIds.length }} Children</b-col
-      >
+        {{ currentDataObject.childrenIds.length }} Children
+      </b-col>
       <b-col>
         <PredecessorIcon title="Predecessors" />
-        {{ currentDataObject.predecessorIds.length }} Predecessors</b-col
-      >
+        {{ currentDataObject.predecessorIds.length }} Predecessors
+      </b-col>
       <b-col>
         <SuccessorIcon title="Successors" />
-        {{ currentDataObject.successorIds.length }} Successors</b-col
-      >
+        {{ currentDataObject.successorIds.length }} Successors
+      </b-col>
       <b-col>
         <ReferencesIcon title="References" />
         {{ currentDataObject.referenceIds.length }} References
