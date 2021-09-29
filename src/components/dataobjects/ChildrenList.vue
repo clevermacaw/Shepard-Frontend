@@ -1,8 +1,7 @@
 <template>
   <div>
     <FilterListLine
-      v-if="maxObjects"
-      :total-rows="maxObjects"
+      :max-objects="totalRows"
       :default-size="sizeSelected"
       :default-descending="descendingSelected"
       :default-order-by="orderBySelected"
@@ -65,6 +64,16 @@ export default (
       orderBySelected: GetAllDataObjectsOrderByEnum.CreatedAt,
       sizeSelected: 10,
     } as DataObjectListData;
+  },
+  computed: {
+    totalRows(): number {
+      if (this.maxObjects) {
+        return this.maxObjects;
+      } else if (this.dataObjects.length < this.sizeSelected) {
+        return this.currentPage * this.sizeSelected;
+      }
+      return (this.currentPage + 1) * this.sizeSelected;
+    },
   },
   mounted() {
     this.retrieveDataObjects();

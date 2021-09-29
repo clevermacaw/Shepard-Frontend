@@ -5,7 +5,7 @@
         <b-pagination
           v-model="currentPage"
           :per-page="currentSize"
-          :total-rows="totalRows"
+          :total-rows="maxObjects"
           @change="updatePage($event)"
         ></b-pagination>
       </b-col>
@@ -56,7 +56,7 @@ interface FilterListLineData {
 
 export default Vue.extend({
   props: {
-    totalRows: {
+    maxObjects: {
       type: Number,
       required: true,
     },

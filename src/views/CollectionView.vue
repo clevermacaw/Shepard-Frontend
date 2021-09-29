@@ -58,7 +58,7 @@
       visible
     >
       <ChildrenList
-        :current-collection-id="currentCollectionId"
+        :current-collection-id="currentCollection.id"
         :parent-id="-1"
       />
     </GenericCollapse>
