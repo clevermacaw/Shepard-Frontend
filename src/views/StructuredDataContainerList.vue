@@ -3,7 +3,7 @@
     <div class="component">
       <h4>Structured Data Containers</h4>
       <FilterListLine
-        :total-rows="totalRows"
+        :max-objects="totalRows"
         :default-page="currentPage"
         :default-size="perPage"
         :default-descending="descending"
