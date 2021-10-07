@@ -232,7 +232,7 @@ export default (
     prepare() {
       this.newDataObject = this.currentDataObject
         ? { ...this.currentDataObject }
-        : {};
+        : { name: "" };
       this.possiblePredecessors = [];
       this.possibleAttributes = [];
       this.validationError = false;

@@ -1,27 +1,10 @@
 <template>
   <div class="list">
-    <b-alert
-      v-model="downloadStarted"
-      variant="success"
-      dismissible
-      class="d-flex align-items-center"
-    >
-      Download started. Depending on the size of the file this may take a while.
-      <b-spinner
-        :hidden="!downloadActive"
-        class="ml-auto"
-        small
-        type="grow"
-      ></b-spinner>
-    </b-alert>
-    <b-alert
-      v-model="downloadError"
-      variant="danger"
-      dismissible
-      class="d-flex align-items-center"
-    >
-      File is missing
-    </b-alert>
+    <DownloadAlert
+      :download-active="downloadActive"
+      :download-started="downloadStarted"
+      :download-error="downloadError"
+    />
     <b-list-group>
       <b-list-group-item
         v-for="(fileReference, index) in fileReferenceList"
@@ -70,6 +53,7 @@ import Vue, { VueConstructor } from "vue";
 import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileReferenceVue } from "@/utils/api-mixin";
 import { downloadFile } from "@/utils/download";
+import DownloadAlert from "@/components/DownloadAlert.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface FileListData {
@@ -83,7 +67,7 @@ declare interface FileListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileReferenceVue>>
 ).extend({
-  components: { CreatedByLine },
+  components: { CreatedByLine, DownloadAlert },
   mixins: [FileReferenceVue],
   props: {
     currentCollectionId: {

@@ -9,7 +9,7 @@
     "fix": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dlr-shepard/shepard-client": "^2021.9.30",
+    "@dlr-shepard/shepard-client": "^2021.10.7",
     "bootstrap-vue": "^2.21.2",
     "nanoid": "^3.1.28",
     "oidc-client": "^1.11.5",

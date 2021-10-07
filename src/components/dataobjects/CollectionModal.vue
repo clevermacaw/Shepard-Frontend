@@ -140,7 +140,7 @@ export default (
     prepareEdit() {
       this.newCollection = this.currentCollection
         ? { ...this.currentCollection }
-        : {};
+        : { name: "" };
       this.possibleAttributes = [];
       this.validationError = false;
 
