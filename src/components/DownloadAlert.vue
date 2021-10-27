@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 
 declare interface DownloadAlertData {
   thisDownloadStarted: boolean;
@@ -34,7 +34,7 @@ declare interface DownloadAlertData {
   thisDownloadError: boolean;
 }
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     downloadStarted: {
       type: Boolean,
