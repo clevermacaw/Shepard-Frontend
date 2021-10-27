@@ -2,13 +2,19 @@
   <div>
     <small v-if="updated">updated</small>
     <small v-else>created</small>
-    <small v-if="createdAt" v-b-tooltip.hover :title="createdAt.toString()">
+    <small v-if="createdAt" :id="'at' + id">
       at {{ createdAt.toDateString() }}
     </small>
-    <small v-if="getAllUsers[createdBy]" v-b-tooltip.hover :title="createdBy">
+    <b-tooltip :target="'at' + id" :delay="{ show: 500, hide: 100 }">
+      {{ createdAt.toString() }}
+    </b-tooltip>
+    <small v-if="getAllUsers[createdBy]" :id="'by' + id">
       by {{ getAllUsers[createdBy].lastName }},
       {{ getAllUsers[createdBy].firstName }}
     </small>
+    <b-tooltip :target="'by' + id" :delay="{ show: 500, hide: 100 }">
+      {{ createdBy }}
+    </b-tooltip>
   </div>
 </template>
 
@@ -30,6 +36,11 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      id: Math.random(),
+    };
   },
   computed: {
     ...mapGetters("userCache", [

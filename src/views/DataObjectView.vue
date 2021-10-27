@@ -29,7 +29,7 @@
 
     <h3>{{ currentDataObject.name }}</h3>
     <div>
-      Object ID: {{ currentDataObject.id }}
+      Data Object ID: {{ currentDataObject.id }}
       <CreatedByLine
         :created-at="currentDataObject.createdAt"
         :created-by="currentDataObject.createdBy"

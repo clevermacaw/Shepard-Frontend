@@ -30,7 +30,7 @@
       <h3>{{ currentCollection.name }}</h3>
     </div>
     <p>
-      Object ID: {{ currentCollection.id }}
+      Collection ID: {{ currentCollection.id }}
       <CreatedByLine
         :created-at="currentCollection.createdAt"
         :created-by="currentCollection.createdBy"
