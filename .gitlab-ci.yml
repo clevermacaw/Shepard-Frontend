@@ -1,4 +1,4 @@
-image: node:latest
+image: node:lts
 
 variables:
   SECRET_DETECTION_EXCLUDED_PATHS: "node_modules"
