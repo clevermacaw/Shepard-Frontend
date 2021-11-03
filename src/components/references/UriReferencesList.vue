@@ -84,7 +84,7 @@ export default (
           uRIReference: newReference,
         })
         .then(response => {
-          this.uriList = { ...this.uriList, ...[response] };
+          this.uriList = [response].concat(this.uriList);
         })
         .catch(e => {
           console.log("Error while creating URIReference " + e);

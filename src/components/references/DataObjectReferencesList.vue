@@ -1,5 +1,21 @@
 <template>
   <div class="list">
+    <b-button
+      v-b-modal.create-data-object-ref-modal
+      class="mb-3"
+      variant="primary"
+    >
+      Create new Reference
+    </b-button>
+
+    <DataObjectReferenceModal
+      :current-collection-id="currentCollectionId"
+      :current-data-object-id="currentDataObjectId"
+      modal-id="create-data-object-ref-modal"
+      modal-name="Create DataObject Reference"
+      @create="create($event)"
+    />
+
     <b-list-group>
       <b-list-group-item
         v-for="(dataObjectItem, index) in dataObjectList"
@@ -37,6 +53,7 @@
 import Vue, { VueConstructor } from "vue";
 import { DataObjectReference, DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectReferenceVue } from "@/utils/api-mixin";
+import DataObjectReferenceModal from "@/components/references/DataObjectReferenceModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface DataObjectListData {
@@ -47,7 +64,7 @@ declare interface DataObjectListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof DataObjectReferenceVue>>
 ).extend({
-  components: { CreatedByLine },
+  components: { CreatedByLine, DataObjectReferenceModal },
   mixins: [DataObjectReferenceVue],
   props: {
     currentCollectionId: {
@@ -100,6 +117,23 @@ export default (
         })
         .catch(e => {
           console.log("Error while fetching DataObject Reference Payload " + e);
+        })
+        .finally();
+    },
+
+    create(newReference: DataObjectReference) {
+      this.dataObjectReferenceApi
+        ?.createDataObjectReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          dataObjectReference: newReference,
+        })
+        .then(response => {
+          this.dataObjectList = [response].concat(this.dataObjectList);
+          if (response.id) this.retrieveDataObject(response.id);
+        })
+        .catch(e => {
+          console.log("Error while creating DataObjectReference " + e);
         })
         .finally();
     },
