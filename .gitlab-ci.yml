@@ -40,8 +40,6 @@ lint:
 
 build:
   stage: build
-  needs:
-    - lint
   before_script:
     - *version_number
     - *prepare_npm
