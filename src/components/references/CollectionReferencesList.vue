@@ -1,5 +1,21 @@
 <template>
   <div class="list">
+    <b-button
+      v-b-modal.create-collection-ref-modal
+      class="mb-3"
+      variant="primary"
+    >
+      Create new Reference
+    </b-button>
+
+    <CollectionReferenceModal
+      :current-collection-id="currentCollectionId"
+      :current-data-object-id="currentDataObjectId"
+      modal-id="create-collection-ref-modal"
+      modal-name="Create Collection Reference"
+      @create="create($event)"
+    />
+
     <b-list-group>
       <b-list-group-item
         v-for="(collectionItem, index) in collectionList"
@@ -36,6 +52,7 @@
 import Vue, { VueConstructor } from "vue";
 import { Collection, CollectionReference } from "@dlr-shepard/shepard-client";
 import { CollectionReferenceVue } from "@/utils/api-mixin";
+import CollectionReferenceModal from "@/components/references/CollectionReferenceModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface CollectionListData {
@@ -46,7 +63,7 @@ declare interface CollectionListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof CollectionReferenceVue>>
 ).extend({
-  components: { CreatedByLine },
+  components: { CreatedByLine, CollectionReferenceModal },
   mixins: [CollectionReferenceVue],
   props: {
     currentCollectionId: {
@@ -99,6 +116,23 @@ export default (
         })
         .catch(e => {
           console.log("Error while fetching Collection Reference Payload " + e);
+        })
+        .finally();
+    },
+
+    create(newReference: CollectionReference) {
+      this.collectionReferenceApi
+        ?.createCollectionReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          collectionReference: newReference,
+        })
+        .then(response => {
+          this.collectionList = [response].concat(this.collectionList);
+          if (response.id) this.retrieveCollection(response.id);
+        })
+        .catch(e => {
+          console.log("Error while creating CollectionReference " + e);
         })
         .finally();
     },
