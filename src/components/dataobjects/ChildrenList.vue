@@ -49,7 +49,15 @@ export default (
     },
     parentId: {
       type: Number,
-      required: true,
+      default: undefined,
+    },
+    predecessorId: {
+      type: Number,
+      default: undefined,
+    },
+    successorId: {
+      type: Number,
+      default: undefined,
     },
     maxObjects: {
       type: Number,
@@ -94,6 +102,8 @@ export default (
         ?.getAllDataObjects({
           collectionId: this.currentCollectionId,
           parentId: this.parentId,
+          predecessorId: this.predecessorId,
+          successorId: this.successorId,
           size: this.sizeSelected,
           orderBy: nextOrderBy,
           orderDesc: this.descendingSelected,

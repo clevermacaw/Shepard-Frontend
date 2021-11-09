@@ -15,15 +15,17 @@
         />
       </b-tab>
       <b-tab title="Predecessors" :disabled="!predecessorIds.length">
-        <DataObjectList
+        <ChildrenList
           :current-collection-id="currentDataObject.collectionId"
-          :data-object-ids="predecessorIds"
+          :successor-id="currentDataObject.id"
+          :max-objects="predecessorIds.length"
         />
       </b-tab>
       <b-tab title="Successors" :disabled="!successorIds.length">
-        <DataObjectList
+        <ChildrenList
           :current-collection-id="currentDataObject.collectionId"
-          :data-object-ids="successorIds"
+          :predecessor-id="currentDataObject.id"
+          :max-objects="successorIds.length"
         />
       </b-tab>
     </b-tabs>
