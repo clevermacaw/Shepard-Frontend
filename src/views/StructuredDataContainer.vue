@@ -15,7 +15,7 @@
           v-for="(structuredData, index) in structuredDataList"
           :key="index"
         >
-          {{ structuredData.oid }}
+          {{ structuredData.oid }} | {{ structuredData.name }}
         </b-list-group-item>
       </b-list-group>
     </div>
