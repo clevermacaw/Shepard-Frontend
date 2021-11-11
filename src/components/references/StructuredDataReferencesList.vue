@@ -1,5 +1,21 @@
 <template>
   <div class="list">
+    <b-button
+      v-b-modal.create-structured-data-ref-modal
+      class="mb-3"
+      variant="primary"
+    >
+      Create new Reference
+    </b-button>
+
+    <StructuredDataReferenceModal
+      :current-collection-id="currentCollectionId"
+      :current-data-object-id="currentDataObjectId"
+      modal-id="create-structured-data-ref-modal"
+      modal-name="Create StructuredData Reference"
+      @create="create($event)"
+    />
+
     <b-list-group>
       <b-list-group-item
         v-for="(structuredDataReference, index) in structuredDataList"
@@ -59,6 +75,7 @@ import {
   StructuredDataReference,
 } from "@dlr-shepard/shepard-client";
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
+import StructuredDataReferenceModal from "@/components/references/StructuredDataReferenceModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 
 declare interface StructuredDataListData {
@@ -69,7 +86,7 @@ declare interface StructuredDataListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataReferenceVue>>
 ).extend({
-  components: { CreatedByLine },
+  components: { CreatedByLine, StructuredDataReferenceModal },
   mixins: [StructuredDataReferenceVue],
   props: {
     currentCollectionId: {
@@ -127,6 +144,23 @@ export default (
         })
         .catch(e => {
           console.log("Error while fetching StructuredDataPayload " + e);
+        })
+        .finally();
+    },
+
+    create(newReference: StructuredDataReference) {
+      this.structuredDataReferenceApi
+        ?.createStructuredDataReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          structuredDataReference: newReference,
+        })
+        .then(response => {
+          this.structuredDataList = [response].concat(this.structuredDataList);
+          if (response.id) this.retrieveStructuredDatas(response.id);
+        })
+        .catch(e => {
+          console.log("Error while creating StructuredDataReference " + e);
         })
         .finally();
     },
