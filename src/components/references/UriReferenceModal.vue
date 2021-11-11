@@ -13,7 +13,6 @@
           <b-col cols="2"> Name </b-col>
           <b-col cols="8">
             <b-form-input
-              id="name-input"
               v-model="newURIReference.name"
               required
               placeholder="Name"
@@ -26,7 +25,6 @@
           <b-col cols="2"> URI </b-col>
           <b-col cols="8">
             <b-form-input
-              id="uri-input"
               v-model="newURIReference.uri"
               required
               placeholder="please insert URI"

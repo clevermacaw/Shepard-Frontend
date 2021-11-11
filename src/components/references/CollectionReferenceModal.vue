@@ -14,7 +14,6 @@
           <b-col cols="2"> Name </b-col>
           <b-col cols="8">
             <b-form-input
-              id="name-input"
               v-model="newCollectionReference.name"
               required
               placeholder="Name"
@@ -27,7 +26,6 @@
           <b-col cols="2"> Referenced Collection ID </b-col>
           <b-col cols="8">
             <b-form-input
-              id="referenced-collection-id-input"
               v-model="newCollectionReference.referencedCollectionId"
               required
               placeholder="please insert referenced collection id"
@@ -40,7 +38,6 @@
           <b-col cols="2"> Relationship </b-col>
           <b-col cols="8">
             <b-form-input
-              id="relationship-input"
               v-model="newCollectionReference.relationship"
               required
               placeholder="please insert relationship"

@@ -14,7 +14,6 @@
           <b-col cols="2"> Name </b-col>
           <b-col cols="8">
             <b-form-input
-              id="name-input"
               v-model="newDataObjectReference.name"
               required
               placeholder="Name"
@@ -27,7 +26,6 @@
           <b-col cols="2"> Referenced Data Object ID </b-col>
           <b-col cols="8">
             <b-form-input
-              id="referenced-data-object-id-input"
               v-model="newDataObjectReference.referencedDataObjectId"
               required
               placeholder="please insert referenced data object id"
@@ -40,7 +38,6 @@
           <b-col cols="2"> Relationship </b-col>
           <b-col cols="8">
             <b-form-input
-              id="relationship-input"
               v-model="newDataObjectReference.relationship"
               required
               placeholder="please insert relationship"

@@ -1,5 +1,17 @@
 <template>
   <div class="list">
+    <b-button v-b-modal.create-file-ref-modal class="mb-3" variant="primary">
+      Create new Reference
+    </b-button>
+
+    <FileReferenceModal
+      :current-collection-id="currentCollectionId"
+      :current-data-object-id="currentDataObjectId"
+      modal-id="create-file-ref-modal"
+      modal-name="Create File Reference"
+      @create="create($event)"
+    />
+
     <DownloadAlert
       :download-active="downloadActive"
       :download-started="downloadStarted"
@@ -55,6 +67,7 @@ import { FileReferenceVue } from "@/utils/api-mixin";
 import { downloadFile } from "@/utils/download";
 import DownloadAlert from "@/components/DownloadAlert.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import FileReferenceModal from "@/components/references/FileReferenceModal.vue";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];
@@ -67,7 +80,7 @@ declare interface FileListData {
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileReferenceVue>>
 ).extend({
-  components: { CreatedByLine, DownloadAlert },
+  components: { CreatedByLine, DownloadAlert, FileReferenceModal },
   mixins: [FileReferenceVue],
   props: {
     currentCollectionId: {
@@ -151,6 +164,23 @@ export default (
           this.downloadError = true;
         })
         .finally(() => (this.downloadActive = false));
+    },
+
+    create(newReference: FileReference) {
+      this.fileReferenceApi
+        ?.createFileReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          fileReference: newReference,
+        })
+        .then(response => {
+          this.fileReferenceList = [response].concat(this.fileReferenceList);
+          if (response.id) this.retrieveReferences();
+        })
+        .catch(e => {
+          console.log("Error while creating FileReference " + e);
+        })
+        .finally();
     },
   },
 });

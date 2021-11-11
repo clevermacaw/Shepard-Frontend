@@ -14,7 +14,6 @@
           <b-col cols="2"> Name </b-col>
           <b-col cols="8">
             <b-form-input
-              id="name-input"
               v-model="newDataObject.name"
               required
               placeholder="Name"
@@ -27,7 +26,6 @@
           <b-col cols="2"> Description </b-col>
           <b-col cols="8">
             <b-form-textarea
-              id="data-object-description"
               v-model="newDataObject.description"
               placeholder="please insert description"
               rows="3"
