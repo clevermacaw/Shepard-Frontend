@@ -19,6 +19,14 @@
           <EditIcon />
         </b-button>
         <b-button
+          v-b-modal.permissions-modal
+          v-b-tooltip.hover
+          title="Edit Permissions"
+          variant="light"
+        >
+          <PermissionsIcon />
+        </b-button>
+        <b-button
           v-b-modal.delete-confirmation-modal
           v-b-tooltip.hover
           title="Delete"
@@ -84,12 +92,19 @@
       "
       @confirmation="handleDelete()"
     />
+    <PermissionsModal
+      modal-id="permissions-modal"
+      modal-name="Edit Permissions"
+      :entity-id="currentCollectionId"
+      :old-permissions="permissions"
+      @update="updatePermissions($event)"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { VueConstructor } from "vue";
-import { Collection } from "@dlr-shepard/shepard-client";
+import { Collection, Permissions } from "@dlr-shepard/shepard-client";
 import { CollectionVue } from "@/utils/api-mixin";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
 import CollectionModal from "@/components/dataobjects/CollectionModal.vue";
@@ -98,9 +113,11 @@ import GenericCollapse from "@/components/generic/GenericCollapse.vue";
 import GenericDescription from "@/components/generic/GenericDescription.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import PermissionsModal from "@/components/PermissionsModal.vue";
 
 interface CollectionData {
   currentCollection?: Collection;
+  permissions?: Permissions;
   attributeItems: Array<{ key: string; value: string }>;
 }
 
@@ -115,11 +132,13 @@ export default (
     DataObjectModal,
     CollectionModal,
     DeleteConfirmationModal,
+    PermissionsModal,
   },
   mixins: [CollectionVue],
   data() {
     return {
       currentCollection: undefined,
+      permissions: undefined,
       attributeItems: [],
     } as CollectionData;
   },
@@ -130,6 +149,7 @@ export default (
   },
   mounted() {
     this.retrieveCollection();
+    this.retrievePermissions();
   },
   methods: {
     retrieveCollection() {
@@ -158,6 +178,31 @@ export default (
         })
         .catch(e => {
           console.log("Error while deleting collection " + e);
+        })
+        .finally();
+    },
+    retrievePermissions() {
+      this.collectionApi
+        ?.getCollectionPermissions({ collectionId: this.currentCollectionId })
+        .then(response => {
+          this.permissions = response;
+        })
+        .catch(e => {
+          console.log("Error while fetching permissons " + e);
+        })
+        .finally();
+    },
+    updatePermissions(perms: Permissions) {
+      this.collectionApi
+        ?.editCollectionPermissions({
+          collectionId: this.currentCollectionId,
+          permissions: perms,
+        })
+        .then(response => {
+          this.permissions = response;
+        })
+        .catch(e => {
+          console.log("Error while edit permissons " + e);
         })
         .finally();
     },

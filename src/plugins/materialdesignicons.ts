@@ -20,6 +20,7 @@ import Pencil from "vue-material-design-icons/Pencil.vue";
 import Plus from "vue-material-design-icons/Plus.vue";
 import Minus from "vue-material-design-icons/Minus.vue";
 import FolderOpen from "vue-material-design-icons/FolderOpen.vue";
+import AccountLock from "vue-material-design-icons/AccountLock.vue";
 import FileDownloadOutline from "vue-material-design-icons/FileDownloadOutline.vue";
 
 Vue.component("ParentIcon", ClipboardArrowUpOutline);
@@ -42,4 +43,5 @@ Vue.component("EditIcon", Pencil);
 Vue.component("CreateIcon", Plus);
 Vue.component("RemoveIcon", Minus);
 Vue.component("OpenIcon", FolderOpen);
+Vue.component("PermissionsIcon", AccountLock);
 Vue.component("DownloadIcon", FileDownloadOutline);
