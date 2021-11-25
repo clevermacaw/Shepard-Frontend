@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import getEnv from "@/utils/env";
+import Vue from "vue";
 import { version } from "../../package.json";
 
 interface AboutData {

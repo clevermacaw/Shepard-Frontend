@@ -28,15 +28,15 @@
 </template>
 
 <script lang="ts">
+import FilterListLine, {
+  FilterChangedData,
+} from "@/components/generic/FilterListLine.vue";
+import GenericEntityList from "@/components/generic/GenericEntityList.vue";
 import { StructuredDataVue } from "@/utils/api-mixin";
 import {
   GetAllStructuredDataContainersOrderByEnum,
   StructuredDataContainer,
 } from "@dlr-shepard/shepard-client";
-import FilterListLine, {
-  FilterChangedData,
-} from "@/components/generic/FilterListLine.vue";
-import GenericEntityList from "@/components/generic/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface StructuredDatasListData {

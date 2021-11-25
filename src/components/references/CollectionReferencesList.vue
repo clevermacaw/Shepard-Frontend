@@ -88,12 +88,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { Collection, CollectionReference } from "@dlr-shepard/shepard-client";
-import { CollectionReferenceVue } from "@/utils/api-mixin";
-import CollectionReferenceModal from "@/components/references/CollectionReferenceModal.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import CollectionReferenceModal from "@/components/references/CollectionReferenceModal.vue";
+import { CollectionReferenceVue } from "@/utils/api-mixin";
+import { Collection, CollectionReference } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface CollectionListData {
   collectionList: CollectionReference[];

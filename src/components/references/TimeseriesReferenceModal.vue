@@ -168,14 +168,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { VueConstructor } from "vue";
+import { TimeseriesVue } from "@/utils/api-mixin";
 import {
   Timeseries,
   TimeseriesContainer,
   TimeseriesReference,
 } from "@dlr-shepard/shepard-client";
-import { TimeseriesVue } from "@/utils/api-mixin";
+import Vue, { VueConstructor } from "vue";
 
 interface Option {
   value: Timeseries;

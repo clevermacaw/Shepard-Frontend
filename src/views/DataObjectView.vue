@@ -113,16 +113,16 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { DataObject } from "@dlr-shepard/shepard-client";
-import { DataObjectVue } from "@/utils/api-mixin";
-import GenericCollapse from "@/components/generic/GenericCollapse.vue";
-import GenericDescription from "@/components/generic/GenericDescription.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DataObjectModal from "@/components/dataobjects/DataObjectModal.vue";
-import ReferencesTable from "@/components/references/ReferencesTable.vue";
 import RelatedObjectsTable from "@/components/dataobjects/RelatedObjectsTable.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import GenericCollapse from "@/components/generic/GenericCollapse.vue";
+import GenericDescription from "@/components/generic/GenericDescription.vue";
+import ReferencesTable from "@/components/references/ReferencesTable.vue";
+import { DataObjectVue } from "@/utils/api-mixin";
+import { DataObject } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface DataObjectData {
   currentDataObject?: DataObject;

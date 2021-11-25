@@ -41,11 +41,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { User } from "@dlr-shepard/shepard-client";
 import ApiKeyList from "@/components/user/ApiKeysList.vue";
 import SubscriptionList from "@/components/user/SubscriptionList.vue";
 import { UserVue } from "@/utils/api-mixin";
+import { User } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface UserData {
   userId?: number;

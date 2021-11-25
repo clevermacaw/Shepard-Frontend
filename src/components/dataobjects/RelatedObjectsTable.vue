@@ -33,10 +33,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { DataObject } from "@dlr-shepard/shepard-client";
-import DataObjectList from "@/components/dataobjects/DataObjectList.vue";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
+import DataObjectList from "@/components/dataobjects/DataObjectList.vue";
+import { DataObject } from "@dlr-shepard/shepard-client";
+import Vue from "vue";
 
 interface RelatedObjectsTableData {
   parentIds: number[];

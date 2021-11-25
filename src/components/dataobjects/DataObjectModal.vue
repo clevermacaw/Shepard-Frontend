@@ -166,9 +166,9 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
+import { DataObject } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface DataObjectModelData {
   newDataObject: DataObject;

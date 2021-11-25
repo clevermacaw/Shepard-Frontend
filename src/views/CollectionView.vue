@@ -105,17 +105,17 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { Collection, Permissions } from "@dlr-shepard/shepard-client";
-import { CollectionVue } from "@/utils/api-mixin";
 import ChildrenList from "@/components/dataobjects/ChildrenList.vue";
 import CollectionModal from "@/components/dataobjects/CollectionModal.vue";
 import DataObjectModal from "@/components/dataobjects/DataObjectModal.vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import GenericCollapse from "@/components/generic/GenericCollapse.vue";
 import GenericDescription from "@/components/generic/GenericDescription.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 import PermissionsModal from "@/components/PermissionsModal.vue";
+import { CollectionVue } from "@/utils/api-mixin";
+import { Collection, Permissions } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface CollectionData {
   currentCollection?: Collection;

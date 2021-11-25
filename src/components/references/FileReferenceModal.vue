@@ -53,10 +53,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { VueConstructor } from "vue";
-import { FileReference } from "@dlr-shepard/shepard-client";
 import { FileVue } from "@/utils/api-mixin";
+import { FileReference } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface Option {
   value: string;

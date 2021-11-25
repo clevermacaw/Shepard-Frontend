@@ -11,10 +11,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType, VueConstructor } from "vue";
-import { DataObject } from "@dlr-shepard/shepard-client";
-import { DataObjectVue } from "@/utils/api-mixin";
 import DataObjectListItem from "@/components/dataobjects/DataObjectListItem.vue";
+import { DataObjectVue } from "@/utils/api-mixin";
+import { DataObject } from "@dlr-shepard/shepard-client";
+import Vue, { PropType, VueConstructor } from "vue";
 
 interface DataObjectListData {
   dataObjects: DataObject[];

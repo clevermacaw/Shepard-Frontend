@@ -18,16 +18,16 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import {
-  DataObject,
-  GetAllDataObjectsOrderByEnum,
-} from "@dlr-shepard/shepard-client";
 import DataObjectListItem from "@/components/dataobjects/DataObjectListItem.vue";
 import FilterListLine, {
   FilterChangedData,
 } from "@/components/generic/FilterListLine.vue";
 import { DataObjectVue } from "@/utils/api-mixin";
+import {
+  DataObject,
+  GetAllDataObjectsOrderByEnum,
+} from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface DataObjectListData {
   dataObjects: DataObject[];

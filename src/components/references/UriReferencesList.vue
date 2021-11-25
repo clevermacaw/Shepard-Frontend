@@ -67,12 +67,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { URIReference } from "@dlr-shepard/shepard-client";
-import { UriReferenceVue } from "@/utils/api-mixin";
-import UriReferenceModal from "@/components/references/UriReferenceModal.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import UriReferenceModal from "@/components/references/UriReferenceModal.vue";
+import { UriReferenceVue } from "@/utils/api-mixin";
+import { URIReference } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface URIListData {
   uriList: URIReference[];

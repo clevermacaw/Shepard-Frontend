@@ -94,9 +94,9 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { Permissions, User } from "@dlr-shepard/shepard-client";
 import { UserVue } from "@/utils/api-mixin";
+import { Permissions, User } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface PermissionsModalData {
   username: string;

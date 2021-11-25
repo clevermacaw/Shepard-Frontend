@@ -77,9 +77,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import Vue from "vue";
 
 interface Entity {
   name: string;

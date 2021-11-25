@@ -28,15 +28,15 @@
 </template>
 
 <script lang="ts">
+import FilterListLine, {
+  FilterChangedData,
+} from "@/components/generic/FilterListLine.vue";
+import GenericEntityList from "@/components/generic/GenericEntityList.vue";
 import { FileVue } from "@/utils/api-mixin";
 import {
   FileContainer,
   GetAllFileContainersOrderByEnum,
 } from "@dlr-shepard/shepard-client";
-import FilterListLine, {
-  FilterChangedData,
-} from "@/components/generic/FilterListLine.vue";
-import GenericEntityList from "@/components/generic/GenericEntityList.vue";
 import Vue, { VueConstructor } from "vue";
 
 interface FilesListData {

@@ -89,12 +89,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { DataObjectReference, DataObject } from "@dlr-shepard/shepard-client";
-import { DataObjectReferenceVue } from "@/utils/api-mixin";
-import DataObjectReferenceModal from "@/components/references/DataObjectReferenceModal.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import DataObjectReferenceModal from "@/components/references/DataObjectReferenceModal.vue";
+import { DataObjectReferenceVue } from "@/utils/api-mixin";
+import { DataObject, DataObjectReference } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface DataObjectListData {
   dataObjectList: DataObjectReference[];

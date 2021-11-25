@@ -47,15 +47,15 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { BasicReference, DataObject } from "@dlr-shepard/shepard-client";
-import { ReferenceVue } from "@/utils/api-mixin";
-import TimeseriesReferencesList from "@/components/references/TimeseriesReferencesList.vue";
-import StructuredDataReferencesList from "@/components/references/StructuredDataReferencesList.vue";
-import FileReferencesList from "@/components/references/FileReferencesList.vue";
-import UriReferencesList from "@/components/references/UriReferencesList.vue";
 import CollectionReferencesList from "@/components/references/CollectionReferencesList.vue";
 import DataObjectReferencesList from "@/components/references/DataObjectReferencesList.vue";
+import FileReferencesList from "@/components/references/FileReferencesList.vue";
+import StructuredDataReferencesList from "@/components/references/StructuredDataReferencesList.vue";
+import TimeseriesReferencesList from "@/components/references/TimeseriesReferencesList.vue";
+import UriReferencesList from "@/components/references/UriReferencesList.vue";
+import { ReferenceVue } from "@/utils/api-mixin";
+import { BasicReference, DataObject } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface DataObjectData {
   currentReferences: BasicReference[];

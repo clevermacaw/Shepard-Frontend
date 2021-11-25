@@ -59,16 +59,16 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import PermissionsModal from "@/components/PermissionsModal.vue";
+import { StructuredDataVue } from "@/utils/api-mixin";
 import {
+  Permissions,
   StructuredData,
   StructuredDataContainer,
-  Permissions,
 } from "@dlr-shepard/shepard-client";
-import { StructuredDataVue } from "@/utils/api-mixin";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
-import PermissionsModal from "@/components/PermissionsModal.vue";
+import Vue, { VueConstructor } from "vue";
 
 interface StructuredDataData {
   currentStructuredData?: StructuredDataContainer;

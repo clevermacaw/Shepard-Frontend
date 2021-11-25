@@ -95,14 +95,14 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { TimeseriesReference } from "@dlr-shepard/shepard-client";
-import { TimeseriesReferenceVue } from "@/utils/api-mixin";
-import TimeseriesReferenceModal from "@/components/references/TimeseriesReferenceModal.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
-import DownloadAlert from "@/components/DownloadAlert.vue";
-import { downloadFile } from "@/utils/download";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import DownloadAlert from "@/components/DownloadAlert.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import TimeseriesReferenceModal from "@/components/references/TimeseriesReferenceModal.vue";
+import { TimeseriesReferenceVue } from "@/utils/api-mixin";
+import { downloadFile } from "@/utils/download";
+import { TimeseriesReference } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface TimeseriesListData {
   timeseriesList: TimeseriesReference[];

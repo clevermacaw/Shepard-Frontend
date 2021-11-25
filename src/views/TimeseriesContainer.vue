@@ -51,12 +51,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { TimeseriesContainer, Permissions } from "@dlr-shepard/shepard-client";
-import { TimeseriesVue } from "@/utils/api-mixin";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import PermissionsModal from "@/components/PermissionsModal.vue";
+import { TimeseriesVue } from "@/utils/api-mixin";
+import { Permissions, TimeseriesContainer } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface TimeseriesData {
   currentTimeseries?: TimeseriesContainer;

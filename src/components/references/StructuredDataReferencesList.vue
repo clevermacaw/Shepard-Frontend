@@ -108,15 +108,15 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import StructuredDataReferenceModal from "@/components/references/StructuredDataReferenceModal.vue";
+import { StructuredDataReferenceVue } from "@/utils/api-mixin";
 import {
   StructuredDataPayload,
   StructuredDataReference,
 } from "@dlr-shepard/shepard-client";
-import { StructuredDataReferenceVue } from "@/utils/api-mixin";
-import StructuredDataReferenceModal from "@/components/references/StructuredDataReferenceModal.vue";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import Vue, { VueConstructor } from "vue";
 
 interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];

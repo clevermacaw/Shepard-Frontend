@@ -100,14 +100,14 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { FileReference } from "@dlr-shepard/shepard-client";
-import { FileReferenceVue } from "@/utils/api-mixin";
-import { downloadFile } from "@/utils/download";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 import DownloadAlert from "@/components/DownloadAlert.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import FileReferenceModal from "@/components/references/FileReferenceModal.vue";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import { FileReferenceVue } from "@/utils/api-mixin";
+import { downloadFile } from "@/utils/download";
+import { FileReference } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface FileListData {
   fileReferenceList: FileReference[];

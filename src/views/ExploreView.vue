@@ -28,17 +28,17 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import GenericEntityList from "@/components/generic/GenericEntityList.vue";
 import FilterListLine, {
   FilterChangedData,
 } from "@/components/generic/FilterListLine.vue";
+import GenericEntityList from "@/components/generic/GenericEntityList.vue";
+import { CollectionVue } from "@/utils/api-mixin";
 import {
-  CollectionApi,
   Collection,
+  CollectionApi,
   GetAllCollectionsOrderByEnum,
 } from "@dlr-shepard/shepard-client";
-import { CollectionVue } from "@/utils/api-mixin";
+import Vue, { VueConstructor } from "vue";
 
 interface ExploreData {
   collectionApi?: CollectionApi;

@@ -43,8 +43,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import Vue from "vue";
 
 export default Vue.extend({
   components: { CreatedByLine },

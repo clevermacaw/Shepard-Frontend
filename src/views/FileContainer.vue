@@ -56,12 +56,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import PermissionsModal from "@/components/PermissionsModal.vue";
 import { FileVue } from "@/utils/api-mixin";
 import { FileContainer, Permissions } from "@dlr-shepard/shepard-client";
-import CreatedByLine from "@/components/generic/CreatedByLine.vue";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
-import PermissionsModal from "@/components/PermissionsModal.vue";
+import Vue, { VueConstructor } from "vue";
 
 interface FileData {
   currentFile?: FileContainer;

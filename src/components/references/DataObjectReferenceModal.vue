@@ -51,8 +51,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { DataObjectReference } from "@dlr-shepard/shepard-client";
+import Vue from "vue";
 
 interface DataObjectReferenceModelData {
   newDataObjectReference: DataObjectReference;

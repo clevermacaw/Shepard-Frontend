@@ -60,10 +60,10 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
-import { ApiKey, ApiKeyWithJWT } from "@dlr-shepard/shepard-client";
-import { ApiKeyVue } from "@/utils/api-mixin";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import { ApiKeyVue } from "@/utils/api-mixin";
+import { ApiKey, ApiKeyWithJWT } from "@dlr-shepard/shepard-client";
+import Vue, { VueConstructor } from "vue";
 
 interface ApiKeyListData {
   apiKeys: ApiKey[];

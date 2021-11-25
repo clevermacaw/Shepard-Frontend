@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import Navbar from "@/components/Navbar.vue";
+import Vue from "vue";
 
 export default Vue.extend({
   components: { Breadcrumb, Navbar },

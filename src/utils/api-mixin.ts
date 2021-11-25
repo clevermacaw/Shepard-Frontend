@@ -1,24 +1,24 @@
+import getEnv from "@/utils/env";
+import {
+  ApikeyApi,
+  CollectionApi,
+  CollectionReferenceApi,
+  Configuration,
+  DataObjectApi,
+  DataObjectReferenceApi,
+  FileApi,
+  FileReferenceApi,
+  ReferenceApi,
+  StructureddataApi,
+  StructureddataReferenceApi,
+  SubscriptionApi,
+  TimeseriesApi,
+  TimeseriesReferenceApi,
+  UriReferenceApi,
+  UserApi,
+} from "@dlr-shepard/shepard-client";
 import Vue from "vue";
 import { mapGetters } from "vuex";
-import {
-  Configuration,
-  CollectionApi,
-  DataObjectApi,
-  TimeseriesReferenceApi,
-  StructureddataReferenceApi,
-  FileReferenceApi,
-  UriReferenceApi,
-  DataObjectReferenceApi,
-  CollectionReferenceApi,
-  UserApi,
-  ApikeyApi,
-  ReferenceApi,
-  TimeseriesApi,
-  StructureddataApi,
-  FileApi,
-  SubscriptionApi,
-} from "@dlr-shepard/shepard-client";
-import getEnv from "@/utils/env";
 
 const ApiVue = Vue.extend({
   computed: {

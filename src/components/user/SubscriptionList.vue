@@ -75,13 +75,13 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import { SubscriptionVue } from "@/utils/api-mixin";
 import {
   Subscription,
   SubscriptionRequestMethodEnum,
 } from "@dlr-shepard/shepard-client";
-import { SubscriptionVue } from "@/utils/api-mixin";
-import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
+import Vue, { VueConstructor } from "vue";
 
 interface SubscriptionListData {
   subscriptions: Subscription[];

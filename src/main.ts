@@ -1,9 +1,9 @@
 import Vue from "vue";
-import "./plugins/materialdesignicons";
-import "./plugins/bootstrap-vue";
 import App from "./App.vue";
-import store from "./utils/vuex-store";
+import "./plugins/bootstrap-vue";
+import "./plugins/materialdesignicons";
 import router from "./utils/router";
+import store from "./utils/vuex-store";
 
 new Vue({
   router,
