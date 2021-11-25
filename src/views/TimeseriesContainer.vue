@@ -26,6 +26,7 @@
         <CreatedByLine
           :created-at="currentTimeseries.createdAt"
           :created-by="currentTimeseries.createdBy"
+          tooltip
         />
       </p>
     </div>

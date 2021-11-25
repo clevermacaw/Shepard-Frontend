@@ -26,6 +26,7 @@
         <CreatedByLine
           :created-at="currentFile.createdAt"
           :created-by="currentFile.createdBy"
+          tooltip
         />
       </p>
       <b-list-group>

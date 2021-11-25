@@ -26,6 +26,7 @@
         <CreatedByLine
           :created-at="currentStructuredData.createdAt"
           :created-by="currentStructuredData.createdBy"
+          tooltip
         />
       </p>
       <b-list-group>

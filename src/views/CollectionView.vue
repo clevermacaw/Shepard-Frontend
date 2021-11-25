@@ -42,12 +42,14 @@
       <CreatedByLine
         :created-at="currentCollection.createdAt"
         :created-by="currentCollection.createdBy"
+        tooltip
       />
       <CreatedByLine
         v-if="currentCollection.updatedBy"
         :created-at="currentCollection.updatedAt"
         :created-by="currentCollection.updatedBy"
         updated
+        tooltip
       />
     </p>
 

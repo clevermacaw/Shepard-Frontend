@@ -33,12 +33,14 @@
       <CreatedByLine
         :created-at="currentDataObject.createdAt"
         :created-by="currentDataObject.createdBy"
+        tooltip
       />
       <CreatedByLine
         v-if="currentDataObject.updatedBy"
         :created-at="currentDataObject.updatedAt"
         :created-by="currentDataObject.updatedBy"
         updated
+        tooltip
       />
     </div>
 

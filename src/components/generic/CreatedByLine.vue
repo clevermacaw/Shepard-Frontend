@@ -5,14 +5,22 @@
     <small v-if="createdAt" :id="'at' + id">
       at {{ createdAt.toDateString() }}
     </small>
-    <b-tooltip :target="'at' + id" :delay="{ show: 500, hide: 100 }">
+    <b-tooltip
+      v-if="tooltip && createdAt"
+      :target="'at' + id"
+      :delay="{ show: 500, hide: 100 }"
+    >
       {{ createdAt.toString() }}
     </b-tooltip>
     <small v-if="getAllUsers[createdBy]" :id="'by' + id">
       by {{ getAllUsers[createdBy].lastName }},
       {{ getAllUsers[createdBy].firstName }}
     </small>
-    <b-tooltip :target="'by' + id" :delay="{ show: 500, hide: 100 }">
+    <b-tooltip
+      v-if="tooltip && getAllUsers[createdBy]"
+      :target="'by' + id"
+      :delay="{ show: 500, hide: 100 }"
+    >
       {{ createdBy }}
     </b-tooltip>
   </div>
@@ -33,6 +41,10 @@ export default Vue.extend({
       default: undefined,
     },
     updated: {
+      type: Boolean,
+      default: false,
+    },
+    tooltip: {
       type: Boolean,
       default: false,
     },
