@@ -18,7 +18,7 @@
         <EditIcon />
       </b-button>
       <b-button
-        v-b-modal.delete-confirmation-modal
+        v-b-modal.data-object-delete-confirmation-modal
         v-b-tooltip.hover
         title="Delete"
         variant="dark"
@@ -98,7 +98,7 @@
       modal-name="Create Data Object"
     />
     <DeleteConfirmationModal
-      modal-id="delete-confirmation-modal"
+      modal-id="data-object-delete-confirmation-modal"
       modal-name="Confirm to delete data object"
       :modal-text="
         'Do you really want do delete the data object with name ' +

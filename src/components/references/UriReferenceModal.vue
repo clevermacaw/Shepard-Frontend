@@ -5,6 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
+    @show="handlePrepare()"
     @ok="$emit('create', newURIReference)"
   >
     <b-form-group>
@@ -72,6 +73,13 @@ export default Vue.extend({
         uri: "",
       },
     } as URIReferenceModelData;
+  },
+
+  methods: {
+    handlePrepare() {
+      this.newURIReference.name = "";
+      this.newURIReference.uri = "";
+    },
   },
 });
 </script>

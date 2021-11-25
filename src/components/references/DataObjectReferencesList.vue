@@ -1,5 +1,22 @@
 <template>
   <div class="list">
+    <b-alert
+      :show="showCreate"
+      dismissible
+      variant="success"
+      @dismissed="showCreate = false"
+    >
+      Successfully created
+    </b-alert>
+    <b-alert
+      :show="showDelete"
+      dismissible
+      variant="danger"
+      @dismissed="showDelete = false"
+    >
+      Successfully deleted
+    </b-alert>
+
     <b-button
       v-b-modal.create-data-object-ref-modal
       class="mb-3"
@@ -23,6 +40,16 @@
       >
         <div>
           <b>{{ dataObjectItem.name }}</b> | ID: {{ dataObjectItem.id }}
+          <b-button
+            v-b-modal.data-object-reference-delete-confirmation-modal
+            v-b-tooltip.hover
+            class="float-right"
+            title="Delete"
+            variant="dark"
+            @click="currentDataObjectReference = dataObjectItem"
+          >
+            <DeleteIcon />
+          </b-button>
         </div>
         <CreatedByLine
           :created-by="dataObjectItem.createdBy"
@@ -46,6 +73,18 @@
         </small>
       </b-list-group-item>
     </b-list-group>
+
+    <DeleteConfirmationModal
+      v-if="currentDataObjectReference"
+      modal-id="data-object-reference-delete-confirmation-modal"
+      modal-name="Confirm to delete Data Object Reference"
+      :modal-text="
+        'Do you really want do delete the Data Object Reference with name ' +
+        currentDataObjectReference.name +
+        '?'
+      "
+      @confirmation="handleDelete(currentDataObjectReference.id)"
+    />
   </div>
 </template>
 
@@ -55,16 +94,24 @@ import { DataObjectReference, DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectReferenceVue } from "@/utils/api-mixin";
 import DataObjectReferenceModal from "@/components/references/DataObjectReferenceModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 declare interface DataObjectListData {
   dataObjectList: DataObjectReference[];
   referencedList: { [key: number]: DataObject };
+  currentDataObjectReference?: DataObjectReference;
+  showCreate: boolean;
+  showDelete: boolean;
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof DataObjectReferenceVue>>
 ).extend({
-  components: { CreatedByLine, DataObjectReferenceModal },
+  components: {
+    CreatedByLine,
+    DataObjectReferenceModal,
+    DeleteConfirmationModal,
+  },
   mixins: [DataObjectReferenceVue],
   props: {
     currentCollectionId: {
@@ -80,6 +127,9 @@ export default (
     return {
       dataObjectList: new Array<DataObjectReference>(),
       referencedList: {},
+      currentDataObjectReference: undefined,
+      showCreate: false,
+      showDelete: false,
     } as DataObjectListData;
   },
   mounted() {
@@ -131,9 +181,27 @@ export default (
         .then(response => {
           this.dataObjectList = [response].concat(this.dataObjectList);
           if (response.id) this.retrieveDataObject(response.id);
+          this.showCreate = true;
         })
         .catch(e => {
           console.log("Error while creating DataObjectReference " + e);
+        })
+        .finally();
+    },
+
+    handleDelete(dataObjectReferenceId: number) {
+      this.dataObjectReferenceApi
+        ?.deleteDataObjectReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          dataObjectReferenceId: dataObjectReferenceId,
+        })
+        .then(() => {
+          this.retrieveReferences();
+          this.showDelete = true;
+        })
+        .catch(e => {
+          console.log("Error while deleting Data Object Reference " + e);
         })
         .finally();
     },

@@ -1,5 +1,22 @@
 <template>
   <div class="list">
+    <b-alert
+      :show="showCreate"
+      dismissible
+      variant="success"
+      @dismissed="showCreate = false"
+    >
+      Successfully created
+    </b-alert>
+    <b-alert
+      :show="showDelete"
+      dismissible
+      variant="danger"
+      @dismissed="showDelete = false"
+    >
+      Successfully deleted
+    </b-alert>
+
     <b-button
       v-b-modal.create-structured-data-ref-modal
       class="mb-3"
@@ -24,6 +41,16 @@
         <div>
           <b>{{ structuredDataReference.name }}</b> | ID:
           {{ structuredDataReference.id }} |
+          <b-button
+            v-b-modal.structured-data-reference-delete-confirmation-modal
+            v-b-tooltip.hover
+            class="float-right"
+            title="Delete"
+            variant="dark"
+            @click="currentStructuredDataReference = structuredDataReference"
+          >
+            <DeleteIcon />
+          </b-button>
           <b-link
             :to="{
               name: 'StructuredData',
@@ -65,6 +92,18 @@
         </div>
       </b-list-group-item>
     </b-list-group>
+
+    <DeleteConfirmationModal
+      v-if="currentStructuredDataReference"
+      modal-id="structured-data-reference-delete-confirmation-modal"
+      modal-name="Confirm to delete Structured Data Reference"
+      :modal-text="
+        'Do you really want do delete the Structured Data Reference with name ' +
+        currentStructuredDataReference.name +
+        '?'
+      "
+      @confirmation="handleDelete(currentStructuredDataReference.id)"
+    />
   </div>
 </template>
 
@@ -77,16 +116,24 @@ import {
 import { StructuredDataReferenceVue } from "@/utils/api-mixin";
 import StructuredDataReferenceModal from "@/components/references/StructuredDataReferenceModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 declare interface StructuredDataListData {
   structuredDataList: StructuredDataReference[];
   structuredDatas: { [key: string]: StructuredDataPayload };
+  currentStructuredDataReference?: StructuredDataReference;
+  showCreate: boolean;
+  showDelete: boolean;
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataReferenceVue>>
 ).extend({
-  components: { CreatedByLine, StructuredDataReferenceModal },
+  components: {
+    CreatedByLine,
+    StructuredDataReferenceModal,
+    DeleteConfirmationModal,
+  },
   mixins: [StructuredDataReferenceVue],
   props: {
     currentCollectionId: {
@@ -102,6 +149,9 @@ export default (
     return {
       structuredDataList: [],
       structuredDatas: {},
+      currentStructuredDataReference: undefined,
+      showCreate: false,
+      showDelete: false,
     } as StructuredDataListData;
   },
   mounted() {
@@ -158,9 +208,27 @@ export default (
         .then(response => {
           this.structuredDataList = [response].concat(this.structuredDataList);
           if (response.id) this.retrieveStructuredDatas(response.id);
+          this.showCreate = true;
         })
         .catch(e => {
           console.log("Error while creating StructuredDataReference " + e);
+        })
+        .finally();
+    },
+
+    handleDelete(structureddataReferenceId: number) {
+      this.structuredDataReferenceApi
+        ?.deleteStructuredDataReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          structureddataReferenceId: structureddataReferenceId,
+        })
+        .then(() => {
+          this.retrieveReferences();
+          this.showDelete = true;
+        })
+        .catch(e => {
+          console.log("Error while deleting Structured Data Reference " + e);
         })
         .finally();
     },

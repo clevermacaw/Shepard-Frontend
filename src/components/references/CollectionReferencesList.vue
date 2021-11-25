@@ -1,5 +1,22 @@
 <template>
   <div class="list">
+    <b-alert
+      :show="showCreate"
+      dismissible
+      variant="success"
+      @dismissed="showCreate = false"
+    >
+      Successfully created
+    </b-alert>
+    <b-alert
+      :show="showDelete"
+      dismissible
+      variant="danger"
+      @dismissed="showDelete = false"
+    >
+      Successfully deleted
+    </b-alert>
+
     <b-button
       v-b-modal.create-collection-ref-modal
       class="mb-3"
@@ -23,6 +40,16 @@
       >
         <div>
           <b>{{ collectionItem.name }}</b> | ID: {{ collectionItem.id }}
+          <b-button
+            v-b-modal.collection-reference-delete-confirmation-modal
+            v-b-tooltip.hover
+            class="float-right"
+            title="Delete"
+            variant="dark"
+            @click="currentCollectionReference = collectionItem"
+          >
+            <DeleteIcon />
+          </b-button>
         </div>
         <CreatedByLine
           :created-by="collectionItem.createdBy"
@@ -45,6 +72,18 @@
         </small>
       </b-list-group-item>
     </b-list-group>
+
+    <DeleteConfirmationModal
+      v-if="currentCollectionReference"
+      modal-id="collection-reference-delete-confirmation-modal"
+      modal-name="Confirm to delete Collection Reference"
+      :modal-text="
+        'Do you really want do delete the Collection Reference with name ' +
+        currentCollectionReference.name +
+        '?'
+      "
+      @confirmation="handleDelete(currentCollectionReference.id)"
+    />
   </div>
 </template>
 
@@ -54,16 +93,24 @@ import { Collection, CollectionReference } from "@dlr-shepard/shepard-client";
 import { CollectionReferenceVue } from "@/utils/api-mixin";
 import CollectionReferenceModal from "@/components/references/CollectionReferenceModal.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 declare interface CollectionListData {
   collectionList: CollectionReference[];
   referencedList: { [key: number]: Collection };
+  currentCollectionReference?: CollectionReference;
+  showCreate: boolean;
+  showDelete: boolean;
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof CollectionReferenceVue>>
 ).extend({
-  components: { CreatedByLine, CollectionReferenceModal },
+  components: {
+    CreatedByLine,
+    CollectionReferenceModal,
+    DeleteConfirmationModal,
+  },
   mixins: [CollectionReferenceVue],
   props: {
     currentCollectionId: {
@@ -79,6 +126,9 @@ export default (
     return {
       collectionList: new Array<CollectionReference>(),
       referencedList: {},
+      currentCollectionReference: undefined,
+      showCreate: false,
+      showDelete: false,
     } as CollectionListData;
   },
   mounted() {
@@ -130,9 +180,27 @@ export default (
         .then(response => {
           this.collectionList = [response].concat(this.collectionList);
           if (response.id) this.retrieveCollection(response.id);
+          this.showCreate = true;
         })
         .catch(e => {
           console.log("Error while creating CollectionReference " + e);
+        })
+        .finally();
+    },
+
+    handleDelete(collectionReferenceId: number) {
+      this.collectionReferenceApi
+        ?.deleteCollectionReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          collectionReferenceId: collectionReferenceId,
+        })
+        .then(() => {
+          this.retrieveReferences();
+          this.showDelete = true;
+        })
+        .catch(e => {
+          console.log("Error while deleting URI Reference " + e);
         })
         .finally();
     },

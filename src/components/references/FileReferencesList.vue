@@ -1,5 +1,22 @@
 <template>
   <div class="list">
+    <b-alert
+      :show="showCreate"
+      dismissible
+      variant="success"
+      @dismissed="showCreate = false"
+    >
+      Successfully created
+    </b-alert>
+    <b-alert
+      :show="showDelete"
+      dismissible
+      variant="danger"
+      @dismissed="showDelete = false"
+    >
+      Successfully deleted
+    </b-alert>
+
     <b-button v-b-modal.create-file-ref-modal class="mb-3" variant="primary">
       Create new Reference
     </b-button>
@@ -24,6 +41,16 @@
       >
         <div>
           <b>{{ fileReference.name }}</b> | ID: {{ fileReference.id }} |
+          <b-button
+            v-b-modal.file-reference-delete-confirmation-modal
+            v-b-tooltip.hover
+            class="float-right"
+            title="Delete"
+            variant="dark"
+            @click="currentFileReference = fileReference"
+          >
+            <DeleteIcon />
+          </b-button>
           <b-link
             :to="{
               name: 'Files',
@@ -57,6 +84,18 @@
         </div>
       </b-list-group-item>
     </b-list-group>
+
+    <DeleteConfirmationModal
+      v-if="currentFileReference"
+      modal-id="file-reference-delete-confirmation-modal"
+      modal-name="Confirm to delete File Reference"
+      :modal-text="
+        'Do you really want do delete the File Reference with name ' +
+        currentFileReference.name +
+        '?'
+      "
+      @confirmation="handleDelete(currentFileReference.id)"
+    />
   </div>
 </template>
 
@@ -68,6 +107,7 @@ import { downloadFile } from "@/utils/download";
 import DownloadAlert from "@/components/DownloadAlert.vue";
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import FileReferenceModal from "@/components/references/FileReferenceModal.vue";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
 declare interface FileListData {
   fileReferenceList: FileReference[];
@@ -75,12 +115,20 @@ declare interface FileListData {
   downloadStarted: boolean;
   downloadActive: boolean;
   downloadError: boolean;
+  currentFileReference?: FileReference;
+  showCreate: boolean;
+  showDelete: boolean;
 }
 
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileReferenceVue>>
 ).extend({
-  components: { CreatedByLine, DownloadAlert, FileReferenceModal },
+  components: {
+    CreatedByLine,
+    DownloadAlert,
+    FileReferenceModal,
+    DeleteConfirmationModal,
+  },
   mixins: [FileReferenceVue],
   props: {
     currentCollectionId: {
@@ -99,6 +147,9 @@ export default (
       downloadStarted: false,
       downloadActive: false,
       downloadError: false,
+      currentFileReference: undefined,
+      showCreate: false,
+      showDelete: false,
     } as FileListData;
   },
   mounted() {
@@ -176,9 +227,27 @@ export default (
         .then(response => {
           this.fileReferenceList = [response].concat(this.fileReferenceList);
           if (response.id) this.retrieveReferences();
+          this.showCreate = true;
         })
         .catch(e => {
           console.log("Error while creating FileReference " + e);
+        })
+        .finally();
+    },
+
+    handleDelete(fileReferenceId: number) {
+      this.fileReferenceApi
+        ?.deleteFileReference({
+          collectionId: this.currentCollectionId,
+          dataObjectId: this.currentDataObjectId,
+          fileReferenceId: fileReferenceId,
+        })
+        .then(() => {
+          this.retrieveReferences();
+          this.showDelete = true;
+        })
+        .catch(e => {
+          console.log("Error while deleting File Reference " + e);
         })
         .finally();
     },
