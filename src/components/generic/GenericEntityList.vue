@@ -24,10 +24,10 @@
         class="fixed-height"
         :value="newName"
         @change="value => (newName = value)"
-        @keyup.enter="createEntity"
+        @keyup.enter="createEntity()"
       ></b-form-input>
       <b-input-group-append>
-        <b-button variant="primary" @click="createEntity"> Create </b-button>
+        <b-button variant="primary" @click="createEntity()"> Create </b-button>
       </b-input-group-append>
     </b-input-group>
 

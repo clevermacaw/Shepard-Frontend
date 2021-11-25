@@ -23,7 +23,7 @@
           <tr>
             <th scope="row">Bearer Token</th>
             <td>
-              <b-button size="sm" variant="primary" @click="copyBearerToken">
+              <b-button size="sm" variant="primary" @click="copyBearerToken()">
                 Copy Token
               </b-button>
             </td>

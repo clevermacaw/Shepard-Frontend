@@ -6,10 +6,10 @@
         v-model="newName"
         class="fixed-height"
         placeholder="Please enter a name for the api key you want to create"
-        @keyup.enter="handleCreate"
+        @keyup.enter="handleCreate()"
       ></b-form-input>
       <b-input-group-append>
-        <b-button variant="primary" @click="handleCreate"> Create </b-button>
+        <b-button variant="primary" @click="handleCreate()"> Create </b-button>
       </b-input-group-append>
     </b-input-group>
     <b-modal
@@ -22,7 +22,7 @@
       <div v-if="createdApiKey">
         <h6>Successfully created!</h6>
         <p>{{ createdApiKey.name }} | {{ createdApiKey.uid }}</p>
-        <b-button size="sm" variant="primary" @click="copyApiKey">
+        <b-button size="sm" variant="primary" @click="copyApiKey()">
           Copy Api Key
         </b-button>
       </div>

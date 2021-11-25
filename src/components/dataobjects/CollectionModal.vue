@@ -5,8 +5,8 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="prepareEdit"
-    @ok="handleEdit"
+    @show="prepareEdit()"
+    @ok="handleEdit()"
   >
     <b-form-group>
       <b-container>
