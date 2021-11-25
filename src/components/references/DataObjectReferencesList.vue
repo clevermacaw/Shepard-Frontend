@@ -96,7 +96,7 @@ import DataObjectReferenceModal from "@/components/references/DataObjectReferenc
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
-declare interface DataObjectListData {
+interface DataObjectListData {
   dataObjectList: DataObjectReference[];
   referencedList: { [key: number]: DataObject };
   currentDataObjectReference?: DataObjectReference;

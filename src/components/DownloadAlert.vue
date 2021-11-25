@@ -28,7 +28,7 @@
 <script lang="ts">
 import Vue from "vue";
 
-declare interface DownloadAlertData {
+interface DownloadAlertData {
   thisDownloadStarted: boolean;
   thisDownloadActive: boolean;
   thisDownloadError: boolean;

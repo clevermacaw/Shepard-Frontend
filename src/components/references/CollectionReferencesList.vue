@@ -95,7 +95,7 @@ import CollectionReferenceModal from "@/components/references/CollectionReferenc
 import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
-declare interface CollectionListData {
+interface CollectionListData {
   collectionList: CollectionReference[];
   referencedList: { [key: number]: Collection };
   currentCollectionReference?: CollectionReference;

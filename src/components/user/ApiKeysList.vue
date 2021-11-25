@@ -65,7 +65,7 @@ import { ApiKey, ApiKeyWithJWT } from "@dlr-shepard/shepard-client";
 import { ApiKeyVue } from "@/utils/api-mixin";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
-declare interface ApiKeyListData {
+interface ApiKeyListData {
   apiKeys: ApiKey[];
   newName: string;
   createdApiKey?: ApiKeyWithJWT;

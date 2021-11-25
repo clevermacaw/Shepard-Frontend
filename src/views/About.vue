@@ -27,7 +27,7 @@ import Vue from "vue";
 import getEnv from "@/utils/env";
 import { version } from "../../package.json";
 
-declare interface AboutData {
+interface AboutData {
   backend?: unknown;
   appVersion: string;
 }

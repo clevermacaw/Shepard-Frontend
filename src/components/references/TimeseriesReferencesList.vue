@@ -104,7 +104,7 @@ import DownloadAlert from "@/components/DownloadAlert.vue";
 import { downloadFile } from "@/utils/download";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
-declare interface TimeseriesListData {
+interface TimeseriesListData {
   timeseriesList: TimeseriesReference[];
   downloadStarted: boolean;
   downloadActive: boolean;

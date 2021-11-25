@@ -109,7 +109,7 @@ import CreatedByLine from "@/components/generic/CreatedByLine.vue";
 import FileReferenceModal from "@/components/references/FileReferenceModal.vue";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
-declare interface FileListData {
+interface FileListData {
   fileReferenceList: FileReference[];
   files: { [key: string]: string };
   downloadStarted: boolean;

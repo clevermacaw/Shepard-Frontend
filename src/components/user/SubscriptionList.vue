@@ -83,7 +83,7 @@ import {
 import { SubscriptionVue } from "@/utils/api-mixin";
 import DeleteConfirmationModal from "@/components/DeleteConfirmationModal.vue";
 
-declare interface SubscriptionListData {
+interface SubscriptionListData {
   subscriptions: Subscription[];
   currentSubscription?: Subscription;
   subscriptionToCreate?: Subscription;

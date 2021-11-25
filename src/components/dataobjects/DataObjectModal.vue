@@ -170,7 +170,7 @@ import Vue, { VueConstructor } from "vue";
 import { DataObject } from "@dlr-shepard/shepard-client";
 import { DataObjectVue } from "@/utils/api-mixin";
 
-declare interface DataObjectModelData {
+interface DataObjectModelData {
   newDataObject: DataObject;
   possibleParent: {
     id?: number;
