@@ -1,4 +1,3 @@
-import getEnv from "@/utils/env";
 import {
   ApikeyApi,
   CollectionApi,
@@ -19,6 +18,7 @@ import {
 } from "@dlr-shepard/shepard-client";
 import Vue from "vue";
 import { mapGetters } from "vuex";
+import getEnv from "./env";
 
 const ApiVue = Vue.extend({
   computed: {
