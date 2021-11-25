@@ -175,7 +175,7 @@ export default (
           this.$emit("collectionChanged");
         })
         .catch(e => {
-          console.log("Error while updating collection " + e);
+          console.log("Error while updating collection: " + e.statusText);
         })
         .finally();
     },

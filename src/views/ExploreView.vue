@@ -97,7 +97,7 @@ export default (
           this.collections = response;
         })
         .catch(e => {
-          console.log("Error while fetching collections " + e);
+          console.log("Error while fetching collections: " + e.statusText);
         })
         .finally();
     },
@@ -110,7 +110,7 @@ export default (
           this.retrieveCollections();
         })
         .catch(e => {
-          console.log("Error while creating collection " + e);
+          console.log("Error while creating collection: " + e.statusText);
         })
         .finally();
     },
@@ -123,7 +123,7 @@ export default (
           this.retrieveCollections();
         })
         .catch(e => {
-          console.log("Error while deleting collection " + e);
+          console.log("Error while deleting collection: " + e.statusText);
         })
         .finally();
     },

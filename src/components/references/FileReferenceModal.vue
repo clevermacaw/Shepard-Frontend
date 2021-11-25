@@ -136,7 +136,7 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while getting all files " + e);
+          console.log("Error while getting all files: " + e.statusText);
         })
         .finally();
     },

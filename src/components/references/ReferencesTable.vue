@@ -134,7 +134,7 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while fetching references " + e);
+          console.log("Error while fetching references: " + e.statusText);
         })
         .finally();
     },

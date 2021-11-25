@@ -137,7 +137,9 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while getting all structured datas " + e);
+          console.log(
+            "Error while getting all structured datas: " + e.statusText,
+          );
         })
         .finally();
     },

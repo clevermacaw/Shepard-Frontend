@@ -159,7 +159,9 @@ export default (
           this.timeseriesList = response;
         })
         .catch(e => {
-          console.log("Error while fetching Timeseries References " + e);
+          console.log(
+            "Error while fetching Timeseries References: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -176,7 +178,7 @@ export default (
           downloadFile(response, referenceName + ".csv");
         })
         .catch(e => {
-          console.log("Error while fetching Timeseries CSV " + e);
+          console.log("Error while fetching Timeseries CSV: " + e.statusText);
           this.downloadStarted = false;
           this.downloadError = true;
         })
@@ -195,7 +197,9 @@ export default (
           this.showDelete = true;
         })
         .catch(e => {
-          console.log("Error while deleting Timeseries Reference " + e);
+          console.log(
+            "Error while deleting Timeseries Reference: " + e.statusText,
+          );
         });
     },
 
@@ -211,7 +215,9 @@ export default (
           this.showCreate = true;
         })
         .catch(e => {
-          console.log("Error while creating Timeseries Reference " + e);
+          console.log(
+            "Error while creating Timeseries Reference: " + e.statusText,
+          );
         });
     },
   },

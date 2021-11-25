@@ -166,7 +166,7 @@ export default (
           }
         })
         .catch(e => {
-          console.log("Error while fetching collection " + e);
+          console.log("Error while fetching collection: " + e.statusText);
         })
         .finally();
     },
@@ -177,7 +177,7 @@ export default (
           this.$router.push({ name: "Explore" });
         })
         .catch(e => {
-          console.log("Error while deleting collection " + e);
+          console.log("Error while deleting collection: " + e.statusText);
         })
         .finally();
     },
@@ -188,7 +188,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while fetching permissons " + e);
+          console.log("Error while fetching permissons: " + e.statusText);
         })
         .finally();
     },
@@ -202,7 +202,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while edit permissons " + e);
+          console.log("Error while edit permissons: " + e.statusText);
         })
         .finally();
     },

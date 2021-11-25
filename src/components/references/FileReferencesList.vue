@@ -169,7 +169,7 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while fetching File References " + e);
+          console.log("Error while fetching File References: " + e.statusText);
         })
         .finally();
     },
@@ -191,7 +191,7 @@ export default (
           this.files = { ...this.files, ...temp };
         })
         .catch(e => {
-          console.log("Error while fetching Files " + e);
+          console.log("Error while fetching Files: " + e.statusText);
         })
         .finally();
     },
@@ -210,7 +210,7 @@ export default (
           downloadFile(response, filename);
         })
         .catch(e => {
-          console.log("Error while fetching File Payload " + e);
+          console.log("Error while fetching File Payload: " + e.statusText);
           this.downloadStarted = false;
           this.downloadError = true;
         })
@@ -230,7 +230,7 @@ export default (
           this.showCreate = true;
         })
         .catch(e => {
-          console.log("Error while creating FileReference " + e);
+          console.log("Error while creating FileReference: " + e.statusText);
         })
         .finally();
     },
@@ -247,7 +247,7 @@ export default (
           this.showDelete = true;
         })
         .catch(e => {
-          console.log("Error while deleting File Reference " + e);
+          console.log("Error while deleting File Reference: " + e.statusText);
         })
         .finally();
     },

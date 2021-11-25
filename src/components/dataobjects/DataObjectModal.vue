@@ -317,7 +317,7 @@ export default (
         })
         .catch(e => {
           obj.name = "";
-          console.log("Error while validating dataObject " + e);
+          console.log("Error while validating dataObject: " + e.statusText);
           this.validationError = true;
         })
         .finally();
@@ -339,7 +339,7 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while creating dataObject " + e);
+          console.log("Error while creating dataObject: " + e.statusText);
         })
         .finally();
     },
@@ -359,7 +359,7 @@ export default (
           this.$emit("dataObjectChanged");
         })
         .catch(e => {
-          console.log("Error while updating dataObject " + e);
+          console.log("Error while updating dataObject: " + e.statusText);
         })
         .finally();
     },

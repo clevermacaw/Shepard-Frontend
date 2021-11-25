@@ -148,7 +148,9 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while fetching Collection References " + e);
+          console.log(
+            "Error while fetching Collection References: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -165,7 +167,10 @@ export default (
           this.referencedList = { ...this.referencedList, ...temp };
         })
         .catch(e => {
-          console.log("Error while fetching Collection Reference Payload " + e);
+          console.log(
+            "Error while fetching Collection Reference Payload: " +
+              e.statusText,
+          );
         })
         .finally();
     },
@@ -183,7 +188,9 @@ export default (
           this.showCreate = true;
         })
         .catch(e => {
-          console.log("Error while creating CollectionReference " + e);
+          console.log(
+            "Error while creating CollectionReference: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -200,7 +207,7 @@ export default (
           this.showDelete = true;
         })
         .catch(e => {
-          console.log("Error while deleting URI Reference " + e);
+          console.log("Error while deleting URI Reference: " + e.statusText);
         })
         .finally();
     },

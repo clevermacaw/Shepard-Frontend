@@ -178,7 +178,7 @@ export default (
           }
         })
         .catch(e => {
-          console.log("Error while fetching dataObject " + e);
+          console.log("Error while fetching dataObject: " + e.statusText);
         })
         .finally();
     },
@@ -197,7 +197,7 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while deleting dataObject " + e);
+          console.log("Error while deleting dataObject: " + e.statusText);
         })
         .finally();
     },

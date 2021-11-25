@@ -107,7 +107,9 @@ export default (
           this.currentStructuredData = response;
         })
         .catch(e => {
-          console.log("Error while fetching structuredData container " + e);
+          console.log(
+            "Error while fetching structuredData container: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -120,7 +122,9 @@ export default (
           this.structuredDataList = response;
         })
         .catch(e => {
-          console.log("Error while fetching structuredData payload " + e);
+          console.log(
+            "Error while fetching structuredData payload: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -133,7 +137,9 @@ export default (
           this.$router.push({ name: "StructuredDatasList" });
         })
         .catch(e => {
-          console.log("Error while deleting structured data container " + e);
+          console.log(
+            "Error while deleting structured data container: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -146,7 +152,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while fetching permissons " + e);
+          console.log("Error while fetching permissons: " + e.statusText);
         })
         .finally();
     },
@@ -160,7 +166,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while edit permissons " + e);
+          console.log("Error while edit permissons: " + e.statusText);
         })
         .finally();
     },

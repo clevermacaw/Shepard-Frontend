@@ -216,7 +216,7 @@ export default (
           this.validUser = true;
         })
         .catch(e => {
-          console.log("Error while getting user " + e);
+          console.log("Error while getting user: " + e.statusText);
           this.currentUser = undefined;
           this.validUser = false;
         });

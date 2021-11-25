@@ -100,7 +100,7 @@ export default (
           this.currentFile = response;
         })
         .catch(e => {
-          console.log("Error while fetching file container " + e);
+          console.log("Error while fetching file container: " + e.statusText);
         })
         .finally();
     },
@@ -113,7 +113,7 @@ export default (
           this.fileList = response;
         })
         .catch(e => {
-          console.log("Error while fetching file payload " + e);
+          console.log("Error while fetching file payload: " + e.statusText);
         })
         .finally();
     },
@@ -124,7 +124,7 @@ export default (
           this.$router.push({ name: "FilesList" });
         })
         .catch(e => {
-          console.log("Error while deleting file container " + e);
+          console.log("Error while deleting file container: " + e.statusText);
         })
         .finally();
     },
@@ -135,7 +135,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while fetching permissons " + e);
+          console.log("Error while fetching permissons: " + e.statusText);
         })
         .finally();
     },
@@ -149,7 +149,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while edit permissons " + e);
+          console.log("Error while edit permissons: " + e.statusText);
         })
         .finally();
     },

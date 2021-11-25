@@ -149,7 +149,9 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while fetching DataObject References " + e);
+          console.log(
+            "Error while fetching DataObject References: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -166,7 +168,10 @@ export default (
           this.referencedList = { ...this.referencedList, ...temp };
         })
         .catch(e => {
-          console.log("Error while fetching DataObject Reference Payload " + e);
+          console.log(
+            "Error while fetching DataObject Reference Payload: " +
+              e.statusText,
+          );
         })
         .finally();
     },
@@ -184,7 +189,9 @@ export default (
           this.showCreate = true;
         })
         .catch(e => {
-          console.log("Error while creating DataObjectReference " + e);
+          console.log(
+            "Error while creating DataObjectReference: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -201,7 +208,9 @@ export default (
           this.showDelete = true;
         })
         .catch(e => {
-          console.log("Error while deleting Data Object Reference " + e);
+          console.log(
+            "Error while deleting Data Object Reference: " + e.statusText,
+          );
         })
         .finally();
     },

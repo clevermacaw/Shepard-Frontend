@@ -95,7 +95,9 @@ export default (
           this.containers = response;
         })
         .catch(e => {
-          console.log("Error while fetching timeseries containers " + e);
+          console.log(
+            "Error while fetching timeseries containers: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -108,7 +110,9 @@ export default (
           this.retrieveContainers();
         })
         .catch(e => {
-          console.log("Error while creating timeseries container " + e);
+          console.log(
+            "Error while creating timeseries container: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -121,7 +125,9 @@ export default (
           this.retrieveContainers();
         })
         .catch(e => {
-          console.log("Error while deleting timeseries container " + e);
+          console.log(
+            "Error while deleting timeseries container: " + e.statusText,
+          );
         })
         .finally();
     },

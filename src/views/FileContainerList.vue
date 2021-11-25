@@ -95,7 +95,7 @@ export default (
           this.containers = response;
         })
         .catch(e => {
-          console.log("Error while fetching file containers " + e);
+          console.log("Error while fetching file containers: " + e.statusText);
         })
         .finally();
     },
@@ -108,7 +108,7 @@ export default (
           this.retrieveContainers();
         })
         .catch(e => {
-          console.log("Error while creating file container " + e);
+          console.log("Error while creating file container: " + e.statusText);
         })
         .finally();
     },
@@ -121,7 +121,7 @@ export default (
           this.retrieveContainers();
         })
         .catch(e => {
-          console.log("Error while deleting file container " + e);
+          console.log("Error while deleting file container: " + e.statusText);
         })
         .finally();
     },

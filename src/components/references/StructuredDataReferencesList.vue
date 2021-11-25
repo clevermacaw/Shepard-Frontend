@@ -171,7 +171,9 @@ export default (
           });
         })
         .catch(e => {
-          console.log("Error while fetching StructuredData References " + e);
+          console.log(
+            "Error while fetching StructuredData References: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -193,7 +195,9 @@ export default (
           this.structuredDatas = { ...this.structuredDatas, ...temp };
         })
         .catch(e => {
-          console.log("Error while fetching StructuredDataPayload " + e);
+          console.log(
+            "Error while fetching StructuredDataPayload: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -211,7 +215,9 @@ export default (
           this.showCreate = true;
         })
         .catch(e => {
-          console.log("Error while creating StructuredDataReference " + e);
+          console.log(
+            "Error while creating StructuredDataReference: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -228,7 +234,9 @@ export default (
           this.showDelete = true;
         })
         .catch(e => {
-          console.log("Error while deleting Structured Data Reference " + e);
+          console.log(
+            "Error while deleting Structured Data Reference: " + e.statusText,
+          );
         })
         .finally();
     },

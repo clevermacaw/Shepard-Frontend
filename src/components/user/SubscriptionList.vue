@@ -126,7 +126,7 @@ export default (
           this.subscriptions = response;
         })
         .catch(e => {
-          console.log("Error while fetching subscriptions " + e);
+          console.log("Error while fetching subscriptions: " + e.statusText);
         })
         .finally();
     },
@@ -144,7 +144,7 @@ export default (
           this.subscriptionToCreate = undefined;
         })
         .catch(e => {
-          console.log("Error while creating subscription " + e);
+          console.log("Error while creating subscription: " + e.statusText);
         })
         .finally();
     },
@@ -155,7 +155,7 @@ export default (
           subscriptionId: id,
         })
         .catch(e => {
-          console.log("Error while deleting subscription " + e);
+          console.log("Error while deleting subscription: " + e.statusText);
         })
         .finally(() => {
           this.retrieveSubscriptions();

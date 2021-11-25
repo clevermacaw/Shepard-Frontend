@@ -118,7 +118,7 @@ export default (
           this.uriList = response;
         })
         .catch(e => {
-          console.log("Error while fetching URI References " + e);
+          console.log("Error while fetching URI References: " + e.statusText);
         })
         .finally();
     },
@@ -135,7 +135,7 @@ export default (
           this.showCreate = true;
         })
         .catch(e => {
-          console.log("Error while creating URIReference " + e);
+          console.log("Error while creating URIReference: " + e.statusText);
         })
         .finally();
     },
@@ -152,7 +152,7 @@ export default (
           this.showDelete = true;
         })
         .catch(e => {
-          console.log("Error while deleting URI Reference " + e);
+          console.log("Error while deleting URI Reference: " + e.statusText);
         })
         .finally();
     },

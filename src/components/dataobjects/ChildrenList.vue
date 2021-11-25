@@ -113,7 +113,7 @@ export default (
           this.dataObjects = response;
         })
         .catch(e => {
-          console.log("Error while fetching dataObjects " + e);
+          console.log("Error while fetching dataObjects: " + e.statusText);
         })
         .finally();
     },

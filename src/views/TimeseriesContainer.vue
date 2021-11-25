@@ -92,7 +92,9 @@ export default (
           this.currentTimeseries = response;
         })
         .catch(e => {
-          console.log("Error while fetching timeseries container " + e);
+          console.log(
+            "Error while fetching timeseries container: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -105,7 +107,9 @@ export default (
           this.$router.push({ name: "TimeseriesList" });
         })
         .catch(e => {
-          console.log("Error while deleting timeseries container " + e);
+          console.log(
+            "Error while deleting timeseries container: " + e.statusText,
+          );
         })
         .finally();
     },
@@ -118,7 +122,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while fetching permissons " + e);
+          console.log("Error while fetching permissons: " + e.statusText);
         })
         .finally();
     },
@@ -132,7 +136,7 @@ export default (
           this.permissions = response;
         })
         .catch(e => {
-          console.log("Error while edit permissons " + e);
+          console.log("Error while edit permissons: " + e.statusText);
         })
         .finally();
     },
