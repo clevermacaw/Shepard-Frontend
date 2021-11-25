@@ -5,7 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="handlePrepare()"
+    @show="reset()"
     @ok="$emit('create', newURIReference)"
   >
     <b-form-group>
@@ -42,8 +42,17 @@
 import Vue from "vue";
 import { URIReference } from "@dlr-shepard/shepard-client";
 
-declare interface URIReferenceModelData {
+interface URIReferenceModelData {
   newURIReference: URIReference;
+}
+
+function initialState(): URIReferenceModelData {
+  return {
+    newURIReference: {
+      name: "",
+      uri: "",
+    },
+  };
 }
 
 export default Vue.extend({
@@ -67,18 +76,12 @@ export default Vue.extend({
   },
 
   data() {
-    return {
-      newURIReference: {
-        name: "",
-        uri: "",
-      },
-    } as URIReferenceModelData;
+    return initialState();
   },
 
   methods: {
-    handlePrepare() {
-      this.newURIReference.name = "";
-      this.newURIReference.uri = "";
+    reset() {
+      Object.assign(this.$data, initialState());
     },
   },
 });

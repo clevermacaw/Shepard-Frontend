@@ -5,7 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="handlePrepare"
+    @show="reset()"
     @ok="$emit('create', newCollectionReference)"
   >
     <b-form-group>
@@ -54,8 +54,18 @@
 import Vue from "vue";
 import { CollectionReference } from "@dlr-shepard/shepard-client";
 
-declare interface CollectionReferenceModelData {
+interface CollectionReferenceModelData {
   newCollectionReference: CollectionReference;
+}
+
+function initialState(): CollectionReferenceModelData {
+  return {
+    newCollectionReference: {
+      name: "",
+      referencedCollectionId: 0,
+      relationship: "",
+    },
+  };
 }
 
 export default Vue.extend({
@@ -79,21 +89,11 @@ export default Vue.extend({
   },
 
   data() {
-    return {
-      newCollectionReference: {
-        name: "",
-        referencedCollectionId: 0,
-        relationship: "",
-      },
-    } as CollectionReferenceModelData;
+    return initialState();
   },
   methods: {
-    handlePrepare() {
-      this.newCollectionReference = {
-        name: "",
-        referencedCollectionId: 0,
-        relationship: "",
-      };
+    reset() {
+      Object.assign(this.$data, initialState());
     },
   },
 });

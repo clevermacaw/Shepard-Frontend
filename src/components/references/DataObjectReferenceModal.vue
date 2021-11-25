@@ -5,7 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="handlePrepare"
+    @show="reset()"
     @ok="$emit('create', newDataObjectReference)"
   >
     <b-form-group>
@@ -54,8 +54,18 @@
 import Vue from "vue";
 import { DataObjectReference } from "@dlr-shepard/shepard-client";
 
-declare interface DataObjectReferenceModelData {
+interface DataObjectReferenceModelData {
   newDataObjectReference: DataObjectReference;
+}
+
+function initialState(): DataObjectReferenceModelData {
+  return {
+    newDataObjectReference: {
+      name: "",
+      referencedDataObjectId: 0,
+      relationship: "",
+    },
+  };
 }
 
 export default Vue.extend({
@@ -77,24 +87,12 @@ export default Vue.extend({
       required: true,
     },
   },
-
   data() {
-    return {
-      newDataObjectReference: {
-        name: "",
-        referencedDataObjectId: 0,
-        relationship: "",
-      },
-    } as DataObjectReferenceModelData;
+    return initialState();
   },
-
   methods: {
-    handlePrepare() {
-      this.newDataObjectReference = {
-        name: "",
-        referencedDataObjectId: 0,
-        relationship: "",
-      };
+    reset() {
+      Object.assign(this.$data, initialState());
     },
   },
 });

@@ -5,7 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="handleShowModal()"
+    @show="reset()"
     @ok="handleOk()"
   >
     <b-form-group>
@@ -69,6 +69,18 @@ interface StructuredDataReferenceModelData {
   selected: Array<string>;
 }
 
+function initialState(): StructuredDataReferenceModelData {
+  return {
+    newStructuredDataReference: {
+      name: "",
+      structuredDataOids: [],
+      structuredDataContainerId: 0,
+    },
+    possibleOids: [],
+    selected: [],
+  };
+}
+
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof StructuredDataVue>>
 ).extend({
@@ -93,25 +105,12 @@ export default (
   },
 
   data() {
-    return {
-      newStructuredDataReference: {
-        name: "",
-        structuredDataOids: [],
-        structuredDataContainerId: 0,
-      },
-      possibleOids: [],
-      selected: [],
-    } as StructuredDataReferenceModelData;
+    return initialState();
   },
 
   methods: {
-    handleShowModal() {
-      this.newStructuredDataReference = {
-        name: "",
-        structuredDataOids: [],
-        structuredDataContainerId: 0,
-      };
-      this.possibleOids = [];
+    reset() {
+      Object.assign(this.$data, initialState());
     },
 
     handleOk() {

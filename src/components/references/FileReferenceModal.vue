@@ -5,7 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="handleShowModal()"
+    @show="reset()"
     @ok="handleOk()"
   >
     <b-form-group>
@@ -69,6 +69,18 @@ interface FileReferenceModelData {
   selected: Array<string>;
 }
 
+function initialState(): FileReferenceModelData {
+  return {
+    newFileReference: {
+      name: "",
+      fileOids: [],
+      fileContainerId: 0,
+    },
+    possibleOids: [],
+    selected: [],
+  };
+}
+
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof FileVue>>
 ).extend({
@@ -93,25 +105,12 @@ export default (
   },
 
   data() {
-    return {
-      newFileReference: {
-        name: "",
-        fileOids: [],
-        fileContainerId: 0,
-      },
-      possibleOids: [],
-      selected: [],
-    } as FileReferenceModelData;
+    return initialState();
   },
 
   methods: {
-    handleShowModal() {
-      this.newFileReference = {
-        name: "",
-        fileOids: [],
-        fileContainerId: 0,
-      };
-      this.possibleOids = [];
+    reset() {
+      Object.assign(this.$data, initialState());
     },
 
     handleOk() {
