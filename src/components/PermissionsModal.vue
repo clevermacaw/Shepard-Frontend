@@ -5,7 +5,7 @@
     size="lg"
     :title="modalName"
     lazy
-    @show="handleShowModal()"
+    @show="reset()"
     @ok="handleOk()"
   >
     <b-input-group prepend="Username">
@@ -108,6 +108,18 @@ interface PermissionsModalData {
   manager: User[];
 }
 
+function initialState(): PermissionsModalData {
+  return {
+    username: "",
+    validUser: undefined,
+    currentUser: undefined,
+    owner: undefined,
+    reader: [],
+    writer: [],
+    manager: [],
+  };
+}
+
 export default (
   Vue as VueConstructor<Vue & InstanceType<typeof UserVue>>
 ).extend({
@@ -133,26 +145,11 @@ export default (
     },
   },
   data() {
-    return {
-      username: "",
-      validUser: undefined,
-      currentUser: undefined,
-      owner: undefined,
-      reader: [],
-      writer: [],
-      manager: [],
-    } as PermissionsModalData;
+    return initialState();
   },
   methods: {
-    handleShowModal() {
-      this.parseOldPermissions();
-      this.username = "";
-      this.currentUser = undefined;
-      this.owner = undefined;
-      this.reader = [];
-      this.writer = [];
-      this.manager = [];
-      this.validUser = undefined;
+    reset() {
+      Object.assign(this.$data, initialState());
     },
     handleOk() {
       const perms: Permissions = {
